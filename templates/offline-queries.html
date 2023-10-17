@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queries Offline</title>
+
+
+</head>
+<body>
+
+<style>
+    .row {
+        display: flex;
+        {#align-items: top; /* To vertically center the content */#}
+    }
+
+    .dropdown {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .variable {
+        color: red;
+    }
+
+    .space {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .dropdown {
+         align-self: flex-start;
+        vertical-align: top;
+    }
+
+    {#.selection {#}
+    {#    background: aqua;#}
+    {#color: aqua;#}
+    {# }#}
+    {#.selection > div:not(.active) {#}
+    {#    display: none;#}
+    {# }#}
+</style>
+
+<div class="row">
+    <select id="select-0" class="dropdown" onchange="handleSelection()">
+        <option value="select">SELECT</option>
+        <option value="with">WITH</option>
+    </select>
+
+    <div class="row select" id="first-row">
+        <div>
+            <div class="row" id="first-row">
+                <select id="first-select" class="dropdown" onchange="handleSelection()">
+                    <option value="time">Time, Station, Sensors</option>
+                    <option value="average">Average</option>
+                    <option value="correlation">Correlation</option>
+                    <option title="EXTRACT(YEAR FROM time) AS 'year', date_trunc('month', time) AS 'month', date_trunc('DAY', time) AS 'day', date_trunc('HOUR', time) AS 'hour', avg_s "
+                            value="all-times">
+                        Grouped Times
+                    </option>
+                    <option value="all-times"> EXTRACT(YEAR FROM time) AS "year", date_trunc('month', time) AS "month",
+                        date_trunc('DAY', time) AS "day", date_trunc('HOUR', time) AS "hour", avg_s
+                    </option>
+                </select>
+
+                <div class="dataset row">
+                    FROM
+                    <div id="dataset-place-holder" href="#" style="margin-left: 5px"> d1</div>
+                </div>
+            </div>
+
+            <div class="row" id="second-row">
+                WHERE
+                <div class="time">
+                    <select class="dropdown">
+                        <option value="time">Time in Time Range AND id_station in
+                            <mark class="variable"> Stations</mark>
+                        </option>
+                        <option value="average">Time in TimeRange AND id_station in Stations AND sensor_0 > 0.95
+                        </option>
+                    </select>
+                </div>
+
+                <div class="average space" style="display:None">
+                    <div class="row"> Time in
+                        <div class="variable space"> TimeRange</div>
+                        AND station_id in
+                        <div class="variable space"> Stations</div>
+                        AND GROUP BY station_id
+                    </div>
+                </div>
+
+                <div class="correlation" style="display:None">
+                    <div class="row" style="margin-left: 5px"> Time in
+                        <div class="variable space"> TimeRange</div>
+                        AND id_station in
+                        <div class="variable space">Stations</div>
+                    </div>
+                </div>
+
+                <div class="all-times" style="display:None">
+                    <div class="row space ">
+                        Time in
+                        <div class="variable space"> TimeRange</div>
+                        AND id_station in
+                        <div class="variable space">Stations</div>
+                        AND
+                    </div>
+                    <div class="row space">
+                        id_station in STATIONS GROUP BY station_id, "year", "month", "day", "hour";
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row with"> </div>
+</div>
+
+</body>
+
+</html>
+
+
+<script>
+
+    function handleSelection() {
+        var select = document.getElementById("first-select");
+        var selectedValue = select.value;
+        select_option(selectedValue);
+    }
+
+
+    function select_option(selectedValue) {
+        // iterate the divs in #second-row and hide them if they are not average
+        var divs = document.getElementById("second-row").children;
+        var blocked = false;
+        for (var i = 0; i < divs.length; i++) {
+            console.log(divs[i].classList)
+            if (divs[i].classList.contains(selectedValue)) {
+                divs[i].style.display = "block";
+                blocked = true;
+            } else {
+                divs[i].style.display = "none";
+            }
+        }
+    }
+</script>
