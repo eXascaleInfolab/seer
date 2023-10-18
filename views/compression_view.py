@@ -3,16 +3,13 @@ from django.template import loader
 from django.views import View
 from django.views.generic.base import TemplateResponseMixin
 from django.db import connection
-from django.db import connections
-from django.db import models
+from django.db import connection
 
 
-
-class OfflineQueryView(View):
+class CompressionView(View):
     context = {
         'title': 'Compression View',
     }
-
     def get(self, request):
         template = loader.get_template('compression.html')
         return HttpResponse(template.render(self.context, request))
