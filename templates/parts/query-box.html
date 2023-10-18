@@ -1,0 +1,69 @@
+<div id="query">
+    <div class="row" id="select">
+        <div class="sql-bold"> SELECT</div>
+        <select id="select-select" class="space" onclick="handleSelection()">
+            <option title="Q1 Q2 Q5" class="q1 q2 q5" value="q1-q2-q5"> time, station_id, &lt;sensor_list&gt;
+            </option>
+            <option title="Q3" class="q3" value="q3"> station_id, AVG(s_i)...AVG(s_j)</option>
+            <option title="Q4" class="q4" value="q4"> time , station_id, AVG(s_i)...AVG(s_j)</option>
+            <option title="Q6" class="q6" value="q6"> time, sensor_i, sensor_j, AVG(sensor_i, sensor_j)
+            </option>
+            <option title="Q7" class="q7" value="q7"> CORR(sensor_i, sensor_j)</option>
+        </select>
+    </div>
+    <div id="from">
+        <div class="row">
+            <div class="sql-bold"> FROM</div>
+            <div class="space" id="dataset">d1</div>
+        </div>
+
+        <div class="row q1-q2-q5 q3 q4 q6 q7 ">
+            <div class="sql-bold"> WERE</div>
+            &nbsp; station_id in &lt;station_list&gt;
+        </div>
+        <div class="row q1-q2-q5 q3 q4 q6 q7">
+            <div class="sql-bold"> AND</div>
+            &nbsp; time &lt; ?timestamp
+        </div>
+        <div class="row q1-q2-q5 q3 q4 q6 q7">
+            <div class="sql-bold "> AND</div>
+            &nbsp; time &gt;= ?timestamp - ?range
+            <div id="semicolon"></div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="q1-q2-q5" id="select-1">
+            <select class="space">
+                <option title="Q1" class="q1" value="select-1"></option>
+                <option title="Q2" class=" q2" value="select-2">
+                    <div class="sql-bold"> AND</div> &nbsp; sensor_0 > 0.95;
+                </option>
+                <option title="Q5" class="q5" value="select-3"> SAMPLE BY 5 <br>: FILL(LINEAR);</option>
+            </select>
+        </div>
+
+        <div class="q3" id="select-2">
+            <div class="row">
+                <div class="sql-bold "> GROUP BY</div>
+                &nbsp; station_id;
+            </div>
+        </div>
+
+        <div class="q4" id="select-3">
+            <div class="row">
+                <div class="sql-bold "> GROUP BY</div>
+                &nbsp; station_id time
+            </div>
+            <div class="row">
+                <div class="sql-bold "> SAMPLE BY</div>
+                &nbsp; 1H;
+            </div>
+        </div>
+        <div class="q6" id="select-4">
+
+        </div>
+        <div class="q7" id="select-5">
+
+        </div>
+    </div>
+</div>

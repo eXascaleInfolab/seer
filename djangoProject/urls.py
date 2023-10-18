@@ -22,7 +22,7 @@ from views.compression_view import CompressionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', IndexView.as_view()  ),
+    path('', IndexView.as_view() , name='index' ),
     path('queries', OfflineQueryView.as_view() , name='offline-queries'),
     path('compression', CompressionView.as_view(), name='compression'),
 

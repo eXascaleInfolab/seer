@@ -31,71 +31,36 @@
         }
     </style>
 
-    <div id="query">
-        <div class="row" id="select">
-            <div class="sql-bold"> SELECT</div>
-            <select id="select-select" class="space" onclick="handleSelection()">
-                <option title="Q1 Q2 Q5" class="q1 q2 q5" value="q1-q2-q5"> time, station_id, &lt;sensor_list&gt;
-                </option>
-                <option title="Q3" class="q3" value="q3"> station_id, AVG(s_i)...AVG(s_j)</option>
-                <option title="Q4" class="q4" value="q4"> time , station_id, AVG(s_i)...AVG(s_j)</option>
-                <option title="Q6" class="q6" value="q6"> time, sensor_i, sensor_j, AVG(sensor_i, sensor_j)</option>
-                <option title="Q7" class="q7" value="q7"> CORR(sensor_i, sensor_j)</option>
-            </select>
+    <div class="row">
+        <div class="col-md-8">
+            {% include "parts/query-box.html" %}
         </div>
-        <div id="from">
-            <div class="row">
-                <div class="sql-bold"> FROM</div>
-                <div class="space" id="dataset">D1</div>
-            </div>
+        <div class="col-md-4">
+            <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
 
-            <div class="row q1-q2-q5 q3 q4 q6 q7 ">
-                <div class="sql-bold"> WERE</div>
-                &nbsp; station_id in &lt;station_list&gt;
-            </div>
-            <div class="row q1-q2-q5 q3 q4 q6 q7">
-                <div class="sql-bold"> AND</div>
-                &nbsp; time &lt; ?timestamp
-            </div>
-            <div class="row q1-q2-q5 q3 q4 q6 q7">
-                <div class="sql-bold "> AND</div>
-                &nbsp; time &gt;= ?timestamp - ?range
-                <div id="semicolon"></div>
-            </div>
-        </div>
-        <div id="content">
-            <div class="q1-q2-q5" id="select-1">
-                <select class="space">
-                    <option title="Q1" class="q1" value="select-1"></option>
-                    <option title="Q2" class=" q2" value="select-2">
-                        <div class="sql-bold"> AND</div> &nbsp; sensor_0 > 0.95;
-                    </option>
-                    <option title="Q5" class="q5" value="select-3"> SAMPLE BY 5 <br>: FILL(LINEAR);</option>
-                </select>
-            </div>
-
-            <div class="q3 row" id="select-2">
-                <div class="sql-bold "> GROUP BY</div>
-                &nbsp; station_id;
-            </div>
-
-            <div class="q4" id="select-3">
-                <div class="row">
-                    <div class="sql-bold "> GROUP BY</div>
-                    &nbsp; station_id time
+                <div class="form-group">
+                    <label>Dataset:</label>
+                    <select id="form-dataset" class="form-control" name="drop" onclick="changeDataset()">
+                        <option value="d1">d1</option>
+                        <option value="d2">d2</option>
+                    </select>
+                    This dropdown also be in the Query directly or we write dataset in the query.
                 </div>
-                <div class="row">
-
-                    <div class="sql-bold "> SAMPLE BY</div>
-                    &nbsp; 1H;
-                </div>
-            </div>
-            <div class="q6" id="select-4">
-
-            </div>
-            <div class="q7" id="select-5">
-
-            </div>
+{#                <div class="form-group clearfix">#}
+{#                    <input id="applyBtn" type="submit" formaction="/api/drop.php" value="Apply"#}
+{#                           class="btn btn-default pull-left">#}
+{#                    <div id="recovery" class="">#}
+{#                        <input id="recoverBtn" type="submit" formaction="/api/recover.php" value="Recover"#}
+{#                               class="btn btn-default pull-right">#}
+{#                        <div class="text-center hidden">#}
+{#                            <label for="udfCheck">#}
+{#                                <input id="udfCheck" type="checkbox" name="udf">#}
+{#                                <span> use PHP</span>#}
+{#                            </label>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+            </form>
         </div>
     </div>
     <script>
@@ -104,6 +69,12 @@
             var select = document.getElementById("select-select");
             var selectedValue = select.value;
             select_option(selectedValue);
+        }
+
+        function changeDataset() {
+            var select = document.getElementById("form-dataset");
+            console.log(select.value)
+            document.getElementById("dataset").innerText = select.value;
         }
 
         {##}
