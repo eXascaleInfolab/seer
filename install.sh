@@ -4,4 +4,4 @@ pip3 install -r requierements.txt
 
 
 # run with
-#python3 manage.py runserver
+#python3 manage.py runserver 1234
