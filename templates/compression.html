@@ -1,17 +1,116 @@
+{% extends "base.html" %}
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Queries Offline</title>
-
-
-</head>
-<body>
+{% block content %}
+    <div id="container-scarsity">
+    </div>
+     <div id="btns-scarsity">
+    </div>
 
 
-</body>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-</html>
+    <script>
+        const compression_data_sets = {{ data_sets|safe }};
+
+        // create hightchart
+        const scarsity_data = compression_data_sets["scarsity"][10]
+        const scarsity_data_levels = Object.keys(compression_data_sets["scarsity"])
+
+        const scarsity_data_2 = compression_data_sets["scarsity"][20]
+        const time = scarsity_data['time'].map((time) => {
+            return Date.parse(time)
+        })
+
+        chart = Highcharts.chart('container-scarsity', {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Scarsity'
+            },
+            xAxis: {
+                type: 'datetime',
+
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                }
+            }
+            ,
+            series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
+                name: 'Sensor 1',
+                id: 's0',
+                data: time.map((time, index) => {
+                    return [time, scarsity_data['s0'][index]]
+                })
+            },
+                { // [ time.1 ,  scarsity_data['s0'][1] ..... ]
+                    name: 'Sensor 2',
+                    id: 's1',
+                    data: time.map((time, index) => {
+                        return [time, scarsity_data['s1'][index]]
+                    })
+                },
+                { // [ time.1 ,  scarsity_data['s0'][1] ..... ]
+                    name: 'Sensor 3',
+                    id: 's2',
+                    data: time.map((time, index) => {
+                        return [time, scarsity_data['s2'][index]]
+                    })
+                }]
+        })
+        ;
+
+        async function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function setLevel(level) {
+            let data_ = compression_data_sets["scarsity"];
+            for (const sensor of Object.keys(data_[level])) {
+                if (sensor === 'time') continue;
+                console.log(sensor);
+
+                try {
+                    console.log(data_[level][sensor]);
+                    const new_data = data_[level][sensor].map((value, index) => {
+                        return [time[index], value]
+                    })
+                    chart.get(sensor).setData(new_data);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+
+        function createBtns(levels){
+                    // first create play btn that launches updateChart
+            const btn = document.createElement('button');
+            btn.innerHTML = 'Play';
+            btn.onclick = () => updateChart();
+            document.getElementById('btns-scarsity').appendChild(btn);
+
+            const btns = document.getElementById('btns-scarsity');
+            for (const level of levels) {
+                const btn = document.createElement('button');
+                btn.innerHTML = level;
+                btn.onclick = () => setLevel(level);
+                btns.appendChild(btn);
+            }
+        }
+        createBtns(scarsity_data_levels);
+        async function updateChart() {
+
+            for (const scarsity of scarsity_data_levels) {
+                console.log(scarsity);
+                await delay(1000); // Wait for 1 second
+                await setLevel(scarsity);
+            }
+        }
+
+
+    </script>
+{% endblock %}
