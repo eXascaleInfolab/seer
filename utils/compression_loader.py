@@ -26,5 +26,41 @@ def load_compression_data_sets():
     return data_sets
 
 
+def convert_compression_to_KB(compression_size):
+    # handle Gib Kib Mib B KB MB
+    if compression_size.endswith('B'):
+        return int(compression_size[:-1]/1000)
+    if compression_size.endswith('KB'):
+        return int(compression_size[:-2])
+    if compression_size.endswith('MB'):
+        return int(compression_size[:-2])*1000
+    if compression_size.endswith('GB'):
+        return int(compression_size[:-2])*1000000
+    if compression_size.endswith('Gib'):
+        return int(compression_size[:-3])*134218
+    if compression_size.endswith('Mib'):
+        return int(compression_size[:-3])*131
+    if compression_size.endswith('Kib'):
+        return int(int(compression_size[:-3])/1.024)
+    assert False , "Compression size not handled: " + compression_size
+
+
+
+def load_systems_compression():
+    path = os.path.join('compression_data', 'compressions')
+    systems = {}
+    for file in os.listdir(path):
+        system_name = file.split('_')[0]
+        with open(os.path.join(path, file), 'r') as f:
+            for line in f.readlines():
+                data_set , compression_size , loading_time = line.split(' ')
+                compression_size = convert_compression_to_KB(compression_size)
+                systems[system_name] = systems.get(system_name, {})
+                systems[system_name][data_set] = (compression_size, loading_time)
+
+    return systems
+
+
 if __name__ == '__main__':
     print(load_compression_data_sets())
+    print(load_systems_compression())
