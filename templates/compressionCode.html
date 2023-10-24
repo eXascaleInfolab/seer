@@ -13,13 +13,14 @@
             this.currentLevel = this.levels[0];
 
             this.initialDataSet = data[this.currentLevel]["data"];
-            //this.initialCompression  = data[levels[0]]["compression"]
+            this.initialCompression = data[this.levels[0]]["compression"]
 
             this.chartTime = this.initialDataSet["time"].map((time) => {
                 return Date.parse(time);
             });
 
             this.initializeCharts();
+            this.createButtons();
         }
 
         initializeCharts() {
@@ -70,7 +71,7 @@
 
             this.compressionChart = Highcharts.chart(`compression-container-${this.dataType}`, {
                 chart: {
-                    type: 'line'
+                    type: 'line',
                 },
                 plotOptions: {
                     series: {
@@ -78,7 +79,7 @@
                         point: {
                             events: {
                                 click: function () {
-                                  compressionManager.setLevel(this.category) // "this" from outer scope
+                                    compressionManager.setLevel(this.category) // "this" from outer scope
                                 }
                             }
                         }
@@ -99,16 +100,13 @@
                         },
                     },
                 },
-                series: [{
-                    name: 'Influx',
-                    data: [16.0, 18.2, 23.1]
-                }, {
-                    name: 'Filler',
-                    data: [-2.9, -3.6, -0.6]
-                }]
+                series: Object.keys(this.initialCompression).map(system => {
+                    return {
+                        name: system,
+                        data: [this.initialCompression[system]]
+                    }
+                })
             });
-
-            this.createButtons();
         }
 
         createButtons() {
@@ -135,9 +133,13 @@
         }
 
         async playChart() {
+            this.initializeCharts();
             for (const level of this.levels) {
                 await this.delay(1000); // Wait for 1 second
                 this.setLevel(level);
+                this.compressionChart.series.forEach((series) => {
+                    series.addPoint(this.data[level]["compression"][series.name]);
+                });
             }
         }
 

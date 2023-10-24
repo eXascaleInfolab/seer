@@ -1,12 +1,12 @@
 DRUID = "druid"
 QUESTDB = "questdb"
-TIMESCALE = "timescale"
 INFLUX = "influx"
 TIMESCALEDB = "timescaledb"
 MONETDB = "monetdb"
 EXTREMEDB = "extremedb"
+CLICKHOUSE = "clickhouse"
 
-SYSTEMS  = (DRUID, QUESTDB, TIMESCALE, INFLUX, TIMESCALEDB, MONETDB, EXTREMEDB)
+SYSTEMS  = (DRUID, QUESTDB, CLICKHOUSE, INFLUX, TIMESCALEDB, MONETDB, EXTREMEDB)
 
-compression_types = ('repeats', 'delta', 'scarsity')
-
+compression_types = ('repeats', 'delta', 'scarsity' , "outliers")
+compressed_systems = (TIMESCALEDB, DRUID, CLICKHOUSE, INFLUX)

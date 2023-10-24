@@ -2,20 +2,44 @@
 
 
 {% block content %}
-    <div id="data-container-scarsity">
-    </div>
-    <div id="btns-scarsity">
-    </div>
-    <div id="compression-container-scarsity">
-    </div>
+    <section>
+        <h2>Scarcity </h2>
+        <div id="btns-scarsity">
+            <!-- Add buttons or content here -->
+        </div>
+        <div id="data-container-scarsity">
+            <!-- Add charts for data here -->
+        </div>
+        <div id="compression-container-scarsity">
+            <!-- Add charts for compression data here -->
+        </div>
+    </section>
 
-    <div id="data-container-delta">
-    </div>
-    <div id="btns-delta">
-    </div>
-    <div id="compression-container-delta">
-    </div>
+    <section>
+        <h2>Delta </h2>
+        <div id="btns-delta">
+            <!-- Add buttons or content here -->
+        </div>
+        <div id="data-container-delta">
+            <!-- Add charts for data here -->
+        </div>
+        <div id="compression-container-delta">
+            <!-- Add charts for compression data here -->
+        </div>
+    </section>
 
+    <section>
+        <h2>Outliers </h2>
+        <div id="btns-outliers">
+            <!-- Add buttons or content here -->
+        </div>
+        <div id="data-container-outliers">
+            <!-- Add charts for data here -->
+        </div>
+        <div id="compression-container-outliers">
+            <!-- Add charts for compression data here -->
+        </div>
+    </section>
 
 
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -27,11 +51,12 @@
         let dataType = 'scarsity';
         let data = compression_data_sets[dataType]
 
-        scarsityManager = new CompressionManager( 'scarsity',  compression_data_sets['scarsity']);
+        scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
 
         // create hightchart
-        deltaManager = new CompressionManager( 'delta', compression_data_sets['delta']);
+        deltaManager = new CompressionManager('delta', compression_data_sets['delta']);
 
+        outliersManager = new CompressionManager('outliers', compression_data_sets['outliers']);
 
     </script>
 {% endblock %}
