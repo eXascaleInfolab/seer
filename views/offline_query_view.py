@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.base import TemplateResponseMixin
@@ -21,6 +22,8 @@ class OfflineQueryView(View):
 
     def get(self, request):
         template = loader.get_template('offline-queries.html')
+
+        self.context["query_frame"] = render_to_string('parts/query-box2.html', {})
 
         return HttpResponse(template.render(self.context, request))
 

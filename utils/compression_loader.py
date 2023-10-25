@@ -48,6 +48,8 @@ def convert_compression_to_KB(compression_size):
         return float(float(compression_size[:-1]))
     if compression_size.endswith('G'):
         return float(float(compression_size[:-1])*1000000)
+    if compression_size.endswith('M'):
+        return float(float(compression_size[:-1])*1000)
     assert False , "Compression size not handled: " + compression_size
 
 

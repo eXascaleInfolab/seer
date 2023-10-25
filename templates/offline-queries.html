@@ -2,129 +2,128 @@
 
 
 {% block content %}
+    <script>
+    function swapSelect(divElement) {
+        var dataToggle = divElement.children[0].getAttribute("data-toggle");
+
+        var queryFrame = divElement.closest('.query-frame');
+        var selectMain = queryFrame.querySelector('.select-main');
+
+        var selectMainInnerHTML = selectMain.innerHTML;
+        selectMain.innerHTML = divElement.innerHTML;
+        divElement.innerHTML = selectMainInnerHTML;
+
+        var contentDiv = queryFrame.querySelector('.query-content');
+        // set the direct children to be visible if id = select-dataToggle
+        var children = contentDiv.children;
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            if (child.parentElement !== contentDiv) {
+                continue;
+            }
+            if (child.classList.contains("select-" + dataToggle)) {
+                child.style.display = "block";
+            } else {
+                child.style.display = "none";
+            }
+        }
+    }
+
+    function initQueryFrame() {
+        const swapSelections = document.querySelectorAll('.swap-select');
+        // Add a click event handler to each element
+        swapSelections.forEach(function (element) {
+            element.addEventListener('click', function () {
+                swapSelect(element);
+            });
+        })
+
+        // get all elements of class dataset-select
+        const datasetSelect = document.querySelectorAll('.dataset-select');
+        // Add a click event handler to each element
+        datasetSelect.forEach(function (element) {
+            element.addEventListener('click', function () {
+                var queryFrame = element.closest('.query-frame');
+                var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="dataset"]');
+                elementsWithDatasetAttribute.forEach(function (element_) {
+                    element_.innerText = element.value;
+                });
+            });
+        });
+        // get all elements of class time-range-select
+        const timeRangeSelect = document.querySelectorAll('.time-range-select');
+        // Add a click event handler to each element
+        timeRangeSelect.forEach(function (element) {
+            console.log(element);
+            console.log(element.value);
+            element.addEventListener('click', function () {
+                var queryFrame = element.closest('.query-frame');
+                var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-interval"]');
+                elementsWithDatasetAttribute.forEach(function (element_) {
+                    element_.innerText = element.value;
+                });
+            });
+        });
+
+        //handle sub-select
+        const swapSubSelections = document.querySelectorAll('.swap-sup-select');
+        // Add a click event handler to each element
+        swapSubSelections.forEach(function (element) {
+            element.addEventListener('click', function () {
+                var queryFrame = element.closest('.query-frame');
+                var selectMain = queryFrame.querySelector('.sub-select-main');
+                var selectMainInnerHTML = selectMain.innerHTML;
+                selectMain.innerHTML = element.innerHTML;
+                element.innerHTML = selectMainInnerHTML;
+
+            });
+        })
+    }
+
+    // on document ready initQueryFrame();
+    {#document.addEventListener("DOMContentLoaded", function () {#}
+    {#    initQueryFrame();#}
+    {# });#}
+
+</script>
     <style>
+
+
         .row {
             display: flex;
         {#align-items: top; /* To vertically center the content */#}
         }
 
-        .dropdown {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
 
-        .variable {
-            color: red;
-        }
-
-        .space {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-
-        .sql-bold {
-            font-weight: bold;
-        }
-
-        #content > *:not(#select-1) {
-            display: none;
-        }
     </style>
 
-    <div class="row">
-        <div class="col-md-8">
-            {% include "parts/query-box.html" %}
+        <div id="query-frame-holder">
+
         </div>
-        <div class="col-md-4">
-            <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
+        <button id="add-query-button">Add Query</button>
+       <script>
 
-                <div class="form-group">
-                    <label>Dataset:</label>
-                    <select id="form-dataset" class="form-control" name="drop" onclick="changeDataset()">
-                        <option value="d1">d1</option>
-                        <option value="d2">d2</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Time Range:</label>
-                    <select id="form-time-range" class="form-control" name="drop" onclick="changeTimeRange()">
-                        <option value="'Minute'">Minute</option>
-                        <option value="'Hour'">Hour</option>
-                        <option value="'Day'">Day</option>
-                        <option value="'Week'">Week</option>
-                        <option value="'Month'">Month</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="station-slider">Number of Stations: <span id="station-count">5</span></label>
-                    <input type="range" id="station-slider" class="form-control-range" min="1" max="10" value="1"
-                           step="1" onchange="updateStationCount(this.value)">
-                </div>
-                    <div class="form-group">
-                    <label for="sensor-slider">Number of Sensors: <span id="sensor-count">5</span></label>
-                    <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"
-                           step="1" onchange="updateSensorCount(this.value)">
-                </div>
+        const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
+        // create new div in side query-frame-holder and set its innerHTML to queryFrameContent
+        var queryFrameHolder = document.getElementById("query-frame-holder");
+        var newDiv = document.createElement("div");
+        newDiv.innerHTML = queryFrameContent;
+        queryFrameHolder.appendChild(newDiv);
+        initQueryFrame();
 
-                  The dropdowns could also be in the Query directly or we write e.g dataset in the query.
-                  Question is how to handle the station and sensors. If we want to style the drop down we need an seperate implemention
-                html drop down option does not support styling.
-                Also the timestamps are assinged randomly.
-            </form>
-        </div>
-    </div>
-    <script>
-        function updateStationCount(value) {
-            document.getElementById("station-count").textContent = value;
-        }
-
-        function updateSensorCount(value) {
-            document.getElementById("sensor-count").textContent = value;
-        }
-
-        function handleSelection() {
-            var select = document.getElementById("select-select");
-            var selectedValue = select.value;
-            select_option(selectedValue);
-        }
-
-        function changeDataset() {
-            var select = document.getElementById("form-dataset");
-            console.log(select.value)
-            document.getElementById("dataset").innerText = select.value;
-        }
-
-        function changeTimeRange() {
-            var select = document.getElementById("form-time-range");
-            console.log(select.value)
-            document.getElementById("time-range").innerText = select.value;
-        }
+        // add on click to add query button
+        var addQueryButton = document.getElementById("add-query-button");
+        addQueryButton.addEventListener("click", function () {
+            initQueryFrame();
+            var newDiv = document.createElement("div");
+            newDiv.innerHTML = queryFrameContent;
+            queryFrameHolder.appendChild(newDiv);
+            initQueryFrame();
+        });
+       </script>
 
 
-        function select_option(selectedValue) {
-            // iterate the divs in #second-row and hide them if they are not average
-            var divs = document.getElementById("content").children;
-            var blocked = false;
-            for (var i = 0; i < divs.length; i++) {
-                if (divs[i].classList.contains(selectedValue)) {
-                    divs[i].style.display = "block";
-                    blocked = true;
-                } else {
-                    divs[i].style.display = "none";
-                }
-            }
 
-            // handle the ";" at the end of the query
-            var content = document.getElementById('content');
-            var semicolon = document.getElementById('semicolon');
-            if (!content.innerText.endsWith(";") && !semicolon.innerText.endsWith(";")) {
-                semicolon.innerHTML = ";"
-            }
-            if (content.innerText.endsWith(";") && semicolon.innerText.endsWith(";")) {
-                semicolon.innerHTML = ""
-            }
 
-        }
-    </script>
 
 {% endblock %}

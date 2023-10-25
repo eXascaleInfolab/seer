@@ -1,20 +1,18 @@
-delta_1 1.7G	/home/luca/.questdb/db/delta_1 .468421387s
-delta_1 1.7G	/home/luca/.questdb/db/delta_1 .471951817s
-delta_10 1.7G	/home/luca/.questdb/db/delta_10 .423723819s
-delta_2 1.7G	/home/luca/.questdb/db/delta_2 .434639383s
-outliers_1 1.7G	/home/luca/.questdb/db/outliers_1 .477537073s
-outliers_10 1.7G	/home/luca/.questdb/db/outliers_10 .456865621s
-outliers_2 1.7G	/home/luca/.questdb/db/outliers_2 .477945704s
-outliers_20 1.7G	/home/luca/.questdb/db/outliers_20 .465929170s
-outliers_5 1.7G	/home/luca/.questdb/db/outliers_5 .452508193s
-repeats_0 1.7G	/home/luca/.questdb/db/repeats_0 .438665857s
-repeats_1 1.7G	/home/luca/.questdb/db/repeats_1 .441040401s
-repeats_10 1.7G	/home/luca/.questdb/db/repeats_10 .468512081s
-repeats_100 1.7G	/home/luca/.questdb/db/repeats_100 .434794988s
-repeats_2 1.7G	/home/luca/.questdb/db/repeats_2 .457792153s
-repeats_20 1.7G	/home/luca/.questdb/db/repeats_20 .469940364s
-repeats_30 1.7G	/home/luca/.questdb/db/repeats_30 .434050655s
-repeats_40 1.7G	/home/luca/.questdb/db/repeats_40 .411627419s
-repeats_5 1.7G	/home/luca/.questdb/db/repeats_5 .441009195s
-repeats_60 1.7G	/home/luca/.questdb/db/repeats_60 .442174292s
-repeats_70 1.7G	/home/luca/.questdb/db/repeats_70 .466429699s
+delta_1 1695640KB .771868070s
+delta_10 1695640KB .722863046s
+delta_2 1695640KB .778772366s
+outliers_1 1695640KB .765052591s
+outliers_10 1695640KB .783081441s
+outliers_2 1695640KB .775560724s
+outliers_20 1695640KB .732428268s
+outliers_5 1695640KB .779490190s
+repeats_0 1695640KB .721861949s
+repeats_20 1695640KB .794608146s
+repeats_40 1695640KB .761458668s
+repeats_60 1695640KB .740153488s
+repeats_90 1695640KB .776629606s
+scarsity_10 1695640KB .786581738s
+scarsity_30 1695640KB .732637166s
+scarsity_50 1695640KB .682510305s
+scarsity_70 1695640KB .640328579s
+scarsity_90 1695640KB .589074236s

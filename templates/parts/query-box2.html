@@ -1,0 +1,200 @@
+<style>
+    .select_ {
+        background: white;
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 2px;
+        padding-left: 5px;
+        max-width: 400px;
+        position: relative;
+        padding-right: 20px;
+    }
+
+    .select_:hover {
+        cursor: pointer;
+    }
+
+    .select_ .caret {
+        position: absolute; /* Set the position of the caret to absolute */
+        right: 4px; /* Adjust the right distance as needed */
+        top: 40%;
+    }
+
+    .space-right {
+        margin-right: 5px;
+    }
+
+    .dropdown.row {
+        margin-left: -15px;
+    }
+
+    .dropdown .row {
+        margin-left: 0px;
+        margin-right: 0;
+    }
+
+    .query-content {
+        margin-left: 20px;
+    }
+
+    .dropdown {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .space {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .sql-bold {
+        font-weight: bold;
+    }
+
+    .query-content > *:not(.select-1) {
+        display: none;
+    }
+</style>
+
+
+<div class="query-frame row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="sql-bold space-right"> SELECT</div>
+            station_id,
+            <div class="dropdown">
+                <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                     aria-expanded="false">
+                    <div class="select_">
+                        <div class="select-main">
+                            <div class="flex-container" data-toggle="1"> time, &lt;sensor_list&gt;</div>
+                        </div>
+                        <span class="caret"></span>
+                    </div>
+                </div>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <li><a class="swap-select">
+                        <div data-toggle="2"> AVG(s_i)...AVG(s_j)</div>
+                    </a></li>
+                    <li><a class="swap-select">
+                        <div data-toggle="3"> time , AVG(s_i)...AVG(s_j)</div>
+                    </a></li>
+                    <li><a class="swap-select">
+                        <div data-toggle="4"> time, sensor_i, sensor_j, AVG(sensor_i, sensor_j)</div>
+                    </a></li>
+                    <li><a class="swap-select">
+                        <div data-toggle="5"> CORR(sensor_i, sensor_j)</div>
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="from">
+            <div class="row">
+                <div class="sql-bold"> FROM</div>
+                <div class="space" data-type="dataset">d1</div>
+            </div>
+
+            <div class="row">
+                <div class="sql-bold"> WERE</div>
+                &nbsp; station_id in &lt;station_list&gt;
+            </div>
+            <div class="row">
+                <div class="sql-bold"> AND</div>
+                &nbsp; time &lt; ?timestamp
+            </div>
+            <div class="row">
+                <div class="sql-bold "> AND</div>
+                &nbsp; time &gt;= ?timestamp -
+                <div class="space" data-type="time-interval">Minute</div>
+
+                <div class="semicolon"></div>
+            </div>
+        </div>
+        <div class="query-content">
+            <div class="select-1">
+                <div class="dropdown row">
+                    <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                         aria-expanded="false">
+                        <div class="select_">
+                            <div class="sub-select-main">
+                                <div class=row" data-toggle="2">&nbsp;</div>
+                            </div>
+                            <span class="caret"></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                 aria-haspopup="true" aria-expanded="false">
+                    </a>
+                        <li><a class="swap-sup-select">
+                            <div class="row" data-toggle="2">
+                                <div class="sql-bold"> AND</div>
+                                &nbsp sensor_0 > 0.95;
+                            </div>
+                        </a></li>
+                        <li><a class="swap-sup-select">
+                            <div class="row" data-toggle="3"> SAMPLE BY 5 : FILL(LINEAR);</div>
+                        </a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="select-2">
+                <div class="row">
+                    <div class="sql-bold "> GROUP BY</div>
+                    &nbsp; station_id;
+                </div>
+            </div>
+
+            <div class="select-3">
+                <div class="row">
+                    <div class="sql-bold "> GROUP BY</div>
+                    &nbsp; station_id time
+                </div>
+                <div class="row">
+                    <div class="sql-bold "> SAMPLE BY</div>
+                    &nbsp; 1H;
+                </div>
+            </div>
+            <div class="select-4">
+            </div>
+            <div class="select-5">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
+            <div class="form-group">
+                <label>Dataset:</label>
+                <select class="form-control dataset-select" name="drop">
+                    <option value="d1">d1</option>
+                    <option value="d2">d2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Time Range:</label>
+                <select class="form-control time-range-select" name="drop">
+                    <option value="'Minute'">Minute</option>
+                    <option value="'Hour'">Hour</option>
+                    <option value="'Day'">Day</option>
+                    <option value="'Week'">Week</option>
+                    <option value="'Month'">Month</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="station-slider">Number of Stations: <span id="station-count">5</span></label>
+                <input type="range" id="station-slider" class="form-control-range" min="1" max="10" value="1"
+                       step="1" onchange="updateStationCount(this.value)">
+            </div>
+            <div class="form-group">
+                <label for="sensor-slider">Number of Sensors: <span id="sensor-count">5</span></label>
+                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"
+                       step="1" onchange="updateSensorCount(this.value)">
+            </div>
+        </form>
+    </div>
+</div>
