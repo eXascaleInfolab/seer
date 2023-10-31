@@ -3,6 +3,20 @@
 
 {% block content %}
     <script>
+
+    function get_random_time_stamp() {
+        return timeStamp.pop()
+    }
+
+    function set_time_stamp(element) {
+        var queryFrame = element.closest('.query-frame');
+        var timeStamp = get_random_time_stamp();
+        var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
+        elementsWithDatasetAttribute.forEach(function (element_) {
+            element_.innerText = timeStamp;
+        });
+    }
+
     function swapSelect(divElement) {
         var dataToggle = divElement.children[0].getAttribute("data-toggle");
 
@@ -78,6 +92,19 @@
 
             });
         })
+
+        //handle query submit
+        const querySubmit = document.querySelectorAll('.query-submit');
+        // Add a click event handler to each element
+        querySubmit.forEach(function (element) {
+            element.addEventListener('click', function (event) {
+              event.preventDefault()
+                var queryFrame = element.closest('.query-frame');
+              //update time stamp
+                set_time_stamp(element);
+            })
+        })
+
     }
 
 </script>
@@ -99,6 +126,7 @@
        <script>
 
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
+        const timeStamp =  {{ time_stamps|safe }};
         // create new div in side query-frame-holder and set its innerHTML to queryFrameContent
         var queryFrameHolder = document.getElementById("query-frame-holder");
         var newDiv = document.createElement("div");
