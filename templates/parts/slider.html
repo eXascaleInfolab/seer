@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+    {#$(function () {#}
+    {#    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaA" , this)#}
+    {#    $("#slider-{{ id }}").slider({#}
+    {#        value: 2,#}
+    {#        min: 1,#}
+    {#        max: 5,#}
+    {#        step: 1 ,#}
+            {#slide: function (event, ui) {#}
+            {#    $("#amount-"+{{ id }}).val("$" + ui.value);#}
+            {# }#}
+    {#    });#}
+        {#$("#amount-{{ id }}").val("$" + $("#slider-{{ id }}").slider("value"));#}
+    {# });#}
+</script>
+<body>
+
+<p>
+    <label for="amount">Time Range:</label>
+    <input type="text" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+
+
+<div class="slider-{{ id }}"></div>
+<div class="ticks" style="margin-bottom: 20px"></div>

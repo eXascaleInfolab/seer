@@ -2,112 +2,179 @@
 
 
 {% block content %}
+    <style>
+        .vl {
+            border-left: 1px solid green;
+            height: 500px;
+        }
+    </style>
     <script>
 
-    function get_random_time_stamp() {
-        return timeStamp.pop()
-    }
+        function extractRangeAttributes() {
+            sliders = document.getElementsByClassName("slider-time")
+            slider = sliders[sliders.length-1]
 
-    function set_time_stamp(element) {
-        var queryFrame = element.closest('.query-frame');
-        var timeStamp = get_random_time_stamp();
-        var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
-        elementsWithDatasetAttribute.forEach(function (element_) {
-            element_.innerText = timeStamp;
-        });
-    }
+            const ticks = slider.nextElementSibling
 
-    function swapSelect(divElement) {
-        var dataToggle = divElement.children[0].getAttribute("data-toggle");
-
-        var queryFrame = divElement.closest('.query-frame');
-        var selectMain = queryFrame.querySelector('.select-main');
-
-        var selectMainInnerHTML = selectMain.innerHTML;
-        selectMain.innerHTML = divElement.innerHTML;
-        // divElement.innerHTML = selectMainInnerHTML ;
-
-        var contentDiv = queryFrame.querySelector('.query-content');
-        // set the direct children to be visible if id = select-dataToggle
-        var children = contentDiv.children;
-        for (var i = 0; i < children.length; i++) {
-            var child = children[i];
-            if (child.parentElement !== contentDiv) {
-                continue;
+            if (ticks.hasChildNodes()) {
+                return
             }
-            if (child.classList.contains("select-" + dataToggle)) {
-                child.style.display = "block";
-            } else {
-                child.style.display = "none";
+            //append grid 2 lines 5 columns
+            flexContainer = document.createElement("div")
+            flexContainer.classList.add("flex-container")
+            flexContainer.style.display = "flex"
+            {#flexContainer.style.marginLeft = -100 / 4 / 2 + "%"#}
+            flexContainer.style.marginRight = -100 / 4 + "%"
+
+            const flexContainer2 = flexContainer.cloneNode(true)
+            {#flexContainer.style.flexDirection = "column"#}
+            {#flexContainer.style["justify-content"] = "space-between";#}
+
+
+            flexItem = document.createElement("div")
+            flexItem.classList.add("flex-item")
+            flexItem.style.flex = "1";
+            flexItem.style.border = "None";
+            flexItem.style.height = "10px";
+            flexItem.style.verticalAlign = "top";
+            flexItem.style.overflowY = "hidden";
+            flexItem.innerHTML = "<div class='vl'> </div>"
+
+            const times = ["Min", "H", "D", "W", "M"]
+            for (i in times) {
+                var time = times[i]
+                flexContainer.appendChild(flexItem.cloneNode(true))
+                var flexItem2 = flexItem.cloneNode(true)
+                flexItem2.innerHTML = "<div>" + time + "</div>"
+                flexItem2.style.overflowY = "visible";
+                flexContainer2.appendChild(flexItem2)
+            }
+            ticks.appendChild(flexContainer)
+            flexContainer2.style.marginLeft = -100 / 4 / 2 + "%"
+            flexContainer2.style.marginRight = -100 / 4 / 2 + "%"
+            flexContainer2.style.textAlign = "center"
+            ticks.appendChild(flexContainer2)
+        }
+
+
+        function get_random_time_stamp() {
+            return timeStamp.pop()
+        }
+
+        function set_time_stamp(element) {
+            var queryFrame = element.closest('.query-frame');
+            var timeStamp = get_random_time_stamp();
+            var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
+            elementsWithDatasetAttribute.forEach(function (element_) {
+                element_.innerText = timeStamp;
+            });
+        }
+
+        function swapSelect(divElement) {
+            var dataToggle = divElement.children[0].getAttribute("data-toggle");
+
+            var queryFrame = divElement.closest('.query-frame');
+            var selectMain = queryFrame.querySelector('.select-main');
+
+            var selectMainInnerHTML = selectMain.innerHTML;
+            selectMain.innerHTML = divElement.innerHTML;
+            // divElement.innerHTML = selectMainInnerHTML ;
+
+            var contentDiv = queryFrame.querySelector('.query-content');
+            // set the direct children to be visible if id = select-dataToggle
+            var children = contentDiv.children;
+            for (var i = 0; i < children.length; i++) {
+                var child = children[i];
+                if (child.parentElement !== contentDiv) {
+                    continue;
+                }
+                if (child.classList.contains("select-" + dataToggle)) {
+                    child.style.display = "block";
+                } else {
+                    child.style.display = "none";
+                }
             }
         }
-    }
 
-    function initQueryFrame() {
-        const swapSelections = document.querySelectorAll('.swap-select');
-        // Add a click event handler to each element
-        swapSelections.forEach(function (element) {
-            element.addEventListener('click', function () {
-                swapSelect(element);
-            });
-        })
-
-        // get all elements of class dataset-select
-        const datasetSelect = document.querySelectorAll('.dataset-select');
-        // Add a click event handler to each element
-        datasetSelect.forEach(function (element) {
-            element.addEventListener('click', function () {
-                var queryFrame = element.closest('.query-frame');
-                var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="dataset"]');
-                elementsWithDatasetAttribute.forEach(function (element_) {
-                    element_.innerText = element.value;
+        function initQueryFrame() {
+            const swapSelections = document.querySelectorAll('.swap-select');
+            // Add a click event handler to each element
+            swapSelections.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    swapSelect(element);
                 });
-            });
-        });
-        // get all elements of class time-range-select
-        const timeRangeSelect = document.querySelectorAll('.time-range-select');
-        // Add a click event handler to each element
-        timeRangeSelect.forEach(function (element) {
-            console.log(element);
-            console.log(element.value);
-            element.addEventListener('click', function () {
-                var queryFrame = element.closest('.query-frame');
-                var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-interval"]');
-                elementsWithDatasetAttribute.forEach(function (element_) {
-                    element_.innerText = element.value;
-                });
-            });
-        });
-
-        //handle sub-select
-        const swapSubSelections = document.querySelectorAll('.swap-sup-select');
-        // Add a click event handler to each element
-        swapSubSelections.forEach(function (element) {
-            element.addEventListener('click', function () {
-                var queryFrame = element.closest('.dropdown');
-                var selectMain = queryFrame.querySelector('.sub-select-main');
-                var selectMainInnerHTML = selectMain.innerHTML;
-                selectMain.innerHTML = element.innerHTML;
-                //element.innerHTML = selectMainInnerHTML;
-
-            });
-        })
-
-        //handle query submit
-        const querySubmit = document.querySelectorAll('.query-submit');
-        // Add a click event handler to each element
-        querySubmit.forEach(function (element) {
-            element.addEventListener('click', function (event) {
-              event.preventDefault()
-                var queryFrame = element.closest('.query-frame');
-              //update time stamp
-                set_time_stamp(element);
             })
-        })
 
-    }
+            // get all elements of class dataset-select
+            const datasetSelect = document.querySelectorAll('.dataset-select');
+            // Add a click event handler to each element
+            datasetSelect.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    var queryFrame = element.closest('.query-frame');
+                    var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="dataset"]');
+                    elementsWithDatasetAttribute.forEach(function (element_) {
+                        element_.innerText = element.value;
+                    });
+                });
+            });
+            // get all elements of class time-range-select
+            const timeRangeSelect = document.querySelectorAll('.time-range-select');
+            // Add a click event handler to each element
+            timeRangeSelect.forEach(function (element) {
+                console.log(element);
+                console.log(element.value);
+                element.addEventListener('click', function () {
+                    var queryFrame = element.closest('.query-frame');
+                    var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-interval"]');
+                    elementsWithDatasetAttribute.forEach(function (element_) {
+                        element_.innerText = element.value;
+                    });
+                });
+            });
 
-</script>
+            //handle sub-select
+            const swapSubSelections = document.querySelectorAll('.swap-sup-select');
+            // Add a click event handler to each element
+            swapSubSelections.forEach(function (element) {
+                element.addEventListener('click', function () {
+                    var queryFrame = element.closest('.dropdown');
+                    var selectMain = queryFrame.querySelector('.sub-select-main');
+                    var selectMainInnerHTML = selectMain.innerHTML;
+                    selectMain.innerHTML = element.innerHTML;
+                    //element.innerHTML = selectMainInnerHTML;
+
+                });
+            })
+
+            //handle query submit
+            const querySubmit = document.querySelectorAll('.query-submit');
+            // Add a click event handler to each element
+            querySubmit.forEach(function (element) {
+                element.addEventListener('click', function (event) {
+                    event.preventDefault()
+                    var queryFrame = element.closest('.query-frame');
+                    //update time stamp
+                    set_time_stamp(element);
+                })
+            })
+
+
+            $(".slider-time").each(function () {
+                if (!$(this).hasClass("ui-slider")) {
+                    $(this).slider({
+                        value: 2,
+                        min: 1,
+                        max: 5,
+                        step: 1,
+                    });
+                }
+            });
+
+
+        extractRangeAttributes()
+        }
+
+    </script>
     <style>
 
 
@@ -119,11 +186,24 @@
 
     </style>
 
-        <div id="query-frame-holder">
+    <div id="query-frame-holder">
 
-        </div>
-        <button id="add-query-button">Add Query</button>
-       <script>
+    </div>
+    <style>
+        .ui-slider-handle {
+            width: 7px !important;
+            transform: translateX(5px) !important;
+            border-radius: 0px !important;
+        }
+
+        .ui-slider-handle > ui-corner-all {
+            border-radius: 0px;
+        !important;
+        }
+
+    </style>
+    <button id="add-query-button">Add Query</button>
+    <script>
 
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
         const timeStamp =  {{ time_stamps|safe }};
@@ -143,10 +223,7 @@
             queryFrameHolder.appendChild(newDiv);
             initQueryFrame();
         });
-       </script>
-
-
-
+    </script>
 
 
 {% endblock %}

@@ -68,7 +68,7 @@
                      aria-expanded="false">
                     <div class="select_">
                         <div class="select-main">
-                            <div class="swap-select" data-toggle="0"> Projection </div>
+                            <div class="swap-select" data-toggle="0"> Projection</div>
                         </div>
                         <span class="caret"></span>
                     </div>
@@ -80,7 +80,7 @@
                     <li><a class="swap-select">
                         <div data-toggle="1">time, &lt;sensor_list&gt;</div>
                     </a></li>
-                     <li><a class="swap-select">
+                    <li><a class="swap-select">
                         <div data-toggle="2"> AVG(s_i)...AVG(s_j)</div>
                     </a></li>
                     <li><a class="swap-select">
@@ -97,31 +97,31 @@
         </div>
         <div class="from">
             <div class="row">
-                <div class="sql-bold"> FROM  </div>
+                <div class="sql-bold"> FROM</div>
                 <div>
-                      <div class="dropdown row" style="margin-left: 8px">
-                    <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
-                         aria-expanded="false">
-                        <div class="select_">
-                            <div class="sub-select-main">
-                                <div class=row" data-toggle="2">&nbsp;Dataset </div>
+                    <div class="dropdown row" style="margin-left: 8px">
+                        <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                             aria-expanded="false">
+                            <div class="select_">
+                                <div class="sub-select-main">
+                                    <div class=row" data-toggle="2">&nbsp;Dataset</div>
+                                </div>
+                                <span class="caret"></span>
                             </div>
-                            <span class="caret"></span>
                         </div>
+                        <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                     aria-haspopup="true" aria-expanded="false">
+                        </a>
+                            <li><a class="swap-sup-select">
+                                <div class="row">
+                                    <div> d1</div>
+                                </div>
+                            </a></li>
+                            <li><a class="swap-sup-select">
+                                <div class="row"> d2</div>
+                            </a></li>
+                        </ul>
                     </div>
-                    <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                                 aria-haspopup="true" aria-expanded="false">
-                    </a>
-                        <li><a class="swap-sup-select">
-                            <div class="row" >
-                                <div> d1</div>
-                            </div>
-                        </a></li>
-                        <li><a class="swap-sup-select">
-                            <div class="row"> d2</div>
-                        </a></li>
-                    </ul>
-                </div>
                 </div>
             </div>
 
@@ -131,11 +131,14 @@
             </div>
             <div class="row">
                 <div class="sql-bold"> AND</div>
-                &nbsp; time &lt; <div class="space" data-type="time-stamp" >?timestamp</div>
+                &nbsp; time &lt;
+                <div class="space" data-type="time-stamp">?timestamp</div>
             </div>
             <div class="row">
                 <div class="sql-bold "> AND</div>
-                &nbsp; time &gt;= <div class="space" data-type="time-stamp" >?timestamp</div> -
+                &nbsp; time &gt;=
+                <div class="space" data-type="time-stamp">?timestamp</div>
+                -
                 <div class="space" data-type="time-interval">Minute</div>
 
                 <div class="semicolon"></div>
@@ -215,6 +218,7 @@
                 <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"
                        step="1" onchange="updateSensorCount(this.value)">
             </div>
+            {% include "parts/slider.html" with id="time" %}
             <button class="btn btn-primary query-submit" onclick="submitQuery()">Evaluate</button>
         </form>
     </div>

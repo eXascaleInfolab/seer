@@ -1,0 +1,53 @@
+/*sliders*/
+
+:root {
+    --slider-color: green;
+}
+
+.ui-slider-tooltip {
+    position: absolute;
+    padding: 4px 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    border-radius: 5px;
+    z-index: 2;
+    transform: translate(-20%, -120%);
+}
+
+.ui-slider-handle {
+    width: 9px !important;
+    height: 1.2em !important;
+}
+
+.ui-slider-tooltip,
+.ui-state-active,
+.ui-slider-range {
+    background-color: var(--slider-color);
+}
+
+.ui-state-active {
+    background: var(--slider-color) !important;
+}
+
+
+.ui-slider-min-tooltip,
+.ui-slider-max-tooltip {
+    position: absolute;
+    background-color: transparent;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 4px;
+    z-index: 2;
+    transform: translate(-20%, -120%);
+}
+
+.ui-slider-max-tooltip {
+    transform: translate(-20px, -120%);
+    left: 100%;
+}
+
+.ui-slider-min-tooltip {
+    transform: translate(-18px, -124%);
+}
