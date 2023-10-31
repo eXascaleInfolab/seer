@@ -11,7 +11,7 @@
 
         var selectMainInnerHTML = selectMain.innerHTML;
         selectMain.innerHTML = divElement.innerHTML;
-        divElement.innerHTML = selectMainInnerHTML;
+        // divElement.innerHTML = selectMainInnerHTML ;
 
         var contentDiv = queryFrame.querySelector('.query-content');
         // set the direct children to be visible if id = select-dataToggle
@@ -70,20 +70,15 @@
         // Add a click event handler to each element
         swapSubSelections.forEach(function (element) {
             element.addEventListener('click', function () {
-                var queryFrame = element.closest('.query-frame');
+                var queryFrame = element.closest('.dropdown');
                 var selectMain = queryFrame.querySelector('.sub-select-main');
                 var selectMainInnerHTML = selectMain.innerHTML;
                 selectMain.innerHTML = element.innerHTML;
-                element.innerHTML = selectMainInnerHTML;
+                //element.innerHTML = selectMainInnerHTML;
 
             });
         })
     }
-
-    // on document ready initQueryFrame();
-    {#document.addEventListener("DOMContentLoaded", function () {#}
-    {#    initQueryFrame();#}
-    {# });#}
 
 </script>
     <style>
