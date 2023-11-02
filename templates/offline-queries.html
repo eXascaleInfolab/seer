@@ -4,15 +4,60 @@
 {% block content %}
     <style>
         .vl {
-            border-left: 1px solid green;
+            border-left: 1px solid black;
+            padding-right: -1000px;
             height: 500px;
         }
+
+        .ui-slider-range-min, .ui-state-active {
+            background: #0d2e57 !important;
+            color: #0d2e57;
+        }
+
     </style>
     <script>
 
-        function extractRangeAttributes() {
-            sliders = document.getElementsByClassName("slider-time")
-            slider = sliders[sliders.length-1]
+        // time slider
+        function extractRangeAttributes(class_ = "slider-time",
+                                        labels = ["Min", "H", "D", "W", "M"],
+                                        n_ticks = 5,
+                                        value_map = {
+                                            1: "Minute",
+                                            2: "Hour",
+                                            3: "Day",
+                                            4: "Week",
+                                            5: "Month"
+                                        }
+        ) {
+
+            $("." + class_).each(function () {
+                this_ = this
+                if (!$(this).hasClass("ui-slider")) {
+                    $(this).slider({
+                        range: "min",
+                        value: 1,
+                        min: 1,
+                        max: n_ticks,
+                        step: 1,
+                        slide: function (event, ui) {
+                            // search for closest data-type="time-interval" and update its value
+                            var queryFrame = $(this_).closest('.query-frame');
+                            console.log(queryFrame)
+                            var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
+                            console.log(elementsWithDatasetAttribute)
+                            if (value_map[ui.value] === undefined) {
+                                return
+                            }
+                            elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
+                        }
+                    });
+                }
+
+
+            });
+
+            sliders = document.getElementsByClassName(class_)
+            slider = sliders[sliders.length - 1]
 
             const ticks = slider.nextElementSibling
 
@@ -23,13 +68,9 @@
             flexContainer = document.createElement("div")
             flexContainer.classList.add("flex-container")
             flexContainer.style.display = "flex"
-            {#flexContainer.style.marginLeft = -100 / 4 / 2 + "%"#}
-            flexContainer.style.marginRight = -100 / 4 + "%"
+            flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
 
             const flexContainer2 = flexContainer.cloneNode(true)
-            {#flexContainer.style.flexDirection = "column"#}
-            {#flexContainer.style["justify-content"] = "space-between";#}
-
 
             flexItem = document.createElement("div")
             flexItem.classList.add("flex-item")
@@ -40,22 +81,22 @@
             flexItem.style.overflowY = "hidden";
             flexItem.innerHTML = "<div class='vl'> </div>"
 
-            const times = ["Min", "H", "D", "W", "M"]
-            for (i in times) {
-                var time = times[i]
-                flexContainer.appendChild(flexItem.cloneNode(true))
+            for (i in labels) {
+                var label = labels[i]
                 var flexItem2 = flexItem.cloneNode(true)
-                flexItem2.innerHTML = "<div>" + time + "</div>"
+                flexItem2.innerHTML = "<div>" + label + "</div>"
                 flexItem2.style.overflowY = "visible";
                 flexContainer2.appendChild(flexItem2)
             }
+            for (i = 0; i < n_ticks; i++) {
+                flexContainer.appendChild(flexItem.cloneNode(true))
+            }
             ticks.appendChild(flexContainer)
-            flexContainer2.style.marginLeft = -100 / 4 / 2 + "%"
-            flexContainer2.style.marginRight = -100 / 4 / 2 + "%"
+            flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
+            flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
             flexContainer2.style.textAlign = "center"
             ticks.appendChild(flexContainer2)
         }
-
 
         function get_random_time_stamp() {
             return timeStamp.pop()
@@ -159,33 +200,62 @@
             })
 
 
-            $(".slider-time").each(function () {
-                if (!$(this).hasClass("ui-slider")) {
-                    $(this).slider({
-                        value: 2,
-                        min: 1,
-                        max: 5,
-                        step: 1,
-                    });
-                }
+            $('.form-info').popover({
+                placement: 'top', // Set the popover placement
+                trigger: 'hover', // Trigger the popover when the element is focused
+                content: function () {
+                    return $(this).data('content'); // Get the content from the data attribute
+                },
             });
 
+            extractRangeAttributes()
+            extractRangeAttributes("slider-sensors", [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 11, {})
+            extractRangeAttributes("slider-stations", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, {})
 
-        extractRangeAttributes()
         }
 
-    </script>
-    <style>
 
+    </script>
+
+    <style>
+        .form-info {
+            display: inline-block; /* Make the div inline */
+            margin-bottom: 3px;
+            vertical-align: middle;
+        {#overflow: hidden;#}
+
+
+        }
 
         .row {
             display: flex;
         {#align-items: top; /* To vertically center the content */#}
         }
 
+        .ticks > * {
+            font-size: 9px;
+        {#font-style: revert;#}
+        }
 
+        .popover {
+            font-size: 12px;
+            font-style: italic;
+        }
     </style>
 
+
+    <div class="row">
+        <div class="header col-md-4">
+            <h4> Query Composition</h4>
+            {# horizontal line  #}
+            <hr style="margin-bottom: 5px;margin-top: 5px;margin-left: -10px">
+        </div>
+          <div class="header col-md-6">
+            <h4 style="margin-left: 10px"> Query Variation</h4>
+            {# horizontal line  #}
+            <hr style="margin-bottom: 5px;margin-top: 5px">
+        </div>
+    </div>
     <div id="query-frame-holder">
 
     </div>
@@ -202,7 +272,7 @@
         }
 
     </style>
-    <button id="add-query-button">Add Query</button>
+    <button id="add-query-button">Add Query <i  class="mdi mdi-plus"></i></button>
     <script>
 
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;

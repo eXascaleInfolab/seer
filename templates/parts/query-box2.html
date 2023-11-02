@@ -59,7 +59,7 @@
 
 
 <div class="query-frame row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="row">
             <div class="sql-bold space-right"> SELECT</div>
             station_id,
@@ -198,28 +198,30 @@
     </div>
     <div class="col-md-4">
         <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
-{#            <div class="form-group">#}
-{#                <label>Time Range:</label>#}
-{#                <select class="form-control time-range-select" name="drop">#}
-{#                    <option value="'Minute'">Min</option>#}
-{#                    <option value="'Hour'">H</option>#}
-{#                    <option value="'Day'">D</option>#}
-{#                    <option value="'Week'">W</option>#}
-{#                    <option value="'Month'">M</option>#}
-{#                </select>#}
-{#            </div>#}
             <div class="form-group">
-                <label for="station-slider">Number of Stations: <span id="station-count">5</span></label>
-                <input type="range" id="station-slider" class="form-control-range" min="1" max="10" value="1"
-                       step="1" onchange="updateStationCount(this.value)">
+                <label for="station-slider">Number of Stations
+                    {% include "parts/info.html" with text="Number of stations container in <stations_list>" %}
+                </label>
+                {% include "parts/slider.html" with id="stations" %}
             </div>
             <div class="form-group">
-                <label for="sensor-slider">Number of Sensors: <span id="sensor-count">5</span></label>
-                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"
-                       step="1" onchange="updateSensorCount(this.value)">
+                <label for="sensor-slider">Number of Sensors
+                    {% include "parts/info.html" with text="Number of sensors container in <sensor_list>" %}
+                </label>
+                {#                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"#}
+                {#                       step="1" onchange="updateSensorCount(this.value)">#}
+                {% include "parts/slider.html" with id="sensors" %}
+
             </div>
+            <label for="sensor-slider">Time Interval
+                {% include "parts/info.html" with text="Time Intervall to query over." %}
+            </label>
             {% include "parts/slider.html" with id="time" %}
-            <button class="btn btn-primary query-submit" onclick="submitQuery()">Evaluate</button>
+            <button class="btn btn-primary query-submit" onclick="submitQuery()">Generate</button>
         </form>
     </div>
+</div>
+<div class="header col-md-20">
+    {# horizontal line  #}
+    <hr style="margin-bottom: 10px;margin-top: 10px;margin-left: -20px">
 </div>
