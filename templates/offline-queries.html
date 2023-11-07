@@ -1,247 +1,10 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block content %}
-    <style>
-        .vl {
-            border-left: 1px solid black;
-            padding-right: -1000px;
-            height: 500px;
-        }
 
-        .ui-slider-range-min, .ui-state-active {
-            background: #0d2e57 !important;
-            color: #0d2e57;
-        }
-
-    </style>
-    <script>
-
-        // time slider
-        function extractRangeAttributes(class_ = "slider-time",
-                                        labels = ["Min", "H", "D", "W", "M"],
-                                        n_ticks = 5,
-                                        value_map = {
-                                            1: "Minute",
-                                            2: "Hour",
-                                            3: "Day",
-                                            4: "Week",
-                                            5: "Month"
-                                        }
-        ) {
-
-            $("." + class_).each(function () {
-                this_ = this
-                if (!$(this).hasClass("ui-slider")) {
-                    $(this).slider({
-                        range: "min",
-                        value: 1,
-                        min: 1,
-                        max: n_ticks,
-                        step: 1,
-                        slide: function (event, ui) {
-                            // search for closest data-type="time-interval" and update its value
-                            var queryFrame = $(this_).closest('.query-frame');
-                            console.log(queryFrame)
-                            var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
-                            console.log(elementsWithDatasetAttribute)
-                            if (value_map[ui.value] === undefined) {
-                                return
-                            }
-                            elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
-                        }
-                    });
-                }
-
-
-            });
-
-            sliders = document.getElementsByClassName(class_)
-            slider = sliders[sliders.length - 1]
-
-            const ticks = slider.nextElementSibling
-
-            if (ticks.hasChildNodes()) {
-                return
-            }
-            //append grid 2 lines 5 columns
-            flexContainer = document.createElement("div")
-            flexContainer.classList.add("flex-container")
-            flexContainer.style.display = "flex"
-            flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
-
-            const flexContainer2 = flexContainer.cloneNode(true)
-
-            flexItem = document.createElement("div")
-            flexItem.classList.add("flex-item")
-            flexItem.style.flex = "1";
-            flexItem.style.border = "None";
-            flexItem.style.height = "10px";
-            flexItem.style.verticalAlign = "top";
-            flexItem.style.overflowY = "hidden";
-            flexItem.innerHTML = "<div class='vl'> </div>"
-
-            for (i in labels) {
-                var label = labels[i]
-                var flexItem2 = flexItem.cloneNode(true)
-                flexItem2.innerHTML = "<div>" + label + "</div>"
-                flexItem2.style.overflowY = "visible";
-                flexContainer2.appendChild(flexItem2)
-            }
-            for (i = 0; i < n_ticks; i++) {
-                flexContainer.appendChild(flexItem.cloneNode(true))
-            }
-            ticks.appendChild(flexContainer)
-            flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
-            flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
-            flexContainer2.style.textAlign = "center"
-            ticks.appendChild(flexContainer2)
-        }
-
-        function get_random_time_stamp() {
-            return timeStamp.pop()
-        }
-
-        function set_time_stamp(element) {
-            var queryFrame = element.closest('.query-frame');
-            var timeStamp = get_random_time_stamp();
-            var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
-            elementsWithDatasetAttribute.forEach(function (element_) {
-                element_.innerText = timeStamp;
-            });
-        }
-
-        function swapSelect(divElement) {
-            var dataToggle = divElement.children[0].getAttribute("data-toggle");
-
-            var queryFrame = divElement.closest('.query-frame');
-            var selectMain = queryFrame.querySelector('.select-main');
-
-            var selectMainInnerHTML = selectMain.innerHTML;
-            selectMain.innerHTML = divElement.innerHTML;
-            // divElement.innerHTML = selectMainInnerHTML ;
-
-            var contentDiv = queryFrame.querySelector('.query-content');
-            // set the direct children to be visible if id = select-dataToggle
-            var children = contentDiv.children;
-            for (var i = 0; i < children.length; i++) {
-                var child = children[i];
-                if (child.parentElement !== contentDiv) {
-                    continue;
-                }
-                if (child.classList.contains("select-" + dataToggle)) {
-                    child.style.display = "block";
-                } else {
-                    child.style.display = "none";
-                }
-            }
-        }
-
-        function initQueryFrame() {
-            const swapSelections = document.querySelectorAll('.swap-select');
-            // Add a click event handler to each element
-            swapSelections.forEach(function (element) {
-                element.addEventListener('click', function () {
-                    swapSelect(element);
-                });
-            })
-
-            // get all elements of class dataset-select
-            const datasetSelect = document.querySelectorAll('.dataset-select');
-            // Add a click event handler to each element
-            datasetSelect.forEach(function (element) {
-                element.addEventListener('click', function () {
-                    var queryFrame = element.closest('.query-frame');
-                    var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="dataset"]');
-                    elementsWithDatasetAttribute.forEach(function (element_) {
-                        element_.innerText = element.value;
-                    });
-                });
-            });
-            // get all elements of class time-range-select
-            const timeRangeSelect = document.querySelectorAll('.time-range-select');
-            // Add a click event handler to each element
-            timeRangeSelect.forEach(function (element) {
-                console.log(element);
-                console.log(element.value);
-                element.addEventListener('click', function () {
-                    var queryFrame = element.closest('.query-frame');
-                    var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-interval"]');
-                    elementsWithDatasetAttribute.forEach(function (element_) {
-                        element_.innerText = element.value;
-                    });
-                });
-            });
-
-            //handle sub-select
-            const swapSubSelections = document.querySelectorAll('.swap-sup-select');
-            // Add a click event handler to each element
-            swapSubSelections.forEach(function (element) {
-                element.addEventListener('click', function () {
-                    var queryFrame = element.closest('.dropdown');
-                    var selectMain = queryFrame.querySelector('.sub-select-main');
-                    var selectMainInnerHTML = selectMain.innerHTML;
-                    selectMain.innerHTML = element.innerHTML;
-                    //element.innerHTML = selectMainInnerHTML;
-
-                });
-            })
-
-            //handle query submit
-            const querySubmit = document.querySelectorAll('.query-submit');
-            // Add a click event handler to each element
-            querySubmit.forEach(function (element) {
-                element.addEventListener('click', function (event) {
-                    event.preventDefault()
-                    var queryFrame = element.closest('.query-frame');
-                    //update time stamp
-                    set_time_stamp(element);
-                })
-            })
-
-
-            $('.form-info').popover({
-                placement: 'top', // Set the popover placement
-                trigger: 'hover', // Trigger the popover when the element is focused
-                content: function () {
-                    return $(this).data('content'); // Get the content from the data attribute
-                },
-            });
-
-            extractRangeAttributes()
-            extractRangeAttributes("slider-sensors", [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 11, {})
-            extractRangeAttributes("slider-stations", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, {})
-
-        }
-
-
-    </script>
-
-    <style>
-        .form-info {
-            display: inline-block; /* Make the div inline */
-            margin-bottom: 3px;
-            vertical-align: middle;
-        {#overflow: hidden;#}
-
-
-        }
-
-        .row {
-            display: flex;
-        {#align-items: top; /* To vertically center the content */#}
-        }
-
-        .ticks > * {
-            font-size: 9px;
-        {#font-style: revert;#}
-        }
-
-        .popover {
-            font-size: 12px;
-            font-style: italic;
-        }
-    </style>
+    {% include "offline_queries_script.html" %}
+    {% include "offline_queries_css.html" %}
 
 
     <div class="row">
@@ -250,7 +13,7 @@
             {# horizontal line  #}
             <hr style="margin-bottom: 5px;margin-top: 5px;margin-left: -10px">
         </div>
-          <div class="header col-md-6">
+        <div class="header col-md-6">
             <h4 style="margin-left: 10px"> Query Variation</h4>
             {# horizontal line  #}
             <hr style="margin-bottom: 5px;margin-top: 5px">
@@ -272,28 +35,125 @@
         }
 
     </style>
-    <button id="add-query-button">Add Query <i  class="mdi mdi-plus"></i></button>
+    <button id="add-query-button">Add Query <i class="mdi mdi-plus"></i></button>
     <script>
-
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
         const timeStamp =  {{ time_stamps|safe }};
-        // create new div in side query-frame-holder and set its innerHTML to queryFrameContent
-        var queryFrameHolder = document.getElementById("query-frame-holder");
-        var newDiv = document.createElement("div");
-        newDiv.innerHTML = queryFrameContent;
-        queryFrameHolder.appendChild(newDiv);
-        initQueryFrame();
-
-        // add on click to add query button
-        var addQueryButton = document.getElementById("add-query-button");
-        addQueryButton.addEventListener("click", function () {
-            initQueryFrame();
-            var newDiv = document.createElement("div");
-            newDiv.innerHTML = queryFrameContent;
-            queryFrameHolder.appendChild(newDiv);
-            initQueryFrame();
+        const queryFetchUrl = '{% url "offline-queries" %}';
+        var csrfToken = "{{ csrf_token }}"
+    </script>
+    <button id="fetchButton">Evaluate Queries</button>
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', function () {
+            fetch(queryFetchUrl, {
+                method: 'POST',
+                body: JSON.stringify({query: 'Your query data here'}),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success: ', data)
+                    // Process the fetched data and update the 'result' element
+                    var resultElement = document.getElementById('result');
+                    resultElement.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Fetch error: ', error);
+                });
         });
     </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <div id="chart-container" style="width: 600px; height: 400px;margin-top: 40px"></div>
+    <script>
+        var chart;
+        var seriesData = [];
+
+        document.getElementById('fetchButton').addEventListener('click', function () {
+            // Simulate fetching new data (e.g., via AJAX or any other data source)
+            var newQData = {
+                Q1: {
+                    'influx': 1,
+                    'questdb': 3,
+                    'timescaledb': 2,
+                    'monetdb': 4,
+                    'extremedb': 2,
+                    'clickhouse': 6,
+                    'druid': 7
+                },
+                Q2: {
+                    'influx': 3,
+                    'questdb': 4,
+                    'timescaledb': "not run",
+                    'monetdb': 1,
+                    'extremedb': 2,
+                    'clickhouse': 3,
+                    'druid': 4
+                }
+            }
+            // Add more dynamic data as needed
 
 
+            // Update the chart with the new data
+            updateChart(newQData);
+        });
+
+        // Function to create or update the Highcharts chart
+        function createChart() {
+            chart = Highcharts.chart('chart-container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Systems Runtime'
+                },
+                xAxis: {
+                    categories: ["Influx", "questdb", "Timescaledb", "monetdb", "extremedb", "clickhouse", "druid"]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Time (ms)'
+                    }
+                },
+                {#legend: {#}
+                {#    reversed: true#}
+                {# },#}
+                plotOptions: {
+                    series: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [{
+                    name: "placeholder",
+                    data: [0, 0, 0, 0, 0, 0, 0],
+                    showInLegend: false
+                }]
+            });
+        }
+
+        createChart();
+
+        // Function to update the chart data
+        function updateChart(newData) {
+            if (!chart) {
+                createChart(newData);
+            } else {
+                Object.keys(newData).forEach(query => {
+                    const query_runtime = newData[query];
+                    console.log(query_runtime);
+                    console.log(query);
+                    // add series to chart
+                    chart.addSeries({
+                        name: query,
+                        data: [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid],
+                        showInLegend: true
+                    }, false);
+                })
+                chart.redraw();
+            }
+        }
+    </script>
 {% endblock %}

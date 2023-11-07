@@ -1,7 +1,7 @@
 ##offlien query view
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.template.loader import render_to_string
 from django.views import View
@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateResponseMixin
 from django.db import connection
 from django.db import connections
 from django.db import models
-
+from utils.CONSTANTS import INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE, DRUID
 
 time_stamps_options = [
     "2019-03-01T00:00:00",
@@ -37,10 +37,12 @@ class OfflineQueryView(View):
 
     def post(self, request):
         query = request.POST.get('query')
-        print(query)
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            row = cursor.fetchall()
-            print(row)
-            self.context['rows'] = row
-        return HttpResponse(self.template.render(self.context, request))
+
+        #test data for now
+        data = { INFLUX : 1 , QUESTDB  : 3 , TIMESCALEDB : 2 , MONETDB : 4 , EXTREMEDB : 5 , CLICKHOUSE : 6 , DRUID : 7}
+        print(data)
+
+        self.context["data"] = data
+        # return json respone
+        return JsonResponse(data)
+
