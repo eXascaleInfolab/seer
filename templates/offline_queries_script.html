@@ -12,7 +12,7 @@
                                         5: "Month"
                                     }
     ) {
-
+        //bind the slider
         $("." + class_).each(function () {
             const this_ = this
             if (!$(this).hasClass("ui-slider")) {
@@ -25,11 +25,14 @@
                     slide: function (event, ui) {
                         // search for closest data-type="time-interval" and update its value
                         var queryFrame = $(this_).closest('.query-frame');
-                        console.log("THIS", this_)
-                        console.log("EEEE", queryFrame)
-                        console.log(queryFrame)
+                        {#console.log("THIS", this_)#}
+                        {#console.log("EEEE", queryFrame)#}
+                        {#console.log(queryFrame)#}
                         var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
-                        console.log(elementsWithDatasetAttribute)
+                        console.log(class_, ui.value)
+                        {#console.log(elementsWithDatasetAttribute)#}
+                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value-1]);
+
                         if (value_map[ui.value] === undefined) {
                             return
                         }
@@ -94,6 +97,7 @@
         elementsWithDatasetAttribute.forEach(function (element_) {
             element_.innerText = timeStamp;
         });
+        queryFrame.find('[data-link="time-stamp"]').val(timeStamp);
     }
 
     function swapSelect(divElement) {

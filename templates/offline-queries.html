@@ -42,7 +42,7 @@
         const queryFetchUrl = '{% url "offline-queries" %}';
         var csrfToken = "{{ csrf_token }}"
     </script>
-    <button id="fetchButton">Evaluate Queries</button>
+    <button id="fetchButton" style="margin-left: 20px">Evaluate</button>
     <script>
         document.getElementById('fetchButton').addEventListener('click', function () {
             fetch(queryFetchUrl, {
@@ -107,7 +107,7 @@
                     type: 'column'
                 },
                 title: {
-                    text: 'Systems Runtime'
+                    text: 'Runtime'
                 },
                 xAxis: {
                     categories: ["Influx", "questdb", "Timescaledb", "monetdb", "extremedb", "clickhouse", "druid"]

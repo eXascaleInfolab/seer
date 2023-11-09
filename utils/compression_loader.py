@@ -22,6 +22,9 @@ def load_compression_data_sets():
         data_sets[compression_type] = data_sets.get(compression_type, {})
         if file.endswith('.csv') and compression_type in compression_types:
             pandas_df = pd.read_csv(os.path.join(path, file))
+            n, m = pandas_df.shape
+            pandas_df = pandas_df.iloc[:min(n,500),:10]
+            print(pandas_df)
             data_sets[compression_type][compression_identifier] = df_to_highcharts(pandas_df)
     return data_sets
 

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views import View
 
@@ -33,12 +33,12 @@ class CompressionView(View):
         self.context['compression_data'] = json.dumps(compression_data, cls=NumpyEncoder)
         return HttpResponse(self.template.render(self.context, request))
 
-    def post(self, request):
-        query = request.POST.get('query')
-        print(query)
-        with connection.cursor() as cursor:
-            cursor.execute(query)
-            row = cursor.fetchall()
-            print(row)
-            self.context['rows'] = row
-        return HttpResponse
+    # def post(self, request):
+    #     print("POSTING COMPRESSION VIEW")
+    #     data_set = request.POST.get('data_set')
+    #     data_type = request.POST.get('data_type')
+    #
+    #     # load_dataset
+    #     data_sets = load_compression_data_sets()
+    #
+    #     return JsonResponse(data)

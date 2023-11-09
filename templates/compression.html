@@ -2,61 +2,73 @@
 
 
 {% block content %}
-    <section>
-        <h2>Scarcity </h2>
-        <div id="btns-scarsity">
-            <!-- Add buttons or content here -->
-        </div>
-        <div id="data-container-scarsity">
-            <!-- Add charts for data here -->
-        </div>
-        <div id="compression-container-scarsity">
-            <!-- Add charts for compression data here -->
-        </div>
-    </section>
+    <style>
+        .row {
+            display: flex;
 
-    <section>
-        <h2>Delta </h2>
-        <div id="btns-delta">
-            <!-- Add buttons or content here -->
-        </div>
-        <div id="data-container-delta">
-            <!-- Add charts for data here -->
-        </div>
-        <div id="compression-container-delta">
-            <!-- Add charts for compression data here -->
-        </div>
-    </section>
+        }
+    </style>
+    <div class="row">
+        <div class="col-md-8">
+            <h4> DATA </h4>
+            <div id="data-container">
+                <!-- Add charts for data here -->
+            </div>
 
-    <section>
-        <h2>Outliers </h2>
-        <div id="btns-outliers">
-            <!-- Add buttons or content here -->
         </div>
-        <div id="data-container-outliers">
-            <!-- Add charts for data here -->
-        </div>
-        <div id="compression-container-outliers">
-            <!-- Add charts for compression data here -->
-        </div>
-    </section>
+        <div class="col-md-4">
+            {# form with dropdown options scarsity and repeats #}
+            <form id="myForm">
+                <label for="dataType">Data Type:</label>
+                <select id="dataType" name="dataType" onchange="handleFormSubmit(event)">
+                    <option value="" disabled selected>Select</option>
 
+                    <option value="scarsity">Scarsity</option>
+                    <option value="repeats">Repeats</option>
+                </select>
+                {#                <button type="submit">Submit</button>#}
+
+                <div></div>
+                <div id="level-dropdown">
+                </div>
+            </form>
+            <div id="compression-container">
+                <!-- Add charts for compression data here -->
+            </div>
+
+            <!-- Script to handle form submission -->
+            <script>
+                function handleFormSubmit(event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    // Get the selected value from the dropdown
+                    const selectedValue = document.getElementById('dataType').value;
+                    console.log("AAA", selectedValue);
+                    // Perform actions based on the selected value
+                    if (selectedValue === 'scarsity') {
+                        scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
+                        // Add your code for the 'scarsity' option
+                    } else if (selectedValue === 'repeats') {
+                        scarsityManager = new CompressionManager('repeats', compression_data_sets['repeats']);
+                        // Add your code for the 'repeats' option
+                    }
+                }
+            </script>
+
+        </div>
+    </div>
 
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
     {% include "compressionCode.html" %}
     <script>
+        let AAAAA = 0;
         const compression_data_sets = {{ compression_data|safe }};
 
-        let dataType = 'scarsity';
-        let data = compression_data_sets[dataType]
+        let dataType = 'repeats';
+        {#let data = compression_data_sets[dataType]#}
 
-        scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
-
-        // create hightchart
-        deltaManager = new CompressionManager('delta', compression_data_sets['delta']);
-
-        outliersManager = new CompressionManager('outliers', compression_data_sets['outliers']);
+        let scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity'] , "");
 
     </script>
 {% endblock %}

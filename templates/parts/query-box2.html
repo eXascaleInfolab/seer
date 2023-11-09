@@ -78,7 +78,7 @@
                        aria-haspopup="true" aria-expanded="false">
                     </a>
                     <li><a class="swap-select">
-                        <div data-toggle="1" data>time, &lt;sensor_list&gt;</div>
+                        <div data-toggle="1" data>time, &lt;s_list&gt;</div>
                     </a></li>
                     <li><a class="swap-select">
                         <div data-toggle="2"> AVG(s_i)...AVG(s_j)</div>
@@ -87,10 +87,10 @@
                         <div data-toggle="3"> time , AVG(s_i)...AVG(s_j)</div>
                     </a></li>
                     <li><a class="swap-select">
-                        <div data-toggle="4"> time, sensor_i, sensor_j, AVG(sensor_i, sensor_j)</div>
+                        <div data-toggle="4"> time, s_i, s_j, AVG(s_i, s_j)</div>
                     </a></li>
                     <li><a class="swap-select">
-                        <div data-toggle="5"> CORR(sensor_i, sensor_j)</div>
+                        <div data-toggle="5"> CORR(s_i, s_j)</div>
                     </a></li>
                 </ul>
             </div>
@@ -162,7 +162,7 @@
                         <li><a class="swap-sup-select">
                             <div class="row">
                                 <div class="sql-bold"> AND</div>
-                                &nbsp sensor_0 > 0.95;
+                                &nbsp s_0 > 0.95;
                             </div>
                         </a></li>
                         <li><a class="swap-sup-select">
@@ -193,27 +193,35 @@
         </div>
     </div>
     <div class="col-md-4">
-        <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
-            <div class="form-group">
-                <label for="station-slider">Number of Stations
-                    {% include "parts/info.html" with text="Number of stations container in <stations_list>" %}
-                </label>
-                {% include "parts/slider.html" with id="stations" %}
-            </div>
-            <div class="form-group">
-                <label for="sensor-slider">Number of Sensors
-                    {% include "parts/info.html" with text="Number of sensors container in <sensor_list>" %}
-                </label>
-                {#                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"#}
-                {#                       step="1" onchange="updateSensorCount(this.value)">#}
-                {% include "parts/slider.html" with id="sensors" %}
-
-            </div>
-            <label for="sensor-slider">Time Interval
-                {% include "parts/info.html" with text="Time Intervall to query over." %}
+        <div class="form-group">
+            <label for="station-slider">Number of Stations
+                {% include "parts/info.html" with text="Number of stations container in <stations_list>" %}
             </label>
-            {% include "parts/slider.html" with id="time" %}
+            {% include "parts/slider.html" with id="stations" %}
+        </div>
+        <div class="form-group">
+            <label for="sensor-slider">Number of Sensors
+                {% include "parts/info.html" with text="Number of sensors container in <sensor_list>" %}
+            </label>
+            {#                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"#}
+            {#                       step="1" onchange="updateSensorCount(this.value)">#}
+            {% include "parts/slider.html" with id="sensors" %}
+
+        </div>
+        <label for="sensor-slider">Time Interval
+            {% include "parts/info.html" with text="Time Intervall to query over." %}
+        </label>
+        {% include "parts/slider.html" with id="time" %}
+        <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
+
             <button class="btn btn-primary query-submit" onclick="submitQuery()">Generate</button>
+
+            {# create 3 hidden fields to store the values of the sliders #}
+            <input type="hidden" data-link="slider-stations" name="stations" value="1">
+            <input type="hidden" data-link="slider-sensors" name="sensors" value="1">
+            <input type="hidden" data-link="slider-time" name="time" value="Min">
+            <input type="hidden" data-link="time-stamp" name="time-stamp" value="0">
+
         </form>
     </div>
 </div>

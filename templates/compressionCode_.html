@@ -1,0 +1,165 @@
+<script>
+
+    class CompressionManager {
+        constructor(dataType, data, title = null) {
+            this.title = title;
+            if (this.title == null) {
+                this.title = dataType;
+            }
+
+            this.dataType = dataType;
+            this.data = data;
+            this.levels = Object.keys(data);
+            this.currentLevel = this.levels[0];
+
+            this.initialDataSet = data[this.currentLevel]["data"];
+            this.initialCompression = data[this.levels[0]]["compression"]
+
+            this.chartTime = this.initialDataSet["time"].map((time) => {
+                return Date.parse(time);
+            });
+
+            this.initializeCharts();
+            this.createButtons();
+        }
+
+        initializeCharts() {
+            console.log(this.dataType);
+            console.log(`data-container-${this.dataType}`);
+            this.dataChart = Highcharts.chart(`data-container-${this.dataType}`, {
+                chart: {
+                    type: 'line',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: this.title
+                },
+                xAxis: {
+                    type: 'datetime',
+
+                },
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    }
+                }
+                ,
+                series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
+                    name: 'Sensor 1',
+                    id: 's0',
+                    data: this.chartTime.map((time, index) => {
+                        return [time, this.initialDataSet['s0'][index]]
+                    })
+                },
+                    {
+                        name: 'Sensor 2',
+                        id: 's1',
+                        data: this.chartTime.map((time, index) => {
+                            return [time, this.initialDataSet['s1'][index]]
+                        })
+                    },
+                    {
+                        name: 'Sensor 3',
+                        id: 's2',
+                        data: this.chartTime.map((time, index) => {
+                            return [time, this.initialDataSet['s2'][index]]
+                        })
+                    }]
+            });
+
+            const compressionManager = this;
+
+            this.compressionChart = Highcharts.chart(`compression-container-${this.dataType}`, {
+                chart: {
+                    type: 'line',
+                },
+                plotOptions: {
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function () {
+                                    compressionManager.setLevel(this.category) // "this" from outer scope
+                                }
+                            }
+                        }
+                    }
+                },
+                title: {
+                    text: 'Compression'
+                },
+                xAxis: {
+                    categories: this.levels,
+                    labels: {
+                        allowOverlap: true,
+                        padding: 0,
+                        events: {
+                            click: (e) => {
+                                this.setLevel(e.target.value);
+                            }
+                        },
+                    },
+                },
+                series: Object.keys(this.initialCompression).map(system => {
+                    return {
+                        name: system,
+                        data: [this.initialCompression[system]]
+                    }
+                })
+            });
+        }
+
+        createButtons() {
+            // Create buttons for changing chart levels
+            // Include a "Play" button to loop through levels
+
+            const playButton = document.createElement('button');
+            playButton.innerHTML = 'Play';
+            playButton.onclick = () => this.playChart();
+
+            document.getElementById(`btns-${this.dataType}`).appendChild(playButton);
+
+            for (const level of this.levels) {
+                const levelButton = document.createElement('button');
+                levelButton.innerHTML = level;
+                levelButton.onclick = () => this.setLevel(level);
+
+                document.getElementById(`btns-${this.dataType}`).appendChild(levelButton);
+            }
+        }
+
+        async delay(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+
+        async playChart() {
+            this.initializeCharts();
+            for (const level of this.levels) {
+                await this.delay(1000); // Wait for 1 second
+                this.setLevel(level);
+                this.compressionChart.series.forEach((series) => {
+                    series.addPoint(this.data[level]["compression"][series.name]);
+                });
+            }
+        }
+
+        setLevel(level) {
+            this.currentLevel = level;
+
+            // Update the charts based on the current level
+            const newData = this.data[level]["data"];
+            for (const sensor of Object.keys(newData)) {
+                if (sensor === 'time') continue;
+                try {
+                    const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
+                    this.dataChart.get(sensor).setData(newChartData);
+                } catch (e) {
+                    console.log(sensor);
+                    console.log(e);
+                }
+            }
+        }
+    }
+
+
+</script>

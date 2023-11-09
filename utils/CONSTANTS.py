@@ -8,5 +8,5 @@ CLICKHOUSE = "clickhouse"
 
 SYSTEMS  = (DRUID, QUESTDB, CLICKHOUSE, INFLUX, TIMESCALEDB, MONETDB, EXTREMEDB)
 
-compression_types = ('repeats', 'delta', 'scarsity' , "outliers")
+compression_types = ('repeats', 'scarsity')#'delta' , "outliers"
 compressed_systems = (TIMESCALEDB, DRUID, CLICKHOUSE, INFLUX)

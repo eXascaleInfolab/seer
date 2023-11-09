@@ -26,7 +26,7 @@
         initializeCharts() {
             console.log(this.dataType);
             console.log(`data-container-${this.dataType}`);
-            this.dataChart = Highcharts.chart(`data-container-${this.dataType}`, {
+            this.dataChart = Highcharts.chart(`data-container`, {
                 chart: {
                     type: 'line',
                     zoomType: 'x'
@@ -69,9 +69,9 @@
 
             const compressionManager = this;
 
-            this.compressionChart = Highcharts.chart(`compression-container-${this.dataType}`, {
+            this.compressionChart = Highcharts.chart(`compression-container`, {
                 chart: {
-                    type: 'line',
+                    type: 'column',
                 },
                 plotOptions: {
                     series: {
@@ -86,10 +86,15 @@
                     }
                 },
                 title: {
-                    text: 'Compression'
+                    text: ''
+                },
+                yAxis: {
+                    title: {
+                        text: 'Compression (KB)'
+                    }
                 },
                 xAxis: {
-                    categories: this.levels,
+                    categories: ["clickhouse","druid","influx","timescaledb"],
                     labels: {
                         allowOverlap: true,
                         padding: 0,
@@ -110,22 +115,27 @@
         }
 
         createButtons() {
-            // Create buttons for changing chart levels
-            // Include a "Play" button to loop through levels
+            const dropdown = document.createElement('select');
+            dropdown.id = `inside-dropdown`;
+            dropdown.addEventListener('change', (event) => this.setLevel(event.target.value));
 
-            const playButton = document.createElement('button');
-            playButton.innerHTML = 'Play';
-            playButton.onclick = () => this.playChart();
-
-            document.getElementById(`btns-${this.dataType}`).appendChild(playButton);
+            const defaultOption = document.createElement('option');
+            defaultOption.text = 'Select Level';
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            dropdown.add(defaultOption);
 
             for (const level of this.levels) {
-                const levelButton = document.createElement('button');
-                levelButton.innerHTML = level;
-                levelButton.onclick = () => this.setLevel(level);
-
-                document.getElementById(`btns-${this.dataType}`).appendChild(levelButton);
+                const levelOption = document.createElement('option');
+                levelOption.value = level;
+                levelOption.text = level;
+                dropdown.add(levelOption);
             }
+            const levelDropdown = document.getElementById('level-dropdown');
+            levelDropdown.innerHTML = '';
+
+            levelDropdown.appendChild(dropdown);
+
         }
 
         async delay(ms) {
@@ -137,9 +147,7 @@
             for (const level of this.levels) {
                 await this.delay(1000); // Wait for 1 second
                 this.setLevel(level);
-                this.compressionChart.series.forEach((series) => {
-                    series.addPoint(this.data[level]["compression"][series.name]);
-                });
+
             }
         }
 
@@ -158,6 +166,10 @@
                     console.log(e);
                 }
             }
+            this.compressionChart.series.forEach((series) => {
+                series.setData([this.data[level]["compression"][series.name]]);
+                {#series.addPoint(this.data[level]["compression"][series.name]);#}
+            });
         }
     }
 
