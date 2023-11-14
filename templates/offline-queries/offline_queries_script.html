@@ -31,7 +31,7 @@
                         var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
                         console.log(class_, ui.value)
                         {#console.log(elementsWithDatasetAttribute)#}
-                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value-1]);
+                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1]);
 
                         if (value_map[ui.value] === undefined) {
                             return
@@ -173,8 +173,10 @@
                 var selectMain = queryFrame.querySelector('.sub-select-main');
                 var selectMainInnerHTML = selectMain.innerHTML;
                 selectMain.innerHTML = element.innerHTML;
-                //element.innerHTML = selectMainInnerHTML;
-
+                //trim white space
+                var elementValue = element.innerHTML.replace(/\s/g, '');
+                console.log("elementValue", elementValue)
+                selectMain.setAttribute("data-value", elementValue);
             });
         })
 
@@ -205,23 +207,130 @@
 
     }
 
+    {#var queryFrameHolder = null#}
 
-    $(document).ready(function () {
-        var queryFrameHolder = document.getElementById("query-frame-holder");
-        var newDiv = document.createElement("div");
-        newDiv.innerHTML = queryFrameContent;
-        queryFrameHolder.appendChild(newDiv);
-        initQueryFrame();
-
-        // add on click to add query button
-        var addQueryButton = document.getElementById("add-query-button");
-        addQueryButton.addEventListener("click", function () {
-            initQueryFrame();
+    const QueryHandler = {
+        queryFrames: [],
+        addQuery: function () {
+            if (this.queryFrames.length > 0) { //only works every other time shomehow after the first query
+                initQueryFrame();
+            }
             var newDiv = document.createElement("div");
             newDiv.innerHTML = queryFrameContent;
-            queryFrameHolder.appendChild(newDiv);
+            this.queryFrames.push(newDiv);
+            document.getElementById("query-frame-holder").appendChild(newDiv);
             initQueryFrame();
-        });
-    });
+            // enable all Freuquency inputs
+            if (this.queryFrames.length > 1) {
+                var frequencyInputs = document.getElementsByClassName("frequency-input")
+                for (var i = 0; i < frequencyInputs.length; i++) {
+                    frequencyInputs[i].disabled = false
+                    if (i === frequencyInputs.length - 1) {
+                        frequencyInputs[i].value = 0
+                    }
+                }
+            }
 
+        },
+
+        reset: function () {
+            this.queryFrames.forEach(function (queryFrame) {
+                queryFrame.remove();
+                console.log("removed", queryFrame)
+            })
+            this.queryFrames = [];
+            this.addQuery()
+        },
+
+        getFrameValues() {
+            return this.queryFrames.map(function (queryFrame) {
+                // get data-toggle value inside .select-main
+                const projectionValue = queryFrame.querySelector('.select-main').querySelector('div').getAttribute('data-toggle')
+
+                console.log("projectionValue", projectionValue)
+
+                const dataSetValue = queryFrame.querySelector('.data-select-main').getAttribute('data-value')
+                return {
+                    projection: projectionValue,
+                    dataset: dataSetValue
+                }
+            })
+        },
+
+        checkFrameValues() {
+            // delete old error messages
+            var error_messages = document.getElementsByClassName("query-error-message")
+            for (var i = 0; i < error_messages.length; i++) {
+                error_messages[i].remove()
+            }
+            var frame_values = this.getFrameValues()
+            // iterate frame values with index
+            var error_message = ""
+            for (var i = 0; i < frame_values.length; i++) {
+                var frame_value = frame_values[i];
+                // check if projection is set
+                if (frame_value.projection === "0") {
+                    error_message = "Please select a projection for query " + (i + 1) + "\n"
+                }
+                // check if dataset is set
+                if (frame_value.dataset === "Dataset") {
+                    error_message += "Please select a dataset for query " + (i + 1)
+                }
+                if (error_message !== "") {
+                    // create red error message below fetchButton
+                    var error_message_div = document.createElement("div")
+                    error_message_div.classList.add("alert")
+                    error_message_div.classList.add("alert-danger")
+                    error_message_div.setAttribute("role", "alert")
+                    error_message_div.classList.add("query-error-message")
+                    error_message_div.innerText = error_message
+                    document.getElementById("fetchButton").insertAdjacentElement("afterend", error_message_div)
+
+                    return false
+                }
+            }
+
+            return true
+        },
+
+        checkFrequencies() {
+            var frequencyInputs = document.getElementsByClassName("frequency-input")
+            var total_value = 0
+            for (var i = 0; i < frequencyInputs.length; i++) {
+                total_value += parseInt(frequencyInputs[i].value)
+            }
+            if (total_value !== 100) {
+                var error_message_div = document.createElement("div")
+                error_message_div.classList.add("alert")
+                error_message_div.classList.add("alert-danger")
+                error_message_div.setAttribute("role", "alert")
+                error_message_div.classList.add("query-error-message")
+                error_message_div.innerText = "Frequencies must add up to 100%"
+                document.getElementById("fetchButton").insertAdjacentElement("afterend", error_message_div)
+                return false
+            }
+            return true
+        }
+    };
+
+
+    $(document).ready(function () {
+        QueryHandler.addQuery()
+
+        // add on click to add query button
+        document.getElementById("add-query-button")
+            .addEventListener("click", function () {
+                QueryHandler.addQuery();
+            });
+        document.getElementById("reset-query-button")
+            .addEventListener("click", function () {
+                QueryHandler.reset();
+            });
+        document.getElementById("fetchButton")
+            .addEventListener("click", function () {
+                console.log("fetchButton clicked")
+                QueryHandler.checkFrameValues();
+                QueryHandler.checkFrequencies();
+            });
+    });
 </script>

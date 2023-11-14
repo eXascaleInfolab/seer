@@ -37,9 +37,9 @@ class OfflineQueryView(View):
     def get(self, request):
         import random
         random.seed(1)
-        template = loader.get_template('offline-queries.html')
+        template = loader.get_template('offline-queries/offline-queries.html')
 
-        self.context["query_frame"] = render_to_string('parts/query-box2.html', {})
+        self.context["query_frame"] = render_to_string('offline-queries/query-box2.html', {})
         self.context["time_stamps"] = random.sample(time_stamps_options*100,100)
         return HttpResponse(template.render(self.context, request))
 

@@ -55,6 +55,7 @@
     .query-content > * {
         display: none;
     }
+
 </style>
 
 
@@ -68,7 +69,7 @@
                      aria-expanded="false">
                     <div class="select_">
                         <div class="select-main">
-                            <div class="swap-select" data-toggle="0"> Projection</div>
+                            <div data-toggle="0"> Projection</div>
                         </div>
                         <span class="caret"></span>
                     </div>
@@ -77,8 +78,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                     </a>
-                    <li><a class="swap-select">
-                        <div data-toggle="1" data>time, &lt;s_list&gt;</div>
+                    <li><a class="swap-select" >
+                        <div data-toggle="1">time, &lt;s_list&gt;</div>
                     </a></li>
                     <li><a class="swap-select">
                         <div data-toggle="2"> AVG(s_i)...AVG(s_j)</div>
@@ -103,7 +104,7 @@
                         <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
                              aria-expanded="false">
                             <div class="select_">
-                                <div class="sub-select-main">
+                                <div class="sub-select-main data-select-main" data-value="Dataset">
                                     <div class=row" data-toggle="2">&nbsp;Dataset</div>
                                 </div>
                                 <span class="caret"></span>
@@ -112,13 +113,13 @@
                         <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                      aria-haspopup="true" aria-expanded="false">
                         </a>
-                            <li><a class="swap-sup-select">
-                                <div class="row">
-                                    <div> d1</div>
-                                </div>
+                            <li><a class="swap-sup-select row">
+
+                                     d1
+
                             </a></li>
-                            <li><a class="swap-sup-select">
-                                <div class="row"> d2</div>
+                            <li><a class="swap-sup-select row">
+                                     d2
                             </a></li>
                         </ul>
                     </div>
@@ -190,6 +191,11 @@
                     &nbsp; 1H;
                 </div>
             </div>
+        </div>
+
+        <div class="row query-frequency" style="margin-top: 20px">
+            <label for="frequencyInput">Frequency(%):</label>
+            <input type="number" class="frequency-input" name="frequency" min="1" max="100" value="100" style="width: 50px;" disabled>
         </div>
     </div>
     <div class="col-md-4">

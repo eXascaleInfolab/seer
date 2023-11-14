@@ -2,9 +2,10 @@
 {% load static %}
 
 {% block content %}
+    {% include "parts/infoButton.html" %}
 
-    {% include "offline_queries_script.html" %}
-    {% include "offline_queries_css.html" %}
+    {% include "offline-queries/offline_queries_script.html" %}
+    {% include "offline-queries/offline_queries_css.html" %}
 
 
     <div class="row">
@@ -36,6 +37,9 @@
 
     </style>
     <button id="add-query-button">Add Query <i class="mdi mdi-plus"></i></button>
+
+    <button id="reset-query-button" style="margin-left: 20px">Reset Queries <i class="mdi mdi-reload"></i></button>
+
     <script>
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
         const timeStamp =  {{ time_stamps|safe }};
@@ -118,9 +122,6 @@
                         text: 'Time (ms)'
                     }
                 },
-                {#legend: {#}
-                {#    reversed: true#}
-                {# },#}
                 plotOptions: {
                     series: {
                         stacking: 'normal'
