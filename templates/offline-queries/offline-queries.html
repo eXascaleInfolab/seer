@@ -2,21 +2,30 @@
 {% load static %}
 
 {% block content %}
-    {% include "parts/infoButton.html" %}
 
+    <style>
+        .query-composition {
+            font-size: 20px;
+        }
+    </style>
+    <button id="reset-query-button" style="position: absolute ; transform: translateX(-70px)"><i
+            class="mdi mdi-reload mdi-24px"></i></button>
+
+    {% include "offline-queries/slider-script.html" %}
     {% include "offline-queries/offline_queries_script.html" %}
     {% include "offline-queries/offline_queries_css.html" %}
 
 
     <div class="row">
-        <div class="header col-md-4">
+        <div class="header col-md-6">
+            {#            {% include "parts/infoButton.html" %}#}
             <h4> Query Composition</h4>
+
             {# horizontal line  #}
             <hr style="margin-bottom: 5px;margin-top: 5px;margin-left: -10px">
         </div>
         <div class="header col-md-6">
             <h4 style="margin-left: 10px"> Query Variation</h4>
-            {# horizontal line  #}
             <hr style="margin-bottom: 5px;margin-top: 5px">
         </div>
     </div>
@@ -36,9 +45,21 @@
         }
 
     </style>
-    <button id="add-query-button">Add Query <i class="mdi mdi-plus"></i></button>
 
-    <button id="reset-query-button" style="margin-left: 20px">Reset Queries <i class="mdi mdi-reload"></i></button>
+
+    <button id="fetchButton" style="margin-left: 20px">Evaluate</button>
+
+    <button id="add-query-button">Add Query<i class="mdi mdi-plus"></i></button>
+
+    <div id="frequency-selection" style="margin-top: 10px" class="row">
+        <div>
+            <div style="text-align: center; font-weight: bold;">Query:</div>
+            <div style="margin-right: 15px; margin-top: 7px; font-weight: bold;">Frequencies(%):</div>
+        </div>
+        <div id="frequency-query" class="row">
+        </div>
+    </div>
+
 
     <script>
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
@@ -46,7 +67,8 @@
         const queryFetchUrl = '{% url "offline-queries" %}';
         var csrfToken = "{{ csrf_token }}"
     </script>
-    <button id="fetchButton" style="margin-left: 20px">Evaluate</button>
+
+
     <script>
         document.getElementById('fetchButton').addEventListener('click', function () {
             fetch(queryFetchUrl, {

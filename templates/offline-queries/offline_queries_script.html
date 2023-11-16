@@ -1,103 +1,75 @@
 <script>
 
     // time slider
-    function extractRangeAttributes(class_ = "slider-time",
-                                    labels = ["Min", "H", "D", "W", "M"],
-                                    n_ticks = 5,
-                                    value_map = {
-                                        1: "Minute",
-                                        2: "Hour",
-                                        3: "Day",
-                                        4: "Week",
-                                        5: "Month"
-                                    }
-    ) {
-        //bind the slider
-        $("." + class_).each(function () {
-            const this_ = this
-            if (!$(this).hasClass("ui-slider")) {
-                $(this).slider({
-                    range: "min",
-                    value: 1,
-                    min: 1,
-                    max: n_ticks,
-                    step: 1,
-                    slide: function (event, ui) {
-                        // search for closest data-type="time-interval" and update its value
-                        var queryFrame = $(this_).closest('.query-frame');
-                        {#console.log("THIS", this_)#}
-                        {#console.log("EEEE", queryFrame)#}
-                        {#console.log(queryFrame)#}
-                        var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
-                        console.log(class_, ui.value)
-                        {#console.log(elementsWithDatasetAttribute)#}
-                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1]);
 
-                        if (value_map[ui.value] === undefined) {
-                            return
-                        }
-                        elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
-                    }
-                });
-            }
-
-
-        });
-
-        sliders = document.getElementsByClassName(class_)
-        slider = sliders[sliders.length - 1]
-
-        const ticks = slider.nextElementSibling
-
-        if (ticks.hasChildNodes()) {
-            return
-        }
-        //append grid 2 lines 5 columns
-        flexContainer = document.createElement("div")
-        flexContainer.classList.add("flex-container")
-        flexContainer.style.display = "flex"
-        flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
-
-        const flexContainer2 = flexContainer.cloneNode(true)
-
-        flexItem = document.createElement("div")
-        flexItem.classList.add("flex-item")
-        flexItem.style.flex = "1";
-        flexItem.style.border = "None";
-        flexItem.style.height = "10px";
-        flexItem.style.verticalAlign = "top";
-        flexItem.style.overflowY = "hidden";
-        flexItem.innerHTML = "<div class='vl'> </div>"
-
-        for (i in labels) {
-            var label = labels[i]
-            var flexItem2 = flexItem.cloneNode(true)
-            flexItem2.innerHTML = "<div>" + label + "</div>"
-            flexItem2.style.overflowY = "visible";
-            flexContainer2.appendChild(flexItem2)
-        }
-        for (i = 0; i < n_ticks; i++) {
-            flexContainer.appendChild(flexItem.cloneNode(true))
-        }
-        ticks.appendChild(flexContainer)
-        flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
-        flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
-        flexContainer2.style.textAlign = "center"
-        ticks.appendChild(flexContainer2)
-    }
 
     function get_random_time_stamp() {
         return timeStamp.pop()
     }
 
-    function set_time_stamp(element) {
+    function set_query_values(element) {
         var queryFrame = element.closest('.query-frame');
+        var formValues = get_slider_values(element);
+        console.log("formValues", formValues)
         var timeStamp = get_random_time_stamp();
         var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
         elementsWithDatasetAttribute.forEach(function (element_) {
             element_.innerText = timeStamp;
         });
-        queryFrame.find('[data-link="time-stamp"]').val(timeStamp);
+        {#queryFrame.find('[data-link="time-stamp"]').val(timeStamp);#}
+
+        var stations = formValues["stations"]
+        var sensors = formValues["sensors"]
+
+        // change s_i , s_j to s_1, s_2,
+        // change s_avg to s_1, s_2, s_3
+        var s_i = queryFrame.querySelectorAll('.s_i');
+        s_i.forEach(function (element) {
+            element.innerText = "s" + 1
+        })
+        var s_j = queryFrame.querySelectorAll('.s_j');
+        s_j.forEach(function (element) {
+            element.innerText = "s" + sensors
+        })
+
+        var s_avg = queryFrame.querySelectorAll('.s_avg');
+        var avgText = ""
+        if (sensors === 1) {
+            avgText = "AVG(s1)"
+        } else {
+            avgText = "AVG(s1)...AVG(s" + sensors + ")"
+        }
+        s_avg.forEach(function (element) {
+            element.innerText = avgText
+        })
+
+        var st_list = queryFrame.querySelectorAll('.st_list');
+        var st_list_text = ""
+        if (stations === 1) {
+            st_list_text = "(s1)"
+        } else if (stations === 2)  {
+            st_list_text = "(s1,s2)"
+        }
+        else {
+            st_list_text = "(s1,...,s" + stations + ")"
+        }
+        st_list.forEach(function (element) {
+            element.innerText = st_list_text
+        })
+
+        s_list = queryFrame.querySelectorAll('.s_list');
+        var s_list_text = ""
+        if (sensors === 1) {
+            s_list_text = "s1"
+        } else if (sensors === 2)  {
+            s_list_text = " s1, s2"
+        }
+        else {
+            s_list_text = "s1,...,s" + sensors + ""
+        }
+        s_list.forEach(function (element) {
+            element.innerText = s_list_text
+        })
     }
 
     function swapSelect(divElement) {
@@ -125,6 +97,7 @@
             }
         }
     }
+
 
     function initQueryFrame() {
         const swapSelections = document.querySelectorAll('.swap-select');
@@ -188,7 +161,7 @@
                 event.preventDefault()
                 var queryFrame = element.closest('.query-frame');
                 //update time stamp
-                set_time_stamp(element);
+                set_query_values(element);
             })
         })
 
@@ -207,11 +180,52 @@
 
     }
 
-    {#var queryFrameHolder = null#}
+    function addFrequencyInput(value, name) {
+        // Create a container div
+        var containerDiv = document.createElement("div");
+        containerDiv.classList.add("frequency-input-container");
+
+        // Create a label element
+        var label = document.createElement("label");
+        label.htmlFor = "frequency-input";
+        label.textContent = name;
+
+        // Set styles for centering the label
+        label.style.display = "block";
+        label.style.textAlign = "center";
+
+        // Append the label to the container div
+        containerDiv.appendChild(label);
+
+        // Create an input element
+        var input = document.createElement("input");
+        input.type = "number";
+        input.className = "frequency-input";
+        input.name = "frequency";
+        input.min = "0";
+        input.max = "100";
+        input.value = value;
+        input.style.width = "50px";
+        input.style.marginLeft = "5px"; // Add padding to the input
+
+        // Append the input to the container div
+        containerDiv.appendChild(input);
+
+        // Get the parent element where you want to append the structure
+        var parentElement = document.getElementById("frequency-query");
+
+        // Append the container div to the parent element
+        parentElement.appendChild(containerDiv);
+
+        return input;
+    }
+
 
     const QueryHandler = {
         queryFrames: [],
+        frequencyInputs: [],
         addQuery: function () {
+
             if (this.queryFrames.length > 0) { //only works every other time shomehow after the first query
                 initQueryFrame();
             }
@@ -220,16 +234,23 @@
             this.queryFrames.push(newDiv);
             document.getElementById("query-frame-holder").appendChild(newDiv);
             initQueryFrame();
-            // enable all Freuquency inputs
-            if (this.queryFrames.length > 1) {
-                var frequencyInputs = document.getElementsByClassName("frequency-input")
-                for (var i = 0; i < frequencyInputs.length; i++) {
-                    frequencyInputs[i].disabled = false
-                    if (i === frequencyInputs.length - 1) {
-                        frequencyInputs[i].value = 0
-                    }
-                }
+
+            // handle frequencies
+            var n_queries = this.queryFrames.length
+            var input = null
+            if (n_queries === 1) {
+                input = addFrequencyInput("100", "Q1")
+            } else {
+                input = addFrequencyInput("" + Math.max(0, 100 - this.frequencyInputs.reduce(function (a, b) {
+                    console.log(a, b.value)
+                    return parseInt(a) + parseInt(b.value)
+                }, 0)), "Q" + n_queries
+                )
             }
+
+
+            this.frequencyInputs.push(input)
+
 
         },
 
@@ -238,7 +259,13 @@
                 queryFrame.remove();
                 console.log("removed", queryFrame)
             })
+            // delete all frequency-input-container
+            var frequencyInputs = document.getElementsByClassName("frequency-input-container")
+            for (var i = frequencyInputs.length - 1; i >= 0; i--) {
+                frequencyInputs[i].remove()
+            }
             this.queryFrames = [];
+            this.freuquencyInputs = [];
             this.addQuery()
         },
 
@@ -263,6 +290,7 @@
             for (var i = 0; i < error_messages.length; i++) {
                 error_messages[i].remove()
             }
+
             var frame_values = this.getFrameValues()
             // iterate frame values with index
             var error_message = ""
@@ -284,9 +312,9 @@
                     error_message_div.setAttribute("role", "alert")
                     error_message_div.classList.add("query-error-message")
                     error_message_div.innerText = error_message
-                    document.getElementById("fetchButton").insertAdjacentElement("afterend", error_message_div)
-
+                    document.getElementById("frequency-selection").insertAdjacentElement("afterend", error_message_div)
                     return false
+
                 }
             }
 
@@ -306,7 +334,7 @@
                 error_message_div.setAttribute("role", "alert")
                 error_message_div.classList.add("query-error-message")
                 error_message_div.innerText = "Frequencies must add up to 100%"
-                document.getElementById("fetchButton").insertAdjacentElement("afterend", error_message_div)
+                document.getElementById("frequency-selection").insertAdjacentElement("afterend", error_message_div)
                 return false
             }
             return true
@@ -331,6 +359,7 @@
                 console.log("fetchButton clicked")
                 QueryHandler.checkFrameValues();
                 QueryHandler.checkFrequencies();
+
             });
     });
 </script>

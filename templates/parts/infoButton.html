@@ -1,34 +1,23 @@
-
-{#<style>#}
-{#    #info-text {#}
-{#        display: none;#}
-{#    }#}
-{#</style>#}
-
-
 <button id="info-button" type="button" class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> show description
+    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> show description
 </button>
 
 <div id="info-text" style="display: none">
     <p>
-         Evaluation of offline queries.
-                <br>
-
-         Select a projection and a dataset to evaluate and choosen the number of stations, sensors and the time range.
-                <br>
-
-         You can compose multiple queries and compare the results.
-                <br>
-
-         Change the query frequency to see the impact on the performance of the overall workload.
+        Evaluation of offline queries.
+        <br>
+        Select a projection and a dataset to evaluate and choosen the number of stations, sensors and the time range.
+        <br>
+        You can compose multiple queries and compare the results.
+        <br>
+        Change the query frequency to see the impact on the performance of the overall workload.
         <br>
     </p>
 </div>
 
 <script>
-    $(document).ready(function(){
-        $("#info-button").click(function(e){
+    $(document).ready(function () {
+        $("#info-button").click(function (e) {
             e.preventDefault();
             $("#info-text").toggle();
         });
