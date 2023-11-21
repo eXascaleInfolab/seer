@@ -24,13 +24,50 @@
             href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
             rel="stylesheet"
     />
+    <script>
+
+
+        Highcharts.setOptions({
+            rangeSelector: {
+                buttonTheme: {
+                    style: {
+                        fontSize: '15px'
+                    },
+                }
+            },
+            rangeSelector: {
+                buttonTheme: { // styles for the buttons
+                    style: {
+                        fontSize: '15px'
+                    },
+
+                },
+                labelStyle: {
+                    fontSize: '15px'
+                },
+            },
+            legend: {
+                itemStyle: {
+                    fontSize: "15px"
+                }
+            },
+            tooltip: {
+                style: {
+                    fontSize: "15px"
+                },
+            },
+
+        });
+    </script>
     <style>
         /*
  * Start Bootstrap - Heroic Features (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-
+        .highcharts-axis-labels > text {
+            font-size: 15px !important;
+        }
         body {
             padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
@@ -76,7 +113,9 @@
         }
     </style>
 
+    <scrip>
 
+    </scrip>
 </head>
 <body>
 
@@ -128,6 +167,10 @@
     </div>
 </nav>
 
+<div class="container-fluid" style="height:90%">
+    {% block content_fluid %}
+    {% endblock %}
+</div>
 
 <div class="container">
     <div class="row">
@@ -142,7 +185,6 @@
 
     <div class="col-md-12">
         {% block content %}
-            <h1> Hello World! </h1>
         {% endblock %}
     </div>
 </div>

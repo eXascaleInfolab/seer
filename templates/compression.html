@@ -1,58 +1,91 @@
 {% extends "base.html" %}
 
 
-{% block content %}
+{% block content_fluid %}
     <div class="row">
-        <div class="col-md-8">
-{#            <h4> DATA </h4>#}
-            <div id="data-container" >
-                <!-- Add charts for data here -->
+        <div class="col-md-9" style="height:100%">
+            {#            <h4> DATA </h4>#}
+            <div id="data-container" style="height: calc(100vh - 60px);">
             </div>
 
         </div>
-        <div class="col-md-4">
-            {# form with dropdown options scarsity and repeats #}
-            <form id="myForm">
-                <label for="dataType">Data Type:</label>
-                <select id="dataType" name="dataType" onchange="handleFormSubmit(event)">
-                    <option value="" disabled selected>Select</option>
+        {#        <div class="col-md-4"  style="height:100%">#}
+        {# form with dropdown options scarsity and repeats #}
+        {#            <form id="myForm">#}
+        {#                <label for="dataType">Data Type:</label>#}
+        {#                <select id="dataType" name="dataType" onchange="handleFormSubmit(event)">#}
+        {#                    <option value="" disabled selected>Select</option>#}
+        {##}
+        {#                    <option value="scarsity">Scarsity</option>#}
+        {#                    <option value="repeats">Repeats</option>#}
+        {#                </select>#}
+        {#                <button type="submit">Submit</button>#}
+        {##}
+        {#                <div></div>#}
+        {#                <div id="level-dropdown">#}
+        {#                </div>#}
+        {#            </form>#}
 
-                    <option value="scarsity">Scarsity</option>
-                    <option value="repeats">Repeats</option>
-                </select>
-                {#                <button type="submit">Submit</button>#}
+        {##}
+        {#            <!-- Script to handle form submission -->#}
+        <script>
+            function handleFormSubmit(event) {
+                event.preventDefault(); // Prevent the default form submission
 
-                <div></div>
-                <div id="level-dropdown">
+                // Get the selected value from the dropdown
+                const selectedValue = document.getElementById('feature').value;
+                console.log("AAA", selectedValue);
+                // Perform actions based on the selected value
+                if (selectedValue === 'scarsity') {
+                    compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
+                    // Add your code for the 'scarsity' option
+                } else if (selectedValue === 'repeats') {
+                    compressionManager = new CompressionManager('repeats', compression_data_sets['repeats']);
+                    // Add your code for the 'repeats' option
+                } else if (selectedValue === 'outliers') {
+                    compressionManager = new CompressionManager('outliers', compression_data_sets['outliers']);
+                    // Add your code for the 'repeats' option
+                }
+            }
+        </script>
+        {##}
+        {#        </div>#}
+        <div id="menu" class="col-md-3" style="padding-top: 40px;">
+            <h3> Feature Compression</h3>
+            {#            <h3>Show Time Series</h3>#}
+            <form id="retrieveForm">
+                <div class="form-group clearfix" style="margin-left:0;margin-right:0">
+                        <select id="feature" style="width:45%" class="form-control pull-left" name="dataType"
+                                onchange="handleFormSubmit(event)">
+                            <option value="" disabled selected>Select</option>
+                            <option value="scarsity">Scarsity</option>
+                            <option value="repeats">Repeats</option>
+                            <option value="outliers">Outliers</option>
+
+                        </select>
+                        <div id="level-dropdown" style="width:45%"  class="pull-right">
+                        </div>
+                </div>
+                <div class="form-group clearfix">
+                    <button id="applyBtn"
+                            class="btn btn-default pull-left">
+                        Apply
+                    </button>
+                    <button id="showCompression"
+                            class="btn btn-default pull-right" style="display:none ">
+                        Show Compression
+                    </button>
                 </div>
             </form>
+
             <div id="compression-container">
                 <!-- Add charts for compression data here -->
             </div>
-
-            <!-- Script to handle form submission -->
-            <script>
-                function handleFormSubmit(event) {
-                    event.preventDefault(); // Prevent the default form submission
-
-                    // Get the selected value from the dropdown
-                    const selectedValue = document.getElementById('dataType').value;
-                    console.log("AAA", selectedValue);
-                    // Perform actions based on the selected value
-                    if (selectedValue === 'scarsity') {
-                        scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
-                        // Add your code for the 'scarsity' option
-                    } else if (selectedValue === 'repeats') {
-                        scarsityManager = new CompressionManager('repeats', compression_data_sets['repeats']);
-                        // Add your code for the 'repeats' option
-                    }
-                }
-            </script>
-
         </div>
+
     </div>
 
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    {#    <script src="https://code.highcharts.com/modules/accessibility.js"></script>#}
 
     {% include "compressionCode.html" %}
     <script>
@@ -62,7 +95,22 @@
         let dataType = 'repeats';
         {#let data = compression_data_sets[dataType]#}
 
-        let scarsityManager = new CompressionManager('scarsity', compression_data_sets['scarsity'] , "");
+        let compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity'], "");
 
+        //set function for showCompression btn
+
+        // set function for apply btn
+        document.getElementById("applyBtn").addEventListener("click", function (event) {
+            //prevent default
+            event.preventDefault();
+            compressionManager.displayChart();
+            document.getElementById("showCompression").style.display = "block";
+        });
+
+        document.getElementById("showCompression").addEventListener("click", function (event) {
+            //prevent default
+            event.preventDefault();
+            compressionManager.displayCompression();
+        });
     </script>
 {% endblock %}

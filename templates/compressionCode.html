@@ -20,7 +20,7 @@
             });
 
             this.initializeCharts();
-            this.createButtons();
+            this.createDropdown();
         }
 
         initializeCharts() {
@@ -32,8 +32,8 @@
                     zoomType: 'x'
                 },
                 title: {
-                    text: this.title
-                },
+                    text: ""//this.title
+                 },
                 xAxis: {
                     type: 'datetime',
 
@@ -42,8 +42,11 @@
                     title: {
                         text: 'Value'
                     }
-                }
-                ,
+                },
+                legend: {
+                    enabled: true,
+                    verticalAlign: 'top',
+                },
                 series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
                     name: 'Sensor 1',
                     id: 's0',
@@ -54,6 +57,7 @@
                     {
                         name: 'Sensor 2',
                         id: 's1',
+                        visible: false,
                         data: this.chartTime.map((time, index) => {
                             return [time, this.initialDataSet['s1'][index]]
                         })
@@ -61,10 +65,21 @@
                     {
                         name: 'Sensor 3',
                         id: 's2',
+                        visible: false,
                         data: this.chartTime.map((time, index) => {
                             return [time, this.initialDataSet['s2'][index]]
                         })
-                    }]
+                    }],
+                navigator: {
+                    enabled: true, // Set to true to enable the navigator
+                    xAxis: {
+                        // Configuration specific to the navigator's X-axis
+                    }
+                },
+                scrollbar: {
+                    enabled: true // Set to true to show a scrollbar below the chart
+                },
+
             });
 
             const compressionManager = this;
@@ -94,15 +109,15 @@
                     }
                 },
                 xAxis: {
-                    categories: ["clickhouse","druid","influx","timescaledb"],
+                    categories: ["clickhouse", "druid", "influx", "timescaledb"],
                     labels: {
                         allowOverlap: true,
                         padding: 0,
-                        events: {
-                            click: (e) => {
-                                this.setLevel(e.target.value);
-                            }
-                        },
+                        {#events: {#}
+                        {#    click: (e) => {#}
+                        {#        this.setLevel(e.target.value);#}
+                        {#    }#}
+                        {# },#}
                     },
                 },
                 series: Object.keys(this.initialCompression).map(system => {
@@ -114,9 +129,10 @@
             });
         }
 
-        createButtons() {
+        createDropdown() {
             const dropdown = document.createElement('select');
             dropdown.id = `inside-dropdown`;
+            dropdown.className = 'form-control';
             dropdown.addEventListener('change', (event) => this.setLevel(event.target.value));
 
             const defaultOption = document.createElement('option');
@@ -138,38 +154,47 @@
 
         }
 
-        async delay(ms) {
-            return new Promise((resolve) => setTimeout(resolve, ms));
-        }
-
-        async playChart() {
-            this.initializeCharts();
-            for (const level of this.levels) {
-                await this.delay(1000); // Wait for 1 second
-                this.setLevel(level);
-
-            }
-        }
-
         setLevel(level) {
+            console.log("set level")
             this.currentLevel = level;
+        }
+
+        displayCompression() {
+            var level = this.currentLevel
+            this.compressionChart.series.forEach((series) => {
+                series.setData([this.data[level]["compression"][series.name]]);
+            });
+        }
+
+        displayChart() {
+            var level = this.currentLevel
+            while (this.dataChart.series.length > 3) {
+                this.dataChart.series[3].remove(false);
+            }
 
             // Update the charts based on the current level
             const newData = this.data[level]["data"];
+            let counter = 0
             for (const sensor of Object.keys(newData)) {
                 if (sensor === 'time') continue;
                 try {
                     const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
-                    this.dataChart.get(sensor).setData(newChartData);
+                    {#this.dataChart.get(sensor).setData(newChartData);#}
+                    //  delete series with index larger than 3
+
+                    this.dataChart.addSeries({
+                        name: sensor + level,
+                        id: sensor + level,
+                        data: newChartData,
+                        linkedTo: sensor,
+                        visible: counter === 0,
+                    });
                 } catch (e) {
                     console.log(sensor);
                     console.log(e);
                 }
+                counter = counter + 1 // 3 sensors
             }
-            this.compressionChart.series.forEach((series) => {
-                series.setData([this.data[level]["compression"][series.name]]);
-                {#series.addPoint(this.data[level]["compression"][series.name]);#}
-            });
         }
     }
 
