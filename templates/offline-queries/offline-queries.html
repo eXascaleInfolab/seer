@@ -54,7 +54,7 @@
     <div id="frequency-selection" style="margin-top: 10px" class="row">
         <div>
             <div style="text-align: center; font-weight: bold;">Query:</div>
-            <div style="margin-right: 15px; margin-top: 7px; font-weight: bold;">Frequencies(%):</div>
+            <div style="margin-right: 15px; margin-top: 7px; font-weight: bold;">Frequency (%):</div>
         </div>
         <div id="frequency-query" class="row">
         </div>
@@ -99,24 +99,47 @@
 
         document.getElementById('fetchButton').addEventListener('click', function () {
             // Simulate fetching new data (e.g., via AJAX or any other data source)
+            query_frequencies = document.getElementsByClassName('frequency-input');
+            let length = query_frequencies.length;
+
+            frequencies = []
+            for (let i = 0; i < length; i++) {
+                frequencies.push(query_frequencies[i].value);
+            }
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+            frequencies.push(0);
+
+
             var newQData = {
                 Q1: {
-                    'influx': 1,
-                    'questdb': 3,
-                    'timescaledb': 2,
-                    'monetdb': 4,
-                    'extremedb': 2,
-                    'clickhouse': 6,
-                    'druid': 7
+                    'influx': 1 * frequencies[0],
+                    'questdb': 3 * frequencies[0],
+                    'timescaledb': 2 * frequencies[0],
+                    'monetdb': 4 * frequencies[0],
+                    'extremedb': 2 * frequencies[0],
+                    'clickhouse': 6 * frequencies[0],
+                    'druid': 7 * frequencies[0]
                 },
                 Q2: {
-                    'influx': 3,
-                    'questdb': 4,
+                    'influx': 3 * frequencies[1],
+                    'questdb': 4 * frequencies[1],
                     'timescaledb': "not run",
-                    'monetdb': 1,
-                    'extremedb': 2,
-                    'clickhouse': 3,
-                    'druid': 4
+                    'monetdb': 1 * frequencies[1],
+                    'extremedb': 2 * frequencies[1],
+                    'clickhouse': 3 * frequencies[1],
+                    'druid': 4 * frequencies[1]
                 }
             }
             // Add more dynamic data as needed
@@ -164,6 +187,12 @@
             if (!chart) {
                 createChart(newData);
             } else {
+                // Remove all current series
+                let n_series = chart.series.length;
+                for (let i = 0; i < n_series; i++) {
+                    chart.series[0].remove();
+                }
+
                 Object.keys(newData).forEach(query => {
                     const query_runtime = newData[query];
                     console.log(query_runtime);

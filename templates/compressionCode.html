@@ -33,7 +33,7 @@
                 },
                 title: {
                     text: ""//this.title
-                 },
+                },
                 xAxis: {
                     type: 'datetime',
 
@@ -48,14 +48,14 @@
                     verticalAlign: 'top',
                 },
                 series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
-                    name: 'Sensor 1',
+                    name: 's0',
                     id: 's0',
                     data: this.chartTime.map((time, index) => {
                         return [time, this.initialDataSet['s0'][index]]
                     })
                 },
                     {
-                        name: 'Sensor 2',
+                        name: 's1',
                         id: 's1',
                         visible: false,
                         data: this.chartTime.map((time, index) => {
@@ -63,7 +63,7 @@
                         })
                     },
                     {
-                        name: 'Sensor 3',
+                        name: 's2',
                         id: 's2',
                         visible: false,
                         data: this.chartTime.map((time, index) => {
@@ -133,12 +133,17 @@
             const dropdown = document.createElement('select');
             dropdown.id = `inside-dropdown`;
             dropdown.className = 'form-control';
-            dropdown.addEventListener('change', (event) => this.setLevel(event.target.value));
+            dropdown.addEventListener('change', (event) => {
+                this.setLevel(event.target.value)
+                document.getElementById("showCompression").style.display = "none";
+            });
 
             const defaultOption = document.createElement('option');
             defaultOption.text = 'Select Level';
             defaultOption.disabled = true;
             defaultOption.selected = true;
+            defaultOption.hidden = true;
+            defaultOption.value = 'default';
             dropdown.add(defaultOption);
 
             for (const level of this.levels) {
@@ -171,6 +176,18 @@
             while (this.dataChart.series.length > 3) {
                 this.dataChart.series[3].remove(false);
             }
+            if (this.dataType === "scarsity") {
+                this.dataChart.series.forEach(
+                    //update series opacity and line style
+                    (series) => {
+                        series.update({
+                            opacity: 0.5,
+                            dashStyle: 'dot',
+                        }, true);
+                    }
+                )
+
+            }
 
             // Update the charts based on the current level
             const newData = this.data[level]["data"];
@@ -183,11 +200,12 @@
                     //  delete series with index larger than 3
 
                     this.dataChart.addSeries({
-                        name: sensor + level,
+                        name: sensor + "_"+ level,
                         id: sensor + level,
                         data: newChartData,
                         linkedTo: sensor,
                         visible: counter === 0,
+                        showInLegend: true,
                     });
                 } catch (e) {
                     console.log(sensor);

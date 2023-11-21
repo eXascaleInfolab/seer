@@ -34,7 +34,6 @@
 
                 // Get the selected value from the dropdown
                 const selectedValue = document.getElementById('feature').value;
-                console.log("AAA", selectedValue);
                 // Perform actions based on the selected value
                 if (selectedValue === 'scarsity') {
                     compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
@@ -78,7 +77,7 @@
                 </div>
             </form>
 
-            <div id="compression-container">
+            <div id="compression-container" style="display: none">
                 <!-- Add charts for compression data here -->
             </div>
         </div>
@@ -93,9 +92,8 @@
         const compression_data_sets = {{ compression_data|safe }};
 
         let dataType = 'repeats';
-        {#let data = compression_data_sets[dataType]#}
 
-        let compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity'], "");
+        let compressionManager = new CompressionManager('repeats', compression_data_sets['repeats'], "");
 
         //set function for showCompression btn
 
@@ -103,6 +101,11 @@
         document.getElementById("applyBtn").addEventListener("click", function (event) {
             //prevent default
             event.preventDefault();
+            let dropdown_value = document.getElementById("inside-dropdown").value
+            if(dropdown_value === "default"){
+                return
+            }
+            console.log(dropdown_value,"BBBBBBBBBBBBBB")
             compressionManager.displayChart();
             document.getElementById("showCompression").style.display = "block";
         });
@@ -111,6 +114,8 @@
             //prevent default
             event.preventDefault();
             compressionManager.displayCompression();
+            document.getElementById("compression-container").style.display = "block";
+
         });
     </script>
 {% endblock %}
