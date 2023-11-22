@@ -68,9 +68,11 @@
         .highcharts-axis-labels > text {
             font-size: 15px !important;
         }
+
         .highcharts-axis > text {
             font-size: 15px !important;
         }
+
         body {
             padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
         }
@@ -170,7 +172,7 @@
     </div>
 </nav>
 
-<div class="container-fluid" style="height:90%">
+<div class="container-fluid" style="max-height: 90vh; position: relative;">
     {% block content_fluid %}
     {% endblock %}
 </div>
