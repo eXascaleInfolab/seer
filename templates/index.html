@@ -2,17 +2,92 @@
 {% load static %}
 
 {% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1><strong>TSM-Bench</strong>
+                        <small>Recovery of missing values in time series</small>
+                    </h1>
+                </div>
+                <p>
+                    ReVival is an online tool to recover missing blocks in time series using the
+                    Centroid Decomposition (CD) technique.
+                </p>
+                <p>
+                    This tool was created at the <a href="http://exascale.info/">eXascale Infolab</a>, a research group
+                    at the <a href="http://www.unifr.ch/">University of Fribourg</a>, Switzerland.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <hr>
+                <h3><strong>Centroid Decomposition</strong></h3>
+
+                <p>The <a href="https://ieeexplore.ieee.org/document/6816643/">Centroid Decomposition</a> (CD) is a
+                    matrix
+                    decomposition technique that decomposes an input matrix <b>X</b> (consisting of multiple time-series
+                    as columns) into the product of two matrices <b>L</b> (loading matrix) and <b>R</b>
+                    (relevance matrix), such that <b>X</b> = <b>L</b> * <b>R<sup>T</sup></b>. CD allows to efficiently
+                    perform recovery of missing values in large time series, both in batch mode and streaming mode.
+                </p>
+                <p>
+                    In addition to the recovery, ReVival can be used as an online calculator to compute the Centroid
+                    Cecomposition and to visualize different sign vector maximization strategies that can be used by CD.
+                </p>
+                <hr>
+
+                <h3><strong>Features</strong></h3><br>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p><b>Generation:</b></p>
+                        <ul>
+                            <li><a href='{% url "datasets" %}'>Datasets</a></li>
+                            <li><a href='{% url "generation" %}'>Generation</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <p><b>Query Performance:</b></p>
+                        <ul>
+                            <li><a href='{% url "offline-queries" %}'>Offline Queries</a></li>
+                            <li><a href='{% url "offline-queries" %}'>Online Queries</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <p><b>Compression Performance</b></p>
+                        <ul>
+                            <li><a href='{% url "compression" %}'>Compression</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+
+                <h3><strong>Publications</strong></h3>
+
+                <ol>
+                    <li>Abdelouahab Khelifati, Mourad Khayati, Anton Dignös, Djellel Difallah, and Philippe
+                        Cudré-Mauroux.<strong>“TSM-Bench: Benchmarking Time Series Database Systems for Monitoring
+                            Applications.” </strong> In <i>Proceedings of the VLDB Endowment</i>, Vol. 16, 2023
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
     <h1>TSM-BENCH</h1>
 
     <div>
-        <a href='{% url "offline-queries" %}'> offline-queries</a>
+        <a href='{% url "offline-queries" %}'> Query Performance</a>
     </div>
     <div>
 
-    <a href='{% url "compression" %}'>Compression</a>
+        <a href='{% url "compression" %}'>Compression Performance</a>
     </div>
 
-     <a href='{% url "generation" %}'>Generation</a>
+    <a href='{% url "generation" %}'>TS Generation</a>
     </div>
 
 {% endblock %}

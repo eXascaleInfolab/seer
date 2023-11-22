@@ -138,13 +138,13 @@
                 document.getElementById("showCompression").style.display = "none";
             });
 
-            const defaultOption = document.createElement('option');
-            defaultOption.text = 'Select Level';
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            defaultOption.hidden = true;
-            defaultOption.value = 'default';
-            dropdown.add(defaultOption);
+            {#const defaultOption = document.createElement('option');#}
+            {#defaultOption.text = 'Select Level';#}
+            {#defaultOption.disabled = true;#}
+            {#defaultOption.selected = true;#}
+            {#defaultOption.hidden = true;#}
+            {#defaultOption.value = 'default';#}
+            {#dropdown.add(defaultOption);#}
 
             for (const level of this.levels) {
                 const levelOption = document.createElement('option');

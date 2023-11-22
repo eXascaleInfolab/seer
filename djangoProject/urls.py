@@ -20,10 +20,14 @@ from views.index_view import IndexView
 from views.offline_query_view import OfflineQueryView
 from views.compression_view import CompressionView
 from views.generation_view import GenerationView
+from views.datasets_view import DatasetsView
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view() , name='index' ),
     path('queries', OfflineQueryView.as_view() , name='offline-queries'),
     path('compression', CompressionView.as_view(), name='compression'),
     path('generation', GenerationView.as_view(), name='generation'),
+    path('datasets', DatasetsView.as_view(), name='datasets'),
 ]

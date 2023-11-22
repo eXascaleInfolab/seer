@@ -142,21 +142,31 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                {#                <li class="dropdown">#}
-                {#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"#}
-                {#                       aria-expanded="false">#}
-                {#                        Centroid Decomposition<span class="caret"></span>#}
-                {#                    </a>#}
-                {#                    <ul class="dropdown-menu">#}
-                {#                        <li><a href="/cd/matrixdec.php">Decomposition Calculator</a></li>#}
-                {#                        <li><a href="/cd/signvectors.php">Sign Vector Strategies</a></li>#}
-                {#                    </ul>#}
-                {#                </li>#}
+
                 <li class="nav-item">
-                    <a class="nav-link" href='{% url "offline-queries" %}'>
-                        Queries
+                    <a class="nav-link" href='{% url "generation" %}'>
+                        Generation
                     </a>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        Workload <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href='{% url "offline-queries" %}'>
+                                Offline Queries
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href='{% url "offline-queries" %}'>
+                                Online Queries
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href='{% url "compression" %}'>
                         Compression

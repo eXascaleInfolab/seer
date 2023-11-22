@@ -132,7 +132,7 @@
                 console.log("query frame", queryFrame)
                 var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-interval"]');
                 elementsWithDatasetAttribute.forEach(function (element_) {
-                    element_.innerText = element.value;
+                    element_.innerText = "Range"// element.value;
                 });
             });
         });

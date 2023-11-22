@@ -79,7 +79,7 @@
                        aria-haspopup="true" aria-expanded="false">
                     </a>
                     <li><a class="swap-select" >
-                        <div data-toggle="1">time, <span class="s_list">&lt;s_list&gt;</span></div>
+                        <div data-toggle="1">time, <span class="s_list">&lt;sensor_list&gt;</span></div>
                     </a></li>
                     <li><a class="swap-select">
                         <div data-toggle="2">  <span class="s_avg">AVG(s_min)...AVG(s_max)</span> </div>
@@ -140,7 +140,7 @@
                 &nbsp; time &gt;=
                 <div class="space" data-type="time-stamp">?timestamp</div>
                 -
-                <div class="space" data-type="time-interval">Minute</div>
+                <div class="space" data-type="time-interval">Range</div>
 
                 <div class="semicolon"></div>
             </div>
@@ -196,22 +196,22 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <label for="station-slider">Number of Stations
-                {% include "parts/info.html" with text="Number of stations contained in <stations_list>" %}
+            <label for="station-slider"> |station_list|
+                {% include "parts/info.html" with text="Number of stations" %}
             </label>
             {% include "parts/slider.html" with id="stations" %}
         </div>
         <div class="form-group">
-            <label for="sensor-slider">Number of Sensors
-                {% include "parts/info.html" with text="Number of sensors contained in <sensor_list>" %}
+            <label for="sensor-slider"> |sensor_list|
+                {% include "parts/info.html" with text="Number of sensors" %}
             </label>
             {#                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"#}
             {#                       step="1" onchange="updateSensorCount(this.value)">#}
             {% include "parts/slider.html" with id="sensors" %}
 
         </div>
-        <label for="sensor-slider">Time Interval
-            {% include "parts/info.html" with text="Time Intervall to query over." %}
+        <label for="sensor-slider">Range
+            {% include "parts/info.html" with text="Time Interval" %}
         </label>
         {% include "parts/slider.html" with id="time" %}
         <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">

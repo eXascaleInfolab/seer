@@ -31,20 +31,40 @@
         {##}
         {#        </div>#}
         <div id="menu" class="col-md-3" style="padding-top: 40px;">
-            <h3> Feature Compression</h3>
+            <h3> Feature Contamination</h3>
             {#            <h3>Show Time Series</h3>#}
             <form id="retrieveForm">
-                <div class="form-group clearfix" style="margin-left:0;margin-right:0">
-                        <select id="feature" style="width:45%" class="form-control pull-left" name="dataType"
-                                onchange="handleFormSubmit(event)">
-                            <option value="" disabled selected>Select</option>
-                            <option value="scarsity">Scarsity</option>
-                            <option value="repeats">Repeats</option>
-                            <option value="outliers">Outliers</option>
 
-                        </select>
-                        <div id="level-dropdown" style="width:45%"  class="pull-right">
-                        </div>
+                <div
+                     style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
+
+                    <label for="feature" style="width: 30%; text-align: left;">Dataset:</label>
+
+                    <label for="feature" style="width: 30%; text-align: left;">Feature:</label>
+
+                    <label for="feature" style="width: 30%; text-align: left;">Level:</label>
+
+                </div>
+
+                <div class="form-group"
+                     style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
+
+                    <select id="feature" style="width: 30%;" class="form-control" name="dataType">
+                        <option value="scarsity">D1</option>
+                        <option value="repeats">D2</option>
+                    </select>
+
+                    <select id="feature" style="width: 30%;" class="form-control" name="dataType"
+                            onchange="handleFormSubmit(event)">
+                        <option value="scarsity">Scarsity</option>
+                        <option value="repeats">Repeats</option>
+                        <option value="outliers">Outliers</option>
+                    </select>
+
+                    <div id="level-dropdown" style="width: 30%;">
+                        <!-- Content for the level-dropdown goes here -->
+                    </div>
+
                 </div>
                 <div class="form-group clearfix">
                     <button id="applyBtn"
@@ -74,7 +94,7 @@
 
         let dataType = 'repeats';
 
-        let compressionManager = new CompressionManager('repeats', compression_data_sets['repeats'], "");
+        let compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity'], "");
 
         //set function for showCompression btn
 
@@ -83,10 +103,10 @@
             //prevent default
             event.preventDefault();
             let dropdown_value = document.getElementById("inside-dropdown").value
-            if(dropdown_value === "default"){
+            if (dropdown_value === "default") {
                 return
             }
-            console.log(dropdown_value,"BBBBBBBBBBBBBB")
+            console.log(dropdown_value, "BBBBBBBBBBBBBB")
             compressionManager.displayChart();
             document.getElementById("showCompression").style.display = "block";
         });
