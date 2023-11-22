@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{#context contains: data_sets  #}
+{% block content_fluid %}
+
+    {% include "generation/generation_from.html" %}
+
+    <div id="data-chart">
+        <div id="data-container"></div>
+    </div>
+
+    <div id="generation-chart" style="display: none;">
+        <div id="generation-container" style="height: 1000px"></div>
+    </div>
+
+
+    <script>
+        function updateChart() {
+            console.log("updateChart");
+            select_dataset().done(function (data) {
+                var newData = data.original;
+                dataChart.series[0].update({name: data.name}, false)
+                dataChart.series[0].setData(newData);
+            });
+        }
+
+        function loadGeneratedData() {
+            console.log("loadGeneratedData");
+
+            // Set generation-chart visible
+            document.getElementById("generation-chart").style.display = "block";
+
+            getGeneratedDatasets().done(function (data) {
+                var newData = data.generated;
+                console.log(newData);
+
+                // Remove all series from generationChart
+                while (generationChart.series.length > 1) {
+                    generationChart.series[0].remove(false);
+                }
+
+                // Remove all axes from generationChart
+                while (generationChart.yAxis.length > 1) {
+                    generationChart.yAxis[0].remove();
+                }
+
+                document.getElementById('generation-container').style.height = ((newData.length + 0.4) * 300) + 'px'
+
+                newData.forEach(function (ts, index) {
+                    generationChart.addAxis({
+                        title: {
+                            text: index
+                        },
+                        top: index * 300 + "px",
+                        offset: 1,
+                        height: "300px",
+                        minPadding: 0.2,
+                        endOnTick: false,
+                    })
+                })
+
+                newData.forEach(function (ts, index) {
+                    // Create a new axis for each series
+                    {#var newAxis = {#}
+                    {#    title: {#}
+                    {#        text: data.name + "_generated" + index // Use the series name as the axis title#}
+                    {#    }#}
+                    {# };#}
+
+                    // Add the new axis to the chart
+                    {#generationChart.addAxis(newAxis);#}
+
+                    // Add the series to the chart using the new axis
+                    generationChart.addSeries({
+                        name: data.name + "_generated" + index,
+                        data: ts,
+                        yAxis: index+1 // Use the index of the last added axis
+                    }, false);
+                });
+
+                generationChart.redraw();
+            });
+        }
+
+        dataset_selection = document.getElementById("datasetSelect");
+        dataset_selection.addEventListener("change", updateChart);
+
+        let generationBtn = document.getElementById("generationBtn");
+        generationBtn.addEventListener("click", loadGeneratedData);
+
+        let dataChart = Highcharts.chart(`data-container`, {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: ""//this.title
+            },
+            xAxis: {
+                type: 'datetime',
+
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                }
+            },
+            legend: {
+                enabled: true,
+                verticalAlign: 'top',
+            },
+            series: [{name: "{{ data_sets.0.1 }}", data: []}],
+            navigator: {
+                enabled: true, // Set to true to enable the navigator
+                xAxis: {
+                    // Configuration specific to the navigator's X-axis
+                }
+            },
+            scrollbar: {
+                enabled: true // Set to true to show a scrollbar below the chart
+            },
+
+        });
+
+        let generationChart = Highcharts.chart(`generation-container`, {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            title: {
+                text: ""//this.title
+            },
+            xAxis: {
+                type: 'datetime',
+
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                }
+            },
+            legend: {
+                enabled: true,
+                verticalAlign: 'top',
+            },
+            series: [{name: "none", data: []}],
+            navigator: {
+                enabled: true, // Set to true to enable the navigator
+                xAxis: {
+                    // Configuration specific to the navigator's X-axis
+                }
+            },
+            scrollbar: {
+                enabled: true // Set to true to show a scrollbar below the chart
+            },
+
+        });
+
+
+        // Initial chart update
+        $(document).ready(function () {
+            updateChart();
+        });
+    </script>
+{% endblock %}
+

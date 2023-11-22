@@ -1,0 +1,79 @@
+<form id="generation-form">
+    {% csrf_token %}
+    <label for="generationLength">Seed Dataset:</label>
+
+    <div class="form-group " style="margin-left:0;margin-right:0">
+        <select id="datasetSelect" style="width:45%" class="form-control" name="dataset"
+                onchange="">
+
+            {% for dataset in data_sets %}
+                <option value="{{ dataset.0 }}">{{ dataset.1 }}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <label for="generationLength">Generation Length:</label>
+    <div class="form-group " style="margin-left:0;margin-right:0">
+        <select id="generationLength" style="width:45%" class="form-control" name="generationLength"
+                onchange="">
+
+            {% for length in generation_lengths %}
+                <option value={{ length }}>{{ length }}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <label for="generationCount">Number of TS:</label>
+    <div class="form-group " style="margin-left:0;margin-right:0">
+        <select id="generationCount" style="width:45%" class="form-control" name="generationCount"
+                onchange="">
+
+            {% for count in generation_counts %}
+                <option value={{ count }}>{{ count }}</option>
+            {% endfor %}
+
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button id="generationBtn" type="button" class="btn btn-primary form-control" onclick="">Generate</button>
+    </div>
+</form>
+
+
+<script>
+    var url = "{% url 'generation' %}";
+    console.log(url)
+
+    function select_dataset() {
+        var form = $('#generation-form');
+        var url = "{% url 'generation' %}";
+        var data = form.serialize()+"&generate=false";
+        return $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            success: function (data) {
+                console.log(data)
+            }
+        });
+    }
+
+
+    function getGeneratedDatasets() {
+        var form = $('#generation-form');
+        var url = "{% url 'generation' %}";
+        var data = form.serialize()+"&generate=true";
+        return $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            success: function (data) {
+                console.log(data)
+            }
+        });
+    }
+
+</script>
