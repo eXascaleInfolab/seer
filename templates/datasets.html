@@ -43,8 +43,8 @@
         <tr>
             <th>Title</th>
             <th>Source</th>
-            <th style="text-align: right">Sensors</th>
-            <th style="text-align: right">Stations</th>
+            <th style="text-align: right">Datapoints</th>
+{#            <th style="text-align: right">Stations</th>#}
         </tr>
 
         {% for id, dataset in original_data_sets.items %}
@@ -56,8 +56,10 @@
                 </td>
                 <td> "{{ dataset.source }}" <a href="{{ dataset.link }}"><span
                         class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
-                <td style="text-align: right">{{ dataset.sensors }}</td>
-                <td style="text-align: right">{{ dataset.stations }}</td>
+                <td style="text-align: right">{{ dataset.datapoints }}</td>
+{#                <td style="text-align: right">{{ dataset.stations }}</td>#}
+{#                <td style="text-align: right">{{ dataset.datapoints }}</td>#}
+{##}
 
 
             </tr>

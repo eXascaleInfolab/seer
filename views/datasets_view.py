@@ -29,17 +29,21 @@ original_data_sets = {
              "link": "http://www.bafu.admin.ch/",
              "source": "Federal Office for the Environment FOEN",
              "sensors": 1,
-             "stations": 12},
+             "stations": 12,
+             "datapoints": 50000},
     "conductivity": {"name": "Conductivity",
                      "link": "http://www.bafu.admin.ch/",
                      "source": "?",
                      "sensors": "?",
-                     "stations": "?"},
+                     "stations": "?",
+                     "datapoints": 251693},
     "pH_accuracy": {"name": "pH Accuracy",
                     "link": "http://www.bafu.admin.ch/",
                     "source": "?",
                     "sensors": "?",
-                    "stations": "?"},
+                    "stations": "?",
+                    "datapoints": 20000
+                    },
 }
 
 
