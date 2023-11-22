@@ -36,7 +36,9 @@
                 },
                 xAxis: {
                     type: 'datetime',
-
+                    //set extremes
+                    min: Date.parse(this.initialDataSet["time"][0]),
+                    max: Date.parse(this.initialDataSet["time"][Math.max(this.initialDataSet["time"].length - 1,10)]),
                 },
                 yAxis: {
                     title: {
@@ -71,13 +73,12 @@
                         })
                     }],
                 navigator: {
+                    adaptToUpdatedData: false,
                     enabled: true, // Set to true to enable the navigator
-                    xAxis: {
-                        // Configuration specific to the navigator's X-axis
-                    }
                 },
                 scrollbar: {
-                    enabled: true // Set to true to show a scrollbar below the chart
+                    enabled: true, // Set to true to show a scrollbar below the chart
+                    liveRedraw: false
                 },
 
             });
@@ -200,7 +201,7 @@
                     //  delete series with index larger than 3
 
                     this.dataChart.addSeries({
-                        name: sensor + "_"+ level,
+                        name: sensor + "_" + level,
                         id: sensor + level,
                         data: newChartData,
                         linkedTo: sensor,

@@ -7,13 +7,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header">
-                    <h1><strong>TSM-Bench</strong>
-                        <small>Time Series Database Management System Comparison</small>
+                    <h1><strong>TSM Demo</strong>
+                        <small>Workload evaluator for TSDBs</small>
                     </h1>
                 </div>
                 <p>
-                    ReVival is an online tool to recover missing blocks in time series using the
-                    Centroid Decomposition (CD) technique.
+                    TSM Demo is an online tool to evaluate the performance of time series database systems on large
+                    datasets.
                 </p>
                 <p>
                     This tool was created at the <a href="http://exascale.info/">eXascale Infolab</a>, a research group
@@ -25,19 +25,19 @@
         <div class="row">
             <div class="col-md-8">
                 <hr>
-                <h3><strong>Centroid Decomposition</strong></h3>
+                <h3><strong>TSM-Bench</strong></h3>
 
-                <p>The <a href="https://ieeexplore.ieee.org/document/6816643/">Centroid Decomposition</a> (CD) is a
-                    matrix
-                    decomposition technique that decomposes an input matrix <b>X</b> (consisting of multiple time-series
-                    as columns) into the product of two matrices <b>L</b> (loading matrix) and <b>R</b>
-                    (relevance matrix), such that <b>X</b> = <b>L</b> * <b>R<sup>T</sup></b>. CD allows to efficiently
-                    perform recovery of missing values in large time series, both in batch mode and streaming mode.
-                </p>
-                <p>
-                    In addition to the recovery, ReVival can be used as an online calculator to compute the Centroid
-                    Cecomposition and to visualize different sign vector maximization strategies that can be used by CD.
-                </p>
+                <a href="https://dl.acm.org/doi/pdf/10.14778/3611479.3611532">TSM-Bench</a>
+                is a new evaluation benchmark specifically designed for time series data used
+                in monitoring applications. TSM-Bench packs several salient features
+                into a comprehensive framework that includes: (1) A suite
+                of fundamental queries found in common workloads, serving as
+                building blocks for more complex time series analytical operations;
+                (2) Various realistic workloads that support dynamic query variability;
+                (3) Generation mechanism of large and multiple realistic time
+                series based on seed data collected from real-world applications.
+
+
                 <hr>
 
                 <h3><strong>Features</strong></h3><br>
@@ -47,7 +47,6 @@
                         <p><b>Generation:</b></p>
                         <ul>
                             <li><a href='{% url "datasets" %}'>Datasets</a></li>
-                            <li><a href='{% url "generation" %}'>Generation</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">
@@ -77,17 +76,6 @@
             </div>
         </div>
     </div>
-    <h1>TSM-BENCH</h1>
 
-    <div>
-        <a href='{% url "offline-queries" %}'> Query Performance</a>
-    </div>
-    <div>
-
-        <a href='{% url "compression" %}'>Compression Performance</a>
-    </div>
-
-    <a href='{% url "generation" %}'>TS Generation</a>
-    </div>
 
 {% endblock %}

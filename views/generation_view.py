@@ -16,15 +16,15 @@ class GenerationView(View):
     generation_lengths = [2000,  5000, 20000 , 50000]
     generation_counts = [1,2,5,10]
 
-    def get(self, request):
+    def get(self, request, dataset="bafu"):
 
         self.context['data_sets'] = self.data_sets
         self.context['generation_lengths'] = self.generation_lengths
         self.context['generation_counts'] = self.generation_counts
-
+        self.context['dataset'] = dataset
         return HttpResponse(self.template.render(self.context, request))
 
-    def post(self, request):
+    def post(self, request , dataset=None):
         folder = "generation_data"
 
         data_set = request.POST.get('dataset')

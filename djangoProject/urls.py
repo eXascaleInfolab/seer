@@ -28,6 +28,7 @@ urlpatterns = [
     path('', IndexView.as_view() , name='index' ),
     path('queries', OfflineQueryView.as_view() , name='offline-queries'),
     path('compression', CompressionView.as_view(), name='compression'),
-    path('generation', GenerationView.as_view(), name='generation'),
     path('datasets', DatasetsView.as_view(), name='datasets'),
+    path('generation/<str:dataset>', GenerationView.as_view(), name='generation'),
+
 ]

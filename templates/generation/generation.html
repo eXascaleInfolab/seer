@@ -4,21 +4,26 @@
 
 {#context contains: data_sets  #}
 {% block content_fluid %}
-    <button id="collapseBtn" class="scrol-fix" style="position: absolute; bottom: 60px; right: 0; z-index: 9999;">
-        Collapse
-    </button>
+    <div class="row">
 
-    {% include "generation/generation_from.html" %}
+        <div class="col-md-9">
 
-    <div id="data-chart">
-        <div id="data-container"></div>
+            <div id="data-chart">
+                <div id="data-container"></div>
+            </div>
+
+            <div id="generation-chart" style="display: none;position: relative;">
+
+                <div id="generation-container" style="height: 1000px"></div>
+            </div>
+
+        </div>
+        <div class="col-md-3" id="menu">
+            <h3>Timeseries Generation</h3>
+            {% include "generation/generation_from.html" %}
+        </div>
+
     </div>
-
-    <div id="generation-chart" style="display: none;position: relative;">
-
-        <div id="generation-container" style="height: 1000px"></div>
-    </div>
-
 
     <script>
         function updateChart() {
@@ -51,16 +56,16 @@
                     generationChart.yAxis[0].remove();
                 }
                 nGenerated = newData.length
-                document.getElementById('generation-container').style.height = ((nGenerated + 0.4) * 300) + 'px'
+                document.getElementById('generation-container').style.height = ((nGenerated) * 150+130) + 'px'
 
                 newData.forEach(function (ts, index) {
                     generationChart.addAxis({
                         title: {
                             text: index
                         },
-                        top: index * 300 + "px",
+                        top: index * 150 + "px",
                         offset: 1,
-                        height: "310px",
+                        height: "160px",
                         minPadding: 0.3,
                         endOnTick: false,
                     })
@@ -102,7 +107,7 @@
                 if (series.name.includes("Navigator")) return;
                 series.update({yAxis: 0})
             })
-            document.getElementById('generation-container').style.height = ((1 + 0.4) * 300) + 'px'
+            document.getElementById('generation-container').style.height = ((1) * 300+130) + 'px'
 
         }
         let extendAxes = function () {
@@ -115,8 +120,8 @@
 
         }
 
-        let collapseBtn = document.getElementById("collapseBtn");
-        collapseBtn.addEventListener("click", collapseAxes);
+        {#let collapseBtn = document.getElementById("collapseBtn");#}
+        {#collapseBtn.addEventListener("click", collapseAxes);#}
 
 
         let dataChart = Highcharts.chart(`data-container`, {
@@ -140,7 +145,7 @@
                 enabled: true,
                 verticalAlign: 'top',
             },
-            series: [{name: "{{ data_sets.0.1 }}", data: []}],
+            series: [{name: "", data: []}],
             navigator: {
                 enabled: true, // Set to true to enable the navigator
                 xAxis: {
