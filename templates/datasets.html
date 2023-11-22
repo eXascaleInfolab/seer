@@ -1,105 +1,135 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <div class="page-header">
-            <h2>Datasets</h2>
-        </div>
+    <div class="page-header">
+        <h2>Datasets</h2>
+    </div>
 
-{#        <p>To view a dataset, click on its title from the table below.</p>#}
+    {#        <p>To view a dataset, click on its title from the table below.</p>#}
 
-        <h3>Original</h3>
-        <p>These datasets contain raw data with missing values.</p>
-        <table class="table">
-            <tbody>
+    <h3>Generated</h3>
+    <p>These datasets contain raw data with missing values.</p>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Title</th>
+            <th>Source</th>
+            <th style="text-align: right">Sensors</th>
+            <th style="text-align: right">Stations</th>
+            <th style="text-align: right">Range</th>
+            <th style="text-align: right">Datapoints</th>
+
+        </tr>
+
+        {% for id, dataset in data_sets.items %}
             <tr>
-                <th>Title</th>
-                <th>Source</th>
-                <th style="text-align: right">Sensors</th>
-                <th style="text-align: right">Stations</th>
+                <td>
+                    {{ dataset.name }}
+                </td>
+                <td> "{{ dataset.source }}" <a href="{{ dataset.link }}"><span
+                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
+                <td style="text-align: right">{{ dataset.sensors }}</td>
+                <td style="text-align: right">{{ dataset.stations }}</td>
+                <td style="text-align: right">{{ dataset.range }}</td>
+                <td style="text-align: right">{{ dataset.data_points }}</td>
             </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-            {% for id, dataset in data_sets.items %}
-                <tr>
-                    <td>
-                       {{ dataset.name }}
-                    </td>
-                    <td> "{{ dataset.source }}" <a href="{{ dataset.link }}"><span
-                            class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
-                    <td style="text-align: right">{{ dataset.sensors }}</td>
-                    <td style="text-align: right">{{ dataset.stations }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <h3>Original</h3>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Title</th>
+            <th>Source</th>
+            <th style="text-align: right">Sensors</th>
+            <th style="text-align: right">Stations</th>
+        </tr>
 
-{#        <h3>Complete</h3>#}
-{#        <p>These datasets have no missing values.</p>#}
-{#        <table class="table">#}
-{#            <tbody>#}
-{#            <tr>#}
-{#                <th>Title</th>#}
-{#                <th>Source</th>#}
-{#                <th style="text-align: right">Time series</th>#}
-{#                <th style="text-align: right">Existing values</th>#}
-{#            </tr>#}
-{##}
-{##}
-{#            <tr>#}
-{#                <td>#}
-{#                    <a href="explore.php?dataset=5">Climate</a>#}
-{#                </td>#}
-{#                <td>Lozona et al, KDD 2009 <a href="http://www-bcf.usc.edu/~liu32/data.html"><span#}
-{#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
-{#                <td style="text-align: right">10</td>#}
-{#                <td style="text-align: right">195'000</td>#}
-{#            </tr>#}
-{##}
-{##}
-{#            <tr>#}
-{#                <td>#}
-{#                    <a href="explore.php?dataset=6"> Precipitation - Kanton Zurich</a>#}
-{#                </td>#}
-{#                <td>MeteoSwiss <a href="http://www.meteoswiss.admin.ch"><span class="glyphicon glyphicon-link"#}
-{#                                                                              aria-hidden="true"></span></a></td>#}
-{#                <td style="text-align: right">4</td>#}
-{#                <td style="text-align: right">120'000</td>#}
-{#            </tr>#}
-{##}
-{##}
-{#            <tr>#}
-{#                <td>#}
-{#                    <a href="explore.php?dataset=7">Hydrology: Discharge of Swiss rivers [Complete]</a>#}
-{#                </td>#}
-{#                <td>Federal Office for the Environment FOEN <a href="http://www.bafu.admin.ch/"><span#}
-{#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
-{#                <td style="text-align: right">7</td>#}
-{#                <td style="text-align: right">350'000</td>#}
-{#            </tr>#}
-{##}
-{##}
-{#            <tr>#}
-{#                <td>#}
-{#                    <a href="explore.php?dataset=8">Gas Sensor Array Drift</a>#}
-{#                </td>#}
-{#                <td>UCI Machine Learning Repository <a#}
-{#                        href="https://archive.ics.uci.edu/ml/datasets/Gas+Sensor+Array+Drift+Dataset+at+Different+Concentrations"><span#}
-{#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
-{#                <td style="text-align: right">10</td>#}
-{#                <td style="text-align: right">36'000</td>#}
-{#            </tr>#}
-{##}
-{##}
-{#            <tr>#}
-{#                <td>#}
-{#                    <a href="explore.php?dataset=17">Fashion: Zalando dataset</a>#}
-{#                </td>#}
-{#                <td>Zalando SE <a href="https://www.zalando.com/"><span class="glyphicon glyphicon-link"#}
-{#                                                                        aria-hidden="true"></span></a></td>#}
-{#                <td style="text-align: right">16</td>#}
-{#                <td style="text-align: right">11'616</td>#}
-{#            </tr>#}
-{##}
-{##}
-{#            </tbody>#}
-{#        </table>#}
+        {% for id, dataset in original_data_sets.items %}
+            <tr>
+                <td>
+                    {{ dataset.name }}
+                </td>
+                <td> "{{ dataset.source }}" <a href="{{ dataset.link }}"><span
+                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
+                <td style="text-align: right">{{ dataset.sensors }}</td>
+                <td style="text-align: right">{{ dataset.stations }}</td>
+
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {#        <p>These datasets have no missing values.</p>#}
+    {#        <table class="table">#}
+    {#            <tbody>#}
+    {#            <tr>#}
+    {#                <th>Title</th>#}
+    {#                <th>Source</th>#}
+    {#                <th style="text-align: right">Time series</th>#}
+    {#                <th style="text-align: right">Existing values</th>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <a href="explore.php?dataset=5">Climate</a>#}
+    {#                </td>#}
+    {#                <td>Lozona et al, KDD 2009 <a href="http://www-bcf.usc.edu/~liu32/data.html"><span#}
+    {#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
+    {#                <td style="text-align: right">10</td>#}
+    {#                <td style="text-align: right">195'000</td>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <a href="explore.php?dataset=6"> Precipitation - Kanton Zurich</a>#}
+    {#                </td>#}
+    {#                <td>MeteoSwiss <a href="http://www.meteoswiss.admin.ch"><span class="glyphicon glyphicon-link"#}
+    {#                                                                              aria-hidden="true"></span></a></td>#}
+    {#                <td style="text-align: right">4</td>#}
+    {#                <td style="text-align: right">120'000</td>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <a href="explore.php?dataset=7">Hydrology: Discharge of Swiss rivers [Complete]</a>#}
+    {#                </td>#}
+    {#                <td>Federal Office for the Environment FOEN <a href="http://www.bafu.admin.ch/"><span#}
+    {#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
+    {#                <td style="text-align: right">7</td>#}
+    {#                <td style="text-align: right">350'000</td>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <a href="explore.php?dataset=8">Gas Sensor Array Drift</a>#}
+    {#                </td>#}
+    {#                <td>UCI Machine Learning Repository <a#}
+    {#                        href="https://archive.ics.uci.edu/ml/datasets/Gas+Sensor+Array+Drift+Dataset+at+Different+Concentrations"><span#}
+    {#                        class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>#}
+    {#                <td style="text-align: right">10</td>#}
+    {#                <td style="text-align: right">36'000</td>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <a href="explore.php?dataset=17">Fashion: Zalando dataset</a>#}
+    {#                </td>#}
+    {#                <td>Zalando SE <a href="https://www.zalando.com/"><span class="glyphicon glyphicon-link"#}
+    {#                                                                        aria-hidden="true"></span></a></td>#}
+    {#                <td style="text-align: right">16</td>#}
+    {#                <td style="text-align: right">11'616</td>#}
+    {#            </tr>#}
+    {##}
+    {##}
+    {#            </tbody>#}
+    {#        </table>#}
 {% endblock %}

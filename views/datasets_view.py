@@ -8,16 +8,38 @@ from utils.numpy_loader import NumpyEncoder
 import json
 
 data_sets = {
-    "d1": {"name": "D1",
+    "d1": {"name": "D-LONG",
            "link": "http://www.bafu.admin.ch/",
            "source": "Federal Office for the Environment FOEN",
            "sensors": 100,
-           "stations": 10},
-    "d2": {"name": "D2",
+           "stations": 10,
+           "range": "60  days",
+           "data_points": "518M", },
+    "d2": {"name": "D-MULTI",
            "link": "http://www.bafu.admin.ch/",
            "source": "Federal Office for the Environment FOEN",
            "sensors": 100,
-           "stations": 2000},
+           "stations": 2000,
+           "range": "10  days",
+           "data_points": "17.2B", }
+}
+
+original_data_sets = {
+    "bafu": {"name": "BAFU",
+             "link": "http://www.bafu.admin.ch/",
+             "source": "Federal Office for the Environment FOEN",
+             "sensors": 1,
+             "stations": 12},
+    "conductivity": {"name": "Conductivity",
+                     "link": "http://www.bafu.admin.ch/",
+                     "source": "?",
+                     "sensors": "?",
+                     "stations": "?"},
+    "pH_accuracy": {"name": "pH Accuracy",
+                    "link": "http://www.bafu.admin.ch/",
+                    "source": "?",
+                    "sensors": "?",
+                    "stations": "?"},
 }
 
 
@@ -30,6 +52,6 @@ class DatasetsView(View):
 
     def get(self, request):
         self.context['data_sets'] = data_sets
-        self.context['data_generation_sets'] = self.data_generation_sets
+        self.context['original_data_sets'] = original_data_sets
 
         return HttpResponse(self.template.render(self.context, request))
