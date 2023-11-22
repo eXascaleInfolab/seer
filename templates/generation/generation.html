@@ -74,9 +74,9 @@
 
                     // Add the series to the chart using the new axis
                     generationChart.addSeries({
-                        name: data.name + "_generated" + index,
+                        name: data.name + "_generated" + index+1,
                         data: ts,
-                        yAxis: index+1 // Use the index of the last added axis
+                        yAxis: index // Use the index of the last added axis
                     }, false);
                 });
 
