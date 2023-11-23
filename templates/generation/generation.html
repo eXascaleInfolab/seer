@@ -86,7 +86,8 @@
                     generationChart.addSeries({
                         name: data.name + "_generated" + index + 1,
                         data: ts,
-                        yAxis: index // Use the index of the last added axis
+                        yAxis: index,
+                        showInLegend: false// Use the index of the last added axis
                     }, false);
                 });
                 generationChart.axes[3].update({title: {text: "1"}})

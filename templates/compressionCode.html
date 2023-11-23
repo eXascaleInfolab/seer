@@ -2,6 +2,7 @@
 
     class CompressionManager {
         constructor(dataType, data, title = null) {
+            console.log("CompressionManager", dataType)
             this.title = title;
             if (this.title == null) {
                 this.title = dataType;
@@ -24,68 +25,92 @@
         }
 
         initializeCharts() {
-            console.log(this.dataType);
-            console.log(`data-container-${this.dataType}`);
             this.dataChart = Highcharts.chart(`data-container`, {
-                chart: {
-                    type: 'line',
-                    zoomType: 'x'
-                },
-                title: {
-                    text: ""//this.title
-                },
-                xAxis: {
-                    type: 'datetime',
-                    //set extremes
-                    min: Date.parse(this.initialDataSet["time"][0]),
-                    max: Date.parse(this.initialDataSet["time"][Math.max(this.initialDataSet["time"].length - 1,10)]),
-                },
-                yAxis: {
+                    chart: {
+                        type: 'line',
+                        zoomType: 'x'
+                    },
                     title: {
-                        text: 'Value'
-                    }
-                },
-                legend: {
-                    enabled: true,
-                    verticalAlign: 'top',
-                },
-                series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
-                    name: 's0',
-                    id: 's0',
-                    data: this.chartTime.map((time, index) => {
-                        return [time, this.initialDataSet['s0'][index]]
-                    })
-                },
-                    {
-                        name: 's1',
-                        id: 's1',
-                        visible: false,
+                        text: ""//this.title
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Value'
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        verticalAlign: 'top',
+                    },
+                    series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
+                        name: 's0',
+                        id: 's0',
                         data: this.chartTime.map((time, index) => {
-                            return [time, this.initialDataSet['s1'][index]]
+                            return [time, this.initialDataSet['s0'][index]]
                         })
                     },
-                    {
-                        name: 's2',
-                        id: 's2',
-                        visible: false,
-                        data: this.chartTime.map((time, index) => {
-                            return [time, this.initialDataSet['s2'][index]]
-                        })
-                    }],
-                navigator: {
-                    adaptToUpdatedData: false,
-                    enabled: true, // Set to true to enable the navigator
-                },
-                scrollbar: {
-                    enabled: true, // Set to true to show a scrollbar below the chart
-                    liveRedraw: false
-                },
+                        {
+                            name: 's1',
+                            id: 's1',
+                            visible: false,
+                            data: this.chartTime.map((time, index) => {
+                                return [time, this.initialDataSet['s1'][index]]
+                            })
+                        },
+                        {
+                            name: 's2',
+                            id: 's2',
+                            visible: false,
+                            data: this.chartTime.map((time, index) => {
+                                return [time, this.initialDataSet['s2'][index]]
+                            })
+                        }],
+                    navigator: {
+                        adaptToUpdatedData: false,
+                        enabled: true, // Set to true to enable the navigator
+                    },
+                    scrollbar: {
+                        enabled: true, // Set to true to show a scrollbar below the chart
+                        liveRedraw: false
+                    },
+                    credits: {
+                        enabled: false,
+                    },
+                    rangeSelector: {
+                        {#allButtonsEnabled: true,#}
+                        buttons: [ {
+                            type: 'millisecond',
+                            count: 10000,
+                            text: '10s'
+                        }, {
+                            type: 'millisecond',
+                            count: 10000 * 6,
+                            text: '1m'
+                        },{
+                            type: 'millisecond',
+                            count: 10000 * 6 * 10,
+                            text: '10m'
+                        },{
+                            type: 'millisecond',
+                            count: 10000 * 6 * 60,
+                            text: '1h'
+                        }],
+                        selected: 2,
+                        enabled: true,
+                    },
 
-            });
+                }
+            )
+            ;
 
-            const compressionManager = this;
+            const
+                compressionManager = this;
 
-            this.compressionChart = Highcharts.chart(`compression-container`, {
+            this
+                .compressionChart = Highcharts.chart(`compression-container`, {
                 chart: {
                     type: 'column',
                 },
@@ -121,6 +146,7 @@
                         {# },#}
                     },
                 },
+
                 series: Object.keys(this.initialCompression).map(system => {
                     return {
                         name: system,
@@ -139,13 +165,6 @@
                 document.getElementById("showCompression").style.display = "none";
             });
 
-            {#const defaultOption = document.createElement('option');#}
-            {#defaultOption.text = 'Select Level';#}
-            {#defaultOption.disabled = true;#}
-            {#defaultOption.selected = true;#}
-            {#defaultOption.hidden = true;#}
-            {#defaultOption.value = 'default';#}
-            {#dropdown.add(defaultOption);#}
 
             for (const level of this.levels) {
                 const levelOption = document.createElement('option');
@@ -177,7 +196,14 @@
             while (this.dataChart.series.length > 3) {
                 this.dataChart.series[3].remove(false);
             }
+
+            // Update the charts based on the current level
+            const newData = this.data[level]["data"];
+            let counter = 0
+
+
             if (this.dataType === "scarsity") {
+                var used_colors = []
                 this.dataChart.series.forEach(
                     //update series opacity and line style
                     (series) => {
@@ -185,34 +211,78 @@
                             opacity: 0.5,
                             dashStyle: 'dot',
                         }, true);
+                        used_colors.push(series.color)
                     }
                 )
+                for (const sensor of Object.keys(newData)) {
+                    if (sensor === 'time') continue;
+                    try {
+                        const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
+                        {#this.dataChart.get(sensor).setData(newChartData);#}
+                        //  delete series with index larger than 3
 
-            }
-
-            // Update the charts based on the current level
-            const newData = this.data[level]["data"];
-            let counter = 0
-            for (const sensor of Object.keys(newData)) {
-                if (sensor === 'time') continue;
-                try {
-                    const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
-                    {#this.dataChart.get(sensor).setData(newChartData);#}
-                    //  delete series with index larger than 3
-
-                    this.dataChart.addSeries({
-                        name: sensor + "_" + level,
-                        id: sensor + level,
-                        data: newChartData,
-                        linkedTo: sensor,
-                        visible: counter === 0,
-                        showInLegend: true,
-                    });
-                } catch (e) {
-                    console.log(sensor);
-                    console.log(e);
+                        this.dataChart.addSeries({
+                            name: sensor + "_" + level,
+                            id: sensor + level,
+                            data: newChartData,
+                            linkedTo: sensor,
+                            visible: counter === 0,
+                            showInLegend: true,
+                            color: used_colors[counter]
+                        });
+                    } catch (e) {
+                        console.log(sensor);
+                        console.log(e);
+                    }
+                    counter = counter + 1 // 3 sensors
                 }
-                counter = counter + 1 // 3 sensors
+
+            } else if (this.dataType === "outliers") {
+                for (const sensor of Object.keys(newData)) {
+                    if (sensor === 'time') continue;
+                    try {
+                        const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
+
+                        this.dataChart.addSeries({
+                            name: sensor + "_" + level,
+                            id: sensor + level,
+                            data: newChartData,
+                            linkedTo: sensor,
+                            zIndex: -1,
+                            color: 'rgba(255, 0, 0, 1)',
+                            visible: counter === 0,
+                            showInLegend: true,
+                        });
+                    } catch (e) {
+                        console.log(sensor);
+                        console.log(e);
+                    }
+                    counter = counter + 1 // 3 sensors
+                }
+
+            } else {
+                for (const sensor of Object.keys(newData)) {
+                    if (sensor === 'time') continue;
+                    try {
+                        const newChartData = newData[sensor].map((value, index) => [this.chartTime[index], value]);
+                        {#this.dataChart.get(sensor).setData(newChartData);#}
+                        //  delete series with index larger than 3
+
+                        this.dataChart.addSeries({
+                            name: sensor + "_" + level,
+                            id: sensor + level,
+                            data: newChartData,
+                            linkedTo: sensor,
+                            visible: counter === 0,
+                            showInLegend: true,
+                        });
+                    } catch (e) {
+                        console.log(sensor);
+                        console.log(e);
+                    }
+                    counter = counter + 1 // 3 sensors
+                }
+
             }
         }
     }
