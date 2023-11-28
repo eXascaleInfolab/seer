@@ -13,7 +13,7 @@ class GenerationView(View):
     }
     template = loader.get_template('generation/generation.html')
     data_sets = [ ("bafu","Bafu") , ("conductivity","Conductivity") , ("pH_accuracy","pH_accuracy") ]
-    generation_lengths = [2000,  5000, 20000 , 50000]
+    generation_lengths = [2000,  5000, 10000 , 100000]
     generation_counts = [1,2,5,10]
 
     def get(self, request, dataset="bafu"):
@@ -39,8 +39,7 @@ class GenerationView(View):
         else:
             length = int(request.POST.get('generationLength'))
             count = int(request.POST.get('generationCount'))
-            generated_data_set_path = f"{folder}/{data_set}/synthetic.txt"
-            print("AAAAAAAAAAAAAAAAAAAAAAAAA",length, count)
+            generated_data_set_path = f"{folder}/{data_set}/results/{data_set}_{length}_5.txt"
             return JsonResponse({
                 'generated': self.load_generated_data(generated_data_set_path, length, count),
                 'name': [dataset[1] for dataset in self.data_sets if dataset[0] == data_set][0]

@@ -78,17 +78,19 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                     </a>
-                    <li><a class="swap-select" >
+                    <li><a class="swap-select">
                         <div data-toggle="1">time, <span class="s_list">&lt;sensor_list&gt;</span></div>
                     </a></li>
                     <li><a class="swap-select">
-                        <div data-toggle="2">  <span class="s_avg">AVG(s_min)...AVG(s_max)</span> </div>
+                        <div data-toggle="2"><span class="s_avg">AVG(s_min)...AVG(s_max)</span></div>
                     </a></li>
                     <li><a class="swap-select">
-                        <div data-toggle="3"> time , <span class="s_avg">AVG(s_max)...AVG(s_min)</span> </div>
+                        <div data-toggle="3"> time , <span class="s_avg">AVG(s_max)...AVG(s_min)</span></div>
                     </a></li>
                     <li><a class="swap-select">
-                        <div data-toggle="4"> time, <span class="s_i">s_min</span>, <span class="s_j">s_max</span>, AVG(<span class="s_i">s_min</span>,<span class="s_j">s_max</span>)</div>
+                        <div data-toggle="4"> time, <span class="s_i">s_min</span>, <span class="s_j">s_max</span>, AVG(<span
+                                class="s_i">s_min</span>,<span class="s_j">s_max</span>)
+                        </div>
                     </a></li>
                     <li><a class="swap-select">
                         <div data-toggle="5"> CORR(<span class="s_i">s_min</span>,<span class="s_j">s_max</span>)</div>
@@ -115,11 +117,11 @@
                         </a>
                             <li><a class="swap-sup-select row">
 
-                                     d1
+                                d1
 
                             </a></li>
                             <li><a class="swap-sup-select row">
-                                     d2
+                                d2
                             </a></li>
                         </ul>
                     </div>
@@ -196,13 +198,13 @@
     </div>
     <div class="col-md-4">
         <div class="form-group">
-            <label for="station-slider"> |station_list|
+            <label for="station-slider"> &lt;station_list&gt; length:
                 {% include "parts/info.html" with text="Number of stations" %}
             </label>
             {% include "parts/slider.html" with id="stations" %}
         </div>
         <div class="form-group">
-            <label for="sensor-slider"> |sensor_list|
+            <label for="sensor-slider"> &lt;sensor_list&gt; length:
                 {% include "parts/info.html" with text="Number of sensors" %}
             </label>
             {#                <input type="range" id="sensor-slider" class="form-control-range" min="1" max="100" value="3"#}
@@ -210,13 +212,31 @@
             {% include "parts/slider.html" with id="sensors" %}
 
         </div>
-        <label for="sensor-slider">Range
-            {% include "parts/info.html" with text="Time Interval" %}
-        </label>
-        {% include "parts/slider.html" with id="time" %}
+        <div class="form-group">
+            <label for="sensor-slider">Range
+                {% include "parts/info.html" with text="Time Interval" %}
+            </label>
+            {% include "parts/slider.html" with id="time" %}
+        </div>
+
+
+        <div class="form-group online-only">
+            <label for="ingestion-input"> Insertion Rate (x10K/s)
+                {% include "parts/info.html" with text="Ingestion Speed" %}
+            </label>
+            <select id="ingestion-input" class="form-control">
+                <option> 0</option>
+                <option> 10</option>
+                <option> 20</option>
+                <option> 50</option>
+                <option> 100</option>
+            </select>
+        </div>
+
+
         <form id="retrieveForm" action="https://revival.exascale.info/api/drop.php">
 
-{#            <button class="btn btn-primary query-submit" onclick="submitQuery()">Generate</button>#}
+            {#            <button class="btn btn-primary query-submit" onclick="submitQuery()">Generate</button>#}
 
             {# create 3 hidden fields to store the values of the sliders #}
             <input type="hidden" data-link="slider-stations" name="stations" value="5">

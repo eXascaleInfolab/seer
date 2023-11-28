@@ -16,16 +16,10 @@
                 // Get the selected value from the dropdown
                 const selectedValue = document.getElementById('feature').value;
                 // Perform actions based on the selected value
-                if (selectedValue === 'scarsity') {
-                    compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity']);
-                    // Add your code for the 'scarsity' option
-                } else if (selectedValue === 'repeats') {
-                    compressionManager = new CompressionManager('repeats', compression_data_sets['repeats']);
-                    // Add your code for the 'repeats' option
-                } else if (selectedValue === 'outliers') {
-                    compressionManager = new CompressionManager('outliers', compression_data_sets['outliers']);
-                    // Add your code for the 'repeats' option
-                }
+
+                compressionManager = new CompressionManager(selectedValue, compression_data_sets[selectedValue]);
+                // Add your code for the 'scarsity' option
+
             }
         </script>
         {##}
@@ -36,7 +30,7 @@
             <form id="retrieveForm">
 
                 <div
-                     style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
+                        style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
 
                     <label for="feature" style="width: 30%; text-align: left;">Dataset:</label>
 
@@ -59,6 +53,8 @@
                         <option value="scarsity">Scarsity</option>
                         <option value="repeats">Repeats</option>
                         <option value="outliers">Outliers</option>
+                        <option value="delta">Delta</option>
+
                     </select>
 
                     <div id="level-dropdown" style="width: 30%;">
@@ -106,7 +102,6 @@
             if (dropdown_value === "default") {
                 return
             }
-            console.log(dropdown_value, "BBBBBBBBBBBBBB")
             compressionManager.displayChart();
             document.getElementById("showCompression").style.display = "block";
         });

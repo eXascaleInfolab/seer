@@ -19,9 +19,6 @@ from utils.CONSTANTS import INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CL
 # Random settings
 #d1 2019-03-01T00:00:00 - 2019-04-29T23:59:40 , stations st0 - st9     , sensors s0 - s99
 #d2 2019-02-01T00:00:10 - 2019-02-10T23:59:50 , stations st0 - st1999 ,  sensors s0 - s99
-
-
-
 time_stamps_options = [
     "2019-03-01T00:00:00",
     "2019-04-29T23:59:50",
@@ -33,15 +30,16 @@ class OfflineQueryView(View):
         'heading': 'Welcome to the Offline Queries Page',
         'body': 'This is the body of the Offline Queries Page',
     }
+    template = loader.get_template('offline-queries/queries.html')
 
     def get(self, request):
         import random
         random.seed(1)
-        template = loader.get_template('offline-queries/offline-queries.html')
+        template = loader.get_template('offline-queries/queries.html')
 
-        self.context["query_frame"] = render_to_string('offline-queries/query-box2.html', {})
+        self.context["query_frame"] = render_to_string('offline-queries/query-box.html', {})
         self.context["time_stamps"] = random.sample(time_stamps_options*100,100)
-        return HttpResponse(template.render(self.context, request))
+        return HttpResponse(self.template.render(self.context, request))
 
     def post(self, request):
         query = request.POST.get('query')
@@ -54,3 +52,11 @@ class OfflineQueryView(View):
         # return json respone
         return JsonResponse(data)
 
+
+class OnlineQueryView(OfflineQueryView):
+    context = {
+        'title': 'Online Queries',
+        'heading': 'Welcome to the Online Queries Page',
+        'body': 'This is the body of the Offline Queries Page',
+    }
+    template = loader.get_template('offline-queries/online-queries.html')

@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+    {% block query-spec %}
+        <style>
+            .online-only {
+                display: none;
+            }
+        </style>
+    {% endblock %}
+
 
     <style>
         .query-composition {
@@ -49,9 +57,8 @@
 
     <button id="fetchButton" style="margin-left: 20px">Evaluate</button>
 
-    <button id="add-query-button">Add Query<i class="mdi mdi-plus"></i></button>
-
-    <div id="frequency-selection" style="margin-top: 10px" class="row">
+    <button id="add-query-button" class="offline-only"> Add Query<i class="mdi mdi-plus"></i></button>
+    <div id="frequency-selection" class="offline-only" style="margin-top: 10px" class="row">
         <div>
             <div style="text-align: center; font-weight: bold;">Query:</div>
             <div style="margin-right: 15px; margin-top: 7px; font-weight: bold;">Frequency (%):</div>

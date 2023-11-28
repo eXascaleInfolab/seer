@@ -56,17 +56,18 @@
                     generationChart.yAxis[0].remove();
                 }
                 nGenerated = newData.length
-                document.getElementById('generation-container').style.height = ((nGenerated) * 150+130) + 'px'
+                document.getElementById('generation-container').style.height = ((nGenerated) * 120+150) + 'px'
 
                 newData.forEach(function (ts, index) {
                     generationChart.addAxis({
                         title: {
                             text: index
                         },
-                        top: index * 150 + "px",
+                        top:  index * 120 + "px",
                         offset: 1,
-                        height: "160px",
-                        minPadding: 0.3,
+                        opposite: index % 2,
+                        height: "120px",
+                        minPadding: '0',
                         endOnTick: false,
                     })
                 })
