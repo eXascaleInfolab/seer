@@ -1,0 +1,5 @@
+#Cardinality station_list size
+# range duration/size
+# repeats
+# demo of the system
+# add online option to the system
