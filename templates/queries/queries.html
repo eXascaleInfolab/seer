@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% block query-spec %}
+        <style>
+            .online-only {
+                display: none;
+            }
+
+        </style>
+    {% endblock %}
+
+
+    <style>
+        .query-composition {
+            font-size: 20px;
+        }
+    </style>
+    <button id="reset-query-button" style="position: absolute ; transform: translateX(-70px)"><i
+            class="mdi mdi-reload mdi-24px"></i></button>
+
+    <div class="row">
+        <div class="header col-md-6">
+            {#            {% include "parts/infoButton.html" %}#}
+            <h4> Query Composition</h4>
+
+            {# horizontal line  #}
+            <hr style="margin-bottom: 5px;margin-top: 5px;margin-left: -10px">
+        </div>
+        <div class="header col-md-6">
+            <h4 style="margin-left: 10px"> Query Variation</h4>
+            <hr style="margin-bottom: 5px;margin-top: 5px">
+        </div>
+    </div>
+    <div id="query-frame-holder">
+
+    </div>
+    <style>
+        .ui-slider-handle {
+            width: 7px !important;
+            transform: translateX(5px) !important;
+            border-radius: 0px !important;
+        }
+
+        .ui-slider-handle > ui-corner-all {
+            border-radius: 0px;
+        !important;
+        }
+
+    </style>
+
+
+    <button id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
+
+    <script>
+        const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
+        const timeStamp =  {{ time_stamps|safe }};
+        const queryFetchUrl = '{% url "offline-queries" %}';
+        var csrfToken = "{{ csrf_token }}"
+    </script>
+
+
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    {% block query_results %}
+        <button id="add-query-button" class="offline-only"> Add Query<i class="mdi mdi-plus"></i></button>
+
+        <div id="frequency-selection" class="offline-only row" style="margin-top: 12px">
+            <div>
+                <div style="text-align: center; font-weight: bold;">Query:</div>
+                <div style="margin-right: 15px; margin-top: 7px; font-weight: bold;">Frequency (%):</div>
+            </div>
+            <div id="frequency-query" class="row">
+            </div>
+        </div>
+        <div id="errorDisplay"></div>
+        <div id="chart-container" style="width: 600px; height: 400px;margin-top: 40px"></div>
+    {% endblock %}
+
+    {% block query_scripts %}
+        {% include "queries/slider-script.html" %}
+        {% include "queries/code/offline_queries_css.html" %}
+        {% include "queries/code/query_init_code.html" %}
+        {% include "queries/code/evaluate_code.html" %}
+    {% endblock %}
+{% endblock %}

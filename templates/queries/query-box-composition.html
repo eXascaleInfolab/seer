@@ -1,0 +1,141 @@
+<div class="query-composition">
+    <div class="row">
+        <div class="sql-bold space-right"> SELECT</div>
+        station_id,
+        <div class="dropdown">
+            <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                 aria-expanded="false">
+                <div class="select_">
+                    <div class="select-main">
+                        <div data-toggle="0"> Projection</div>
+                    </div>
+                    <span class="caret"></span>
+                </div>
+            </div>
+            <ul class="dropdown-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-haspopup="true" aria-expanded="false">
+                </a>
+                <li><a class="swap-select">
+                    <div data-toggle="1" data-query="1">time, <span class="s_list">&lt;sensor_list&gt;</span>
+                    </div>
+                </a></li>
+                <li><a class="swap-select">
+                    <div data-toggle="2" data-query="3"><span class="s_avg">AVG(s_min)...AVG(s_max)</span></div>
+                </a></li>
+                <li><a class="swap-select">
+                    <div data-toggle="3" data-query="4"> time , <span
+                            class="s_avg">AVG(s_max)...AVG(s_min)</span>
+                    </div>
+                </a></li>
+                <li><a class="swap-select">
+                    <div data-toggle="4" data-query="6"> time, <span class="s_i">s_min</span>, <span
+                            class="s_j">s_max</span>,
+                        AVG(<span
+                                class="s_i">s_min</span>,<span class="s_j">s_max</span>)
+                    </div>
+                </a></li>
+                <li><a class="swap-select">
+                    <div data-toggle="5" data-query="7"> CORR(<span class="s_i">s_min</span>,<span class="s_j">s_max</span>)
+                    </div>
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="from">
+        <div class="row">
+            <div class="sql-bold"> FROM</div>
+            <div>
+                <div class="dropdown row" style="margin-left: 8px">
+                    <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                         aria-expanded="false">
+                        <div class="select_">
+                            <div class="sub-select-main data-select-main" data-value="Dataset">
+                                <div class=row" data-toggle="2">&nbsp;Dataset</div>
+                            </div>
+                            <span class="caret"></span>
+                        </div>
+                    </div>
+                    <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                 aria-haspopup="true" aria-expanded="false">
+                    </a>
+                        <li><a class="swap-sup-select row">
+                            d1
+                        </a></li>
+                        <li><a class="swap-sup-select row">
+                            d2
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="sql-bold"> WERE</div>
+            &nbsp; station_id in &nbsp; <span class="st_list"> &lt;station_list&gt;</span>
+        </div>
+        <div class="row">
+            <div class="sql-bold"> AND</div>
+            &nbsp; time &lt;
+            <div class="space" data-type="time-stamp">?timestamp</div>
+        </div>
+        <div class="row">
+            <div class="sql-bold "> AND</div>
+            &nbsp; time &gt;=
+            <div class="space" data-type="time-stamp">?timestamp</div>
+            -
+            <div class="space" data-type="time-interval">Range</div>
+
+            <div class="semicolon"></div>
+        </div>
+    </div>
+    <div class="query-content" style="margin-left: 0px">
+        <div class="select-1">
+            <div class="dropdown row">
+                <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="false"
+                     aria-expanded="false">
+                    <div class="select_">
+                        <div class="sub-select-main">
+                            <div class=row">&nbsp;</div>
+                        </div>
+                        <span class="caret"></span>
+                    </div>
+                </div>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <li><a class="swap-sup-select">
+                        <div class="row" data-query="2">
+                            <div class="sql-bold" data-query="6"> AND</div>
+                            &nbsp s1 > 0.95;
+                        </div>
+                    </a></li>
+                    <li><a class="swap-sup-select">
+                        <div class="row" data-toggle="3" data-query="5"> SAMPLE BY 5 : FILL(LINEAR);
+                        </div>
+                    </a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="select-2">
+            <div class="row">
+                <div class="sql-bold " data-query="5"> GROUP BY</div>
+                &nbsp; station_id;
+            </div>
+        </div>
+
+        <div class="select-3">
+            <div class="row">
+                <div class="sql-bold" data-query="1"> GROUP BY</div>
+                &nbsp; station_id time
+            </div>
+            <div class="row">
+                <div class="sql-bold" data-query="7"> SAMPLE BY</div>
+                &nbsp; 1H;
+            </div>
+        </div>
+    </div>
+</div>

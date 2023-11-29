@@ -1,103 +1,25 @@
 <script>
+    console.log("BBBBBBBBBBBBBBBBB")
 
-    // time slider
+    $(document).ready(function () {
+        console.log("AAAAAAAAAAAAAA")
 
+        document.getElementById("reset-query-button")
+            .addEventListener("click", function () {
+                QueryHandler.reset();
+            });
+        QueryHandler.addQuery()
 
-    function get_random_time_stamp() {
-        return timeStamp.pop()
-    }
-
-    function set_query_values(element) {
-        var queryFrame = element.closest('.query-frame');
-        var formValues = get_slider_values(element);
-        console.log("formValues", formValues)
-        var timeStamp = get_random_time_stamp();
-        var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
-        elementsWithDatasetAttribute.forEach(function (element_) {
-            element_.innerText = timeStamp;
-        });
-        {#queryFrame.find('[data-link="time-stamp"]').val(timeStamp);#}
-
-        var stations = formValues["stations"]
-        var sensors = formValues["sensors"]
-
-        // change s_i , s_j to s_1, s_2,
-        // change s_avg to s_1, s_2, s_3
-        var s_i = queryFrame.querySelectorAll('.s_i');
-        s_i.forEach(function (element) {
-            element.innerText = "s" + 1
-        })
-        var s_j = queryFrame.querySelectorAll('.s_j');
-        s_j.forEach(function (element) {
-            element.innerText = "s" + sensors
-        })
-
-        var s_avg = queryFrame.querySelectorAll('.s_avg');
-        var avgText = ""
-        if (sensors === 1) {
-            avgText = "AVG(s1)"
-        } else {
-            avgText = "AVG(s1)...AVG(s" + sensors + ")"
+        // Check if the button element with ID "add-query-button" exists
+        if (document.getElementById("add-query-button")) {
+            // Add the event listener only if the button exists
+            document.getElementById("add-query-button")
+                .addEventListener("click", function () {
+                    QueryHandler.addQuery();
+                });
         }
-        s_avg.forEach(function (element) {
-            element.innerText = avgText
-        })
 
-        var st_list = queryFrame.querySelectorAll('.st_list');
-        var st_list_text = ""
-        if (stations === 1) {
-            st_list_text = "(s1)"
-        } else if (stations === 2)  {
-            st_list_text = "(s1,s2)"
-        }
-        else {
-            st_list_text = "(s1,...,s" + stations + ")"
-        }
-        st_list.forEach(function (element) {
-            element.innerText = st_list_text
-        })
-
-        s_list = queryFrame.querySelectorAll('.s_list');
-        var s_list_text = ""
-        if (sensors === 1) {
-            s_list_text = "s1"
-        } else if (sensors === 2)  {
-            s_list_text = " s1, s2"
-        }
-        else {
-            s_list_text = "s1,...,s" + sensors + ""
-        }
-        s_list.forEach(function (element) {
-            element.innerText = s_list_text
-        })
-    }
-
-    function swapSelect(divElement) {
-        var dataToggle = divElement.children[0].getAttribute("data-toggle");
-
-        var queryFrame = divElement.closest('.query-frame');
-        var selectMain = queryFrame.querySelector('.select-main');
-
-        var selectMainInnerHTML = selectMain.innerHTML;
-        selectMain.innerHTML = divElement.innerHTML;
-        // divElement.innerHTML = selectMainInnerHTML ;
-
-        var contentDiv = queryFrame.querySelector('.query-content');
-        // set the direct children to be visible if id = select-dataToggle
-        var children = contentDiv.children;
-        for (var i = 0; i < children.length; i++) {
-            var child = children[i];
-            if (child.parentElement !== contentDiv) {
-                continue;
-            }
-            if (child.classList.contains("select-" + dataToggle)) {
-                child.style.display = "block";
-            } else {
-                child.style.display = "none";
-            }
-        }
-    }
-
+    });
 
     function initQueryFrame() {
         const swapSelections = document.querySelectorAll('.swap-select');
@@ -120,6 +42,22 @@
                 });
             });
         });
+
+
+        const dataQueries = document.querySelectorAll('[data-query]')
+        console.log(dataQueries)
+
+        dataQueries.forEach(function (element) {
+            element.addEventListener('click', function () {
+                var queryFrame = element.closest('.query-frame');
+                var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-link="query"]');
+                elementsWithDatasetAttribute.forEach(function (element_) {
+                    element_.value = element.getAttribute('data-query');
+                    console.log(element_.value)
+                });
+            });
+        });
+
 
         // get all elements of class time-range-select
         const timeRangeSelect = document.querySelectorAll('.time-range-select');
@@ -180,6 +118,103 @@
 
     }
 
+</script>
+
+<script>
+
+    function get_random_time_stamp() {
+        return timeStamp.pop()
+    }
+
+    function set_query_values(element) {
+        var queryFrame = element.closest('.query-frame');
+        var formValues = get_slider_values(element);
+        console.log("formValues", formValues)
+        var timeStamp = get_random_time_stamp();
+        var elementsWithDatasetAttribute = queryFrame.querySelectorAll('[data-type="time-stamp"]');
+        elementsWithDatasetAttribute.forEach(function (element_) {
+            element_.innerText = timeStamp;
+        });
+        {#queryFrame.find('[data-link="time-stamp"]').val(timeStamp);#}
+
+        var stations = formValues["stations"]
+        var sensors = formValues["sensors"]
+
+        // change s_i , s_j to s_1, s_2,
+        // change s_avg to s_1, s_2, s_3
+        var s_i = queryFrame.querySelectorAll('.s_i');
+        s_i.forEach(function (element) {
+            element.innerText = "s" + 1
+        })
+        var s_j = queryFrame.querySelectorAll('.s_j');
+        s_j.forEach(function (element) {
+            element.innerText = "s" + sensors
+        })
+
+        var s_avg = queryFrame.querySelectorAll('.s_avg');
+        var avgText = ""
+        if (sensors === 1) {
+            avgText = "AVG(s1)"
+        } else {
+            avgText = "AVG(s1)...AVG(s" + sensors + ")"
+        }
+        s_avg.forEach(function (element) {
+            element.innerText = avgText
+        })
+
+        var st_list = queryFrame.querySelectorAll('.st_list');
+        var st_list_text = ""
+        if (stations === 1) {
+            st_list_text = "(s1)"
+        } else if (stations === 2) {
+            st_list_text = "(s1,s2)"
+        } else {
+            st_list_text = "(s1,...,s" + stations + ")"
+        }
+        st_list.forEach(function (element) {
+            element.innerText = st_list_text
+        })
+
+        s_list = queryFrame.querySelectorAll('.s_list');
+        var s_list_text = ""
+        if (sensors === 1) {
+            s_list_text = "s1"
+        } else if (sensors === 2) {
+            s_list_text = " s1, s2"
+        } else {
+            s_list_text = "s1,...,s" + sensors + ""
+        }
+        s_list.forEach(function (element) {
+            element.innerText = s_list_text
+        })
+    }
+
+    function swapSelect(divElement) {
+        var dataToggle = divElement.children[0].getAttribute("data-toggle");
+
+        var queryFrame = divElement.closest('.query-frame');
+        var selectMain = queryFrame.querySelector('.select-main');
+
+        var selectMainInnerHTML = selectMain.innerHTML;
+        selectMain.innerHTML = divElement.innerHTML;
+        // divElement.innerHTML = selectMainInnerHTML ;
+
+        var contentDiv = queryFrame.querySelector('.query-content');
+        // set the direct children to be visible if id = select-dataToggle
+        var children = contentDiv.children;
+        for (var i = 0; i < children.length; i++) {
+            var child = children[i];
+            if (child.parentElement !== contentDiv) {
+                continue;
+            }
+            if (child.classList.contains("select-" + dataToggle)) {
+                child.style.display = "block";
+            } else {
+                child.style.display = "none";
+            }
+        }
+    }
+
     function addFrequencyInput(value, name) {
         // Create a container div
         var containerDiv = document.createElement("div");
@@ -215,7 +250,9 @@
         var parentElement = document.getElementById("frequency-query");
 
         // Append the container div to the parent element
-        parentElement.appendChild(containerDiv);
+        if(parentElement){
+            parentElement.appendChild(containerDiv);
+        }
 
         return input;
     }
@@ -248,10 +285,7 @@
                 )
             }
 
-
             this.frequencyInputs.push(input)
-
-
         },
 
         reset: function () {
@@ -286,11 +320,6 @@
 
         checkFrameValues() {
             // delete old error messages
-            var error_messages = document.getElementsByClassName("query-error-message")
-            for (var i = 0; i < error_messages.length; i++) {
-                error_messages[i].remove()
-            }
-
             var frame_values = this.getFrameValues()
             // iterate frame values with index
             var error_message = ""
@@ -312,16 +341,19 @@
                     error_message_div.setAttribute("role", "alert")
                     error_message_div.classList.add("query-error-message")
                     error_message_div.innerText = error_message
-                    document.getElementById("frequency-selection").insertAdjacentElement("afterend", error_message_div)
+                    document.getElementById("errorDisplay").appendChild(error_message_div)
                     return false
 
                 }
             }
-
+            document.getElementById("errorDisplay").innerHTML = ""
             return true
         },
 
         checkFrequencies() {
+            if(!document.getElementById("frequency-query")){
+                return true
+            }
             var frequencyInputs = document.getElementsByClassName("frequency-input")
             var total_value = 0
             for (var i = 0; i < frequencyInputs.length; i++) {
@@ -334,32 +366,13 @@
                 error_message_div.setAttribute("role", "alert")
                 error_message_div.classList.add("query-error-message")
                 error_message_div.innerText = "Frequencies must add up to 100%"
-                document.getElementById("frequency-selection").insertAdjacentElement("afterend", error_message_div)
+                document.getElementById("errorDisplay").appendChild(error_message_div)
                 return false
             }
+            document.getElementById("errorDisplay").innerHTML = ""
             return true
         }
     };
 
 
-    $(document).ready(function () {
-        QueryHandler.addQuery()
-
-        // add on click to add query button
-        document.getElementById("add-query-button")
-            .addEventListener("click", function () {
-                QueryHandler.addQuery();
-            });
-        document.getElementById("reset-query-button")
-            .addEventListener("click", function () {
-                QueryHandler.reset();
-            });
-        document.getElementById("fetchButton")
-            .addEventListener("click", function () {
-                console.log("fetchButton clicked")
-                QueryHandler.checkFrameValues();
-                QueryHandler.checkFrequencies();
-
-            });
-    });
 </script>

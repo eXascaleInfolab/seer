@@ -1,0 +1,72 @@
+<style>
+    .select_ {
+        background: white;
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 2px;
+        padding-left: 5px;
+        max-width: 400px;
+        position: relative;
+        padding-right: 20px;
+    }
+
+    .select_:hover {
+        cursor: pointer;
+    }
+
+    .select_ .caret {
+        position: absolute; /* Set the position of the caret to absolute */
+        right: 4px; /* Adjust the right distance as needed */
+        top: 40%;
+    }
+
+    .space-right {
+        margin-right: 5px;
+    }
+
+    .dropdown.row {
+        margin-left: -15px;
+    }
+
+    .dropdown .row {
+        margin-left: 0px;
+        margin-right: 0;
+    }
+
+    .query-content {
+        margin-left: 20px;
+    }
+
+    .dropdown {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .space {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .sql-bold {
+        font-weight: bold;
+    }
+
+    .query-content > * {
+        display: none;
+    }
+
+</style>
+
+
+<div class="query-frame row">
+    <div class="col-md-6">
+       {% include "queries/query-box-composition.html" %}
+    </div>
+    <div class="col-md-4">
+        {% include 'queries/query-box-form.html' %}
+    </div>
+</div>
+<div class="header col-md-20">
+    <hr style="margin-bottom: 10px;margin-top: 10px;margin-left: -20px">
+</div>

@@ -1,0 +1,15 @@
+{% extends 'queries/queries.html' %}
+
+{% block query-spec %}
+    <style>
+        .offline-only {
+            display: none !important;
+        }
+    </style>
+{% endblock %}
+
+{% block query_results %}
+    <div id="errorDisplay"></div>
+    <div id="chart-container" style="width: 600px; height: 400px;margin-top: 40px"></div>
+{% endblock %}
+

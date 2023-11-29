@@ -1,0 +1,131 @@
+<script>
+
+    const evaluateBTN = document.getElementById("evaluateBTN")
+
+    evaluateBTN.addEventListener("click", evaluate)
+
+    function evaluate() {
+
+        if (!QueryHandler.checkFrequencies()) {
+            return false
+        }
+        if (!QueryHandler.checkFrameValues()) {
+            return false
+        }
+
+        let query_frequencies = document.getElementsByClassName('frequency-input');
+        let length = query_frequencies.length;
+        let frequencies = []
+        for (let i = 0; i < length; i++) {
+            frequencies.push(query_frequencies[i].value);
+        }
+
+        // Fetch all forms with class 'query-box-form'
+        const forms = document.querySelectorAll('.query-box-form');
+
+        // Array to hold data of each form
+        let formsData = [];
+
+        // Iterate over forms and collect their data
+
+        // Get the CSRF token from the first form
+        const csrfTokenInput = forms[0].querySelector('[name=csrfmiddlewaretoken]');
+        const csrfToken = csrfTokenInput ? csrfTokenInput.value : null;
+
+        forms.forEach((form, index) => {
+            let formData = {};
+
+            // Loop through form elements and collect data
+            for (let element of form.elements) {
+                if (element.name) {
+                    formData[element.name] = element.value;
+                }
+            }
+            // Add this form's data to the array
+            formsData.push(formData);
+            console.log(`Form ${index + 1} data:`, formData);
+        });
+        console.log(JSON.stringify(formsData))
+        // Send POST request with forms data
+        fetch(window.location.href, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(formsData)
+        })
+            .then(response => response.json())
+            .then(data => updateChart(data.data))
+            .catch((error) => console.error('Error:', error));
+    }
+
+
+</script>
+
+<script>
+    var chart;
+    var seriesData = [];
+
+    // Function to create or update the Highcharts chart
+    function createChart() {
+        chart = Highcharts.chart('chart-container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Runtime'
+            },
+            xAxis: {
+                categories: ["Influx", "questdb", "Timescaledb", "monetdb", "extremedb", "clickhouse", "druid"]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Time (ms)'
+                }
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [{
+                name: "placeholder",
+                data: [0, 0, 0, 0, 0, 0, 0],
+                showInLegend: false
+            }]
+        });
+    }
+
+    createChart();
+
+    // Function to update the chart data
+    function updateChart(newData) {
+        console.log("updatechart")
+        if (!chart) {
+            console.log("no chart")
+            createChart(newData);
+        } else {
+            // Remove all current series
+            let n_series = chart.series.length;
+            for (let i = 0; i < n_series; i++) {
+                chart.series[0].remove();
+            }
+        }
+        console.log(newData)
+        Object.keys(newData).forEach(query => {
+            const query_runtime = newData[query];
+            console.log("AAAAAAAAAAAAAAAAAAAAAa", query);
+
+            console.log("query", query);
+            // add series to chart
+            chart.addSeries({
+                name: query,
+                data: [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid],
+                showInLegend: true
+            }, false);
+        })
+        chart.redraw();
+    }
+</script>

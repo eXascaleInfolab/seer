@@ -1,0 +1,18 @@
+{% extends "queries/queries.html" %}
+
+
+{% block query_results %}
+    <div id="errorDisplay"></div>
+
+    <div id="results-container">
+        <!-- Results will be displayed here -->
+    </div>
+{% endblock %}
+
+{% block query_scripts %}
+    {% include "queries/slider-script.html" %}
+    {% include "queries/code/offline_queries_css.html" %}
+    {% include "queries/code/evaluate_code_live.html" %}
+    {% include "queries/code/query_init_code.html" %}
+
+{% endblock %}

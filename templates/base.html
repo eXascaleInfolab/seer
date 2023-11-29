@@ -58,6 +58,22 @@
             },
 
         });
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Search for the CSRF token cookie
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
     </script>
     <style>
         /*
@@ -167,6 +183,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href='{% url "online-queries" %}'>
                                 Online Queries
+                            </a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href='{% url "live-queries" %}'>
+                                Live Queries
                             </a>
                         </li>
                     </ul>

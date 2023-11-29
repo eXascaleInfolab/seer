@@ -1,0 +1,114 @@
+<script>
+
+    const evaluateBTN = document.getElementById("evaluateBTN")
+
+    evaluateBTN.addEventListener("click", evaluate)
+
+    function evaluate() {
+
+        if (!QueryHandler.checkFrameValues()) {
+            return false
+        }
+
+        let query_frequencies = document.getElementsByClassName('frequency-input');
+        let length = query_frequencies.length;
+        let frequencies = []
+        for (let i = 0; i < length; i++) {
+            frequencies.push(query_frequencies[i].value);
+        }
+
+        // Fetch all forms with class 'query-box-form'
+        const forms = document.querySelectorAll('.query-box-form');
+
+        // Array to hold data of each form
+        let formsData = [];
+
+        // Iterate over forms and collect their data
+
+        // Get the CSRF token from the first form
+        const csrfTokenInput = forms[0].querySelector('[name=csrfmiddlewaretoken]');
+        const csrfToken = csrfTokenInput ? csrfTokenInput.value : null;
+
+        forms.forEach((form, index) => {
+            let formData = {};
+
+            // Loop through form elements and collect data
+            for (let element of form.elements) {
+                if (element.name) {
+                    formData[element.name] = element.value;
+                }
+            }
+            // Add this form's data to the array
+            formsData.push(formData);
+            console.log(`Form ${index + 1} data:`, formData);
+        });
+        console.log(JSON.stringify(formsData))
+        // Send POST request with forms data
+        fetch(window.location.href, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(formsData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                //        #runtime, query, numberOfQueries, query_results
+
+                displayOnlineResults(data.runtime, data.query, data.numberOfQueries, data.query_results)
+            })
+            .catch((error) => console.error('Error:', error));
+    }
+
+    function formatMilliseconds(milliseconds) {
+        const seconds = (milliseconds / 1000).toFixed(2);
+        return `${seconds} seconds`;
+    }
+
+
+    function displayOnlineResults(runtime, query, numberOfQueries, query_results) {
+        resultContainer = document.getElementById("results-container")
+        resultContainer.innerHTML = ""
+        // Create a container div for the results
+        const container = document.createElement('div');
+
+        // Display runtime
+        const runtimeElement = document.createElement('p');
+        runtimeElement.textContent = `Runtime: ${runtime} milliseconds`;
+        container.appendChild(runtimeElement);
+
+        // Display query
+        const queryElement = document.createElement('p');
+        queryElement.textContent = `SQL Query: ${query}`;
+        container.appendChild(queryElement);
+
+        // Display number of queries
+        const numQueriesElement = document.createElement('p');
+        numQueriesElement.textContent = `Number of Results: ${numberOfQueries}`;
+        container.appendChild(numQueriesElement);
+
+        // Display query results
+        const resultsElement = document.createElement('ul');
+        resultsElement.style.maxHeight = "200px"
+        resultsElement.style.overflowY = "scroll"
+        query_results.forEach((result, index) => {
+            if (index < 10) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${result}`;
+                resultsElement.appendChild(listItem);
+            }
+            if(index == 10){
+                     const listItem = document.createElement('li');
+                listItem.textContent = "..."  +  (parseInt(numberOfQueries)-10) + " results not displayed";
+                resultsElement.appendChild(listItem );
+            }
+        });
+        container.appendChild(resultsElement);
+
+        // Append the container to the document (you can adjust this part based on your HTML structure)
+        resultContainer.appendChild(container)
+    }
+
+
+</script>

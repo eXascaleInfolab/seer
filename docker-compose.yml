@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - clickhouse
+
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    container_name: clickhouse-demo
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
+    restart: unless-stopped
+
