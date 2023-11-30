@@ -11,7 +11,7 @@ import json
 
 from clickhouse_driver import Client
 
-host = "localhost"
+host = "clickhouse" #clickhouse
 
 old_result = None
 
@@ -41,11 +41,11 @@ class LiveQueryView(OfflineQueryView):
         parsed_entry["query"] = query
         parsed_query = query_parser(system=system, **parsed_entry)
 
-        print(parsed_query)
+        print("parsed" ,parsed_query)
 
         result = {}
 
-        client = Client(host='localhost', port=9000)
+        client = Client(host=host, port=9000)
 
         import time
         start = time.time()
@@ -53,7 +53,7 @@ class LiveQueryView(OfflineQueryView):
         runtime = time.time() - start
         query_data = sorted(query_data, key=lambda x: x[0])
 
-        print(len(query_data))
+        print("EEEE", len(query_data))
 
         # runtime, query, numberOfQueries, query_results
         result["runtime"] = runtime
