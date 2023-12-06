@@ -7,6 +7,9 @@ from utils.compression_loader import load_compression_data_sets, load_systems_co
 from utils.numpy_loader import NumpyEncoder
 import json
 
+with open('generation_data/datasets.json', 'r') as file:
+    generation_datasets_info = json.load(file)
+
 class GenerationView(View):
     context = {
         'title': 'Generation using GAN',
@@ -17,7 +20,7 @@ class GenerationView(View):
     generation_counts = [1,2,5,10]
 
     def get(self, request, dataset="bafu"):
-
+        self.context["data_info"] =  generation_datasets_info[dataset]
         self.context['data_sets'] = self.data_sets
         self.context['generation_lengths'] = self.generation_lengths
         self.context['generation_counts'] = self.generation_counts

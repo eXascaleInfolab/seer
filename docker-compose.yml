@@ -27,7 +27,7 @@ services:
     container_name: clickhouse-demo
     ports:
       - "8123:8123"
-      - "9000:9000"
+      - "9001:9000"
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:

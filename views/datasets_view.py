@@ -24,28 +24,8 @@ data_sets = {
            "data_points": "17.2B", }
 }
 
-original_data_sets = {
-    "bafu": {"name": "BAFU",
-             "link": "http://www.bafu.admin.ch/",
-             "source": "Federal Office for the Environment FOEN",
-             "sensors": 1,
-             "stations": 12,
-             "datapoints": 50000},
-    "conductivity": {"name": "Conductivity",
-                     "link": "http://www.bafu.admin.ch/",
-                     "source": "Federal Office for the Environment FOEN",
-                     "sensors": "?",
-                     "stations": "?",
-                     "datapoints": 251693},
-    "pH_accuracy": {"name": "pH Accuracy",
-                    "link": "http://www.bafu.admin.ch/",
-                    "source": "Federal Office for the Environment FOEN",
-                    "sensors": "?",
-                    "stations": "?",
-                    "datapoints": 20000
-                    },
-}
-
+with open('generation_data/datasets.json', 'r') as file:
+    generation_datasets = json.load(file)
 
 class DatasetsView(View):
     context = {
@@ -56,6 +36,6 @@ class DatasetsView(View):
 
     def get(self, request):
         self.context['data_sets'] = data_sets
-        self.context['original_data_sets'] = original_data_sets
+        self.context['original_data_sets'] = generation_datasets
 
         return HttpResponse(self.template.render(self.context, request))

@@ -1,0 +1,13 @@
+{# expect number of time series, length of the series , name link #}
+
+<h3> {{ data_info.title }}   </h3>
+<p>  {{ data_info.description }} </p>
+<p>Source: <a href="{{ data_info.link }}"> {{ data_info.source }}</a>
+{#   <br>Unit: m3/s#}
+     <br> TS Length: {{ data_info.datapoints }}
+</p>
+
+<h3>Recovery of missing values</h3>
+
+
+

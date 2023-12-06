@@ -1,0 +1,29 @@
+{
+  "bafu": {
+    "title": "BAFU",
+    "description" : "",
+    "link": "http://www.bafu.admin.ch/",
+    "source": "Federal Office for the Environment FOEN",
+    "sensors": 1,
+    "stations": 12,
+    "datapoints": 50000
+  },
+  "conductivity": {
+    "title": "Conductivity",
+    "description" : "",
+    "link": "http://www.bafu.admin.ch/",
+    "source": "Federal Office for the Environment FOEN",
+    "sensors": "?",
+    "stations": "?",
+    "datapoints": 251693
+  },
+  "pH_accuracy": {
+    "title": "pH Accuracy",
+    "description" : "",
+    "link": "http://www.bafu.admin.ch/",
+    "source": "Federal Office for the Environment FOEN",
+    "sensors": "?",
+    "stations": "?",
+    "datapoints": 20000
+  }
+}

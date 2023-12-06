@@ -45,7 +45,7 @@ class LiveQueryView(OfflineQueryView):
 
         result = {}
 
-        client = Client(host=host, port=9000)
+        client = Client(host=host, port=9001)
 
         import time
         start = time.time()

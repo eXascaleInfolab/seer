@@ -81,7 +81,7 @@
                     },
                     rangeSelector: {
                         {#allButtonsEnabled: true,#}
-                        buttons: [ {
+                        buttons: [{
                             type: 'millisecond',
                             count: 10000,
                             text: '10s'
@@ -89,11 +89,11 @@
                             type: 'millisecond',
                             count: 10000 * 6,
                             text: '1m'
-                        },{
+                        }, {
                             type: 'millisecond',
                             count: 10000 * 6 * 10,
                             text: '10m'
-                        },{
+                        }, {
                             type: 'millisecond',
                             count: 10000 * 6 * 60,
                             text: '1h'
@@ -227,7 +227,7 @@
                             data: newChartData,
                             linkedTo: sensor,
                             visible: counter === 0,
-                            showInLegend: true,
+                            showInLegend: false,
                             color: used_colors[counter]
                         });
                     } catch (e) {
@@ -251,7 +251,7 @@
                             zIndex: -1,
                             color: 'rgba(255, 0, 0, 1)',
                             visible: counter === 0,
-                            showInLegend: true,
+                            showInLegend: false,
                         });
                     } catch (e) {
                         console.log(sensor);
@@ -261,6 +261,17 @@
                 }
 
             } else {
+                var used_colors = []
+                this.dataChart.series.forEach(
+                    //update series opacity and line style
+                    (series) => {
+                        series.update({
+                            opacity: 0.5,
+                            dashStyle: 'dot',
+                        }, true);
+                        used_colors.push(series.color)
+                    }
+                )
                 for (const sensor of Object.keys(newData)) {
                     if (sensor === 'time') continue;
                     try {
@@ -274,7 +285,8 @@
                             data: newChartData,
                             linkedTo: sensor,
                             visible: counter === 0,
-                            showInLegend: true,
+                            showInLegend: false,
+                            color: used_colors[counter]
                         });
                     } catch (e) {
                         console.log(sensor);
