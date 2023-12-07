@@ -82,6 +82,7 @@
 
 
     function getGeneratedDatasets() {
+        $('#generationBtn').addClass("disabled")
         var form = $('#generation-form');
         var data = form.serialize()+"&generate=true";
         return $.ajax({
@@ -89,7 +90,6 @@
             type: 'POST',
             data: data,
             success: function (data) {
-                console.log(data)
             }
         });
     }

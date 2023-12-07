@@ -19,8 +19,8 @@
 
         </div>
         <div class="col-md-3" id="menu">
-{#            <h3>Time Series Generation</h3>#}
-            {%  include "parts/dataset_description.html" %}
+            {#            <h3>Time Series Generation</h3>#}
+            {% include "parts/dataset_description.html" %}
             {% include "generation/generation_from.html" %}
         </div>
 
@@ -44,6 +44,8 @@
             // Set generation-chart visible
             document.getElementById("generation-chart").style.display = "block";
             getGeneratedDatasets().done(function (data) {
+                $('#generationBtn').removeClass("disabled")
+
                 var newData = data.generated;
                 console.log(newData);
                 console.log("AAAA");
@@ -51,21 +53,21 @@
                 // Remove all series from generationChart
                 while (generationChart.series.length > 0) {
                     generationChart.series[0].remove(false);
-                 }
+                }
                 // Remove all axes from generationChart
                 while (generationChart.yAxis.length > 0) {
                     generationChart.yAxis[0].remove();
-                 }
+                }
 
                 nGenerated = newData.length
-                document.getElementById('generation-container').style.height = ((nGenerated) * 120+70) + 'px'
+                document.getElementById('generation-container').style.height = ((nGenerated) * 120 + 70) + 'px'
 
                 newData.forEach(function (ts, index) {
                     generationChart.addAxis({
-                        title : {
-                               text: ""
+                        title: {
+                            text: ""
                         },
-                        top:  index * 120 + "px",
+                        top: index * 120 + "px",
                         offset: 1,
                         opposite: index % 2,
                         height: "120px",
@@ -100,7 +102,7 @@
                 if (series.name.includes("Navigator")) return;
                 series.update({yAxis: 0})
             })
-            document.getElementById('generation-container').style.height = ((1) * 300+130) + 'px'
+            document.getElementById('generation-container').style.height = ((1) * 300 + 130) + 'px'
 
         }
         let extendAxes = function () {
@@ -172,7 +174,7 @@
                 enabled: true,
                 verticalAlign: 'top',
             },
-            series: [{name: "", data: [] , showInLegend: false}],
+            series: [{name: "", data: [], showInLegend: false}],
         });
 
 
