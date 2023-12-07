@@ -42,6 +42,8 @@ services:
       - ./generation/run_pretrained.py:/app/run_pretrained.py
     ports:
       - "87:80"
+    restart: unless-stopped
+
 
 
 volumes:
