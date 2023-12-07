@@ -35,3 +35,4 @@ urlpatterns = [
     path('datasets', DatasetsView.as_view(), name='datasets'),
     path('generation/<str:dataset>', GenerationView.as_view(), name='generation'),
 ]
+print(urlpatterns)

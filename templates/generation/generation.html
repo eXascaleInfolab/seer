@@ -46,23 +46,24 @@
             getGeneratedDatasets().done(function (data) {
                 var newData = data.generated;
                 console.log(newData);
+                console.log("AAAA");
 
                 // Remove all series from generationChart
-                while (generationChart.series.length > 1) {
+                while (generationChart.series.length > 0) {
                     generationChart.series[0].remove(false);
-                }
-
+                 }
                 // Remove all axes from generationChart
-                while (generationChart.yAxis.length > 1) {
+                while (generationChart.yAxis.length > 0) {
                     generationChart.yAxis[0].remove();
-                }
+                 }
+
                 nGenerated = newData.length
-                document.getElementById('generation-container').style.height = ((nGenerated) * 120+150) + 'px'
+                document.getElementById('generation-container').style.height = ((nGenerated) * 120+70) + 'px'
 
                 newData.forEach(function (ts, index) {
                     generationChart.addAxis({
-                        title: {
-                            text: index
+                        title : {
+                               text: ""
                         },
                         top:  index * 120 + "px",
                         offset: 1,
@@ -74,16 +75,6 @@
                 })
 
                 newData.forEach(function (ts, index) {
-                    // Create a new axis for each series
-                    {#var newAxis = {#}
-                    {#    title: {#}
-                    {#        text: data.name + "_generated" + index // Use the series name as the axis title#}
-                    {#    }#}
-                    {# };#}
-
-                    // Add the new axis to the chart
-                    {#generationChart.addAxis(newAxis);#}
-
                     // Add the series to the chart using the new axis
                     generationChart.addSeries({
                         name: data.name + "_generated" + index + 1,
@@ -92,7 +83,6 @@
                         showInLegend: false// Use the index of the last added axis
                     }, false);
                 });
-                generationChart.axes[3].update({title: {text: "1"}})
 
                 generationChart.redraw();
 
@@ -182,17 +172,7 @@
                 enabled: true,
                 verticalAlign: 'top',
             },
-            series: [{name: "none", data: []}],
-            navigator: {
-                enabled: true, // Set to true to enable the navigator
-                xAxis: {
-                    // Configuration specific to the navigator's X-axis
-                }
-            },
-            scrollbar: {
-                enabled: true // Set to true to show a scrollbar below the chart
-            },
-
+            series: [{name: "", data: [] , showInLegend: false}],
         });
 
 

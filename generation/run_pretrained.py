@@ -134,29 +134,19 @@ try:
     data = pd.read_csv(fseed)
     data = data.iloc[:,0].tolist()
     data = moving_avg(data, 5).tolist()
-    len(data)
+
     df_segments = pd.read_csv(fsynth).T
 
     lsh_res = TS_LSH(data, df_segments, nb_ts, len_ts)
 
     plot_result(data, lsh_res, nb_ts, len_ts, seed)
     lsh_res = pd.DataFrame(lsh_res).T
-    lsh_res.to_csv('results/'+seed+'.txt', header = False, index = False, float_format='%.3f')
+    # lsh_res.to_csv('results/'+seed+'.txt', header = False, index = False, float_format='%.3f')
 
     print('Generated', lsh_res.shape[1], 'time series of length', lsh_res.shape[0])
-except: 
+    lsh_res.to_csv("results/generated.txt", header = False, index = False , float_format='%.3f')
+
+except Exception as e:
+    print(e)
     print("Error reading file")
 
-
-# data = data.iloc[:,0].tolist()
-# seed = 'conductivity'
-# fseed = 'data/' + seed + '/original.txt'
-# fsynth = 'data/' + seed + '/synthetic.txt'
-
-# df_segments = [df_segments.iloc[:,i] for i in range(len(df_segments)-1)]
-# segments = [data[i:i + window] + np.random.normal(0,.008, window) for i in range(0, len(data) - window, int(0.1 * window))]
-# df_segments = pd.DataFrame(segments)
-# df_segments = df_segments.T
-# # df_segments.iloc[: , :50].plot(subplots=True, layout=(10,6), figsize=(10, 10), legend = True, color = 'b')
-# # plt.show()
-# # df_segments = filter_segment(df_segments)
