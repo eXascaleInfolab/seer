@@ -29,9 +29,20 @@ services:
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      -  clickhouse_data:/var/lib/clickhouse
+      - clickhouse_data:/var/lib/clickhouse
       - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
     restart: unless-stopped
+
+  gan:
+    build: ./generation
+    container_name: gan_container
+    volumes:
+      - ./generation/data:/app/data
+      - ./generation/results:/app/results
+      - ./generation/run_pretrained.py:/app/run_pretrained.py
+    ports:
+      - "87:80"
+
 
 volumes:
   static_volume:

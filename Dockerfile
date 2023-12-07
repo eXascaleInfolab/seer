@@ -5,6 +5,9 @@ FROM python:3.8-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Install curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
@@ -14,6 +17,7 @@ COPY . /usr/src/app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r  requirements.txt
 RUN pip install gunicorn
+RUN pip install docker
 
 # Run the application
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

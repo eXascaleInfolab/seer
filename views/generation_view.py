@@ -9,7 +9,7 @@ with open('generation_data/datasets.json', 'r') as file:
     generation_datasets_info = json.load(file)
 
 
-def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3):
+def get_generated_data_(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3):
     import subprocess
     docker_command = (f"docker exec gan_container python3 run_pretrained.py"
                       f" --seed {seed} "
@@ -20,6 +20,21 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
                       f" --hash_length_percentage {hash_length_percentage}")
     print(f"starting generation using {docker_command}")
     subprocess.run(docker_command, shell=True)
+    df = pd.read_csv('generation/results/generated.txt')
+    print(df)
+    return df
+
+def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3):
+    import subprocess
+    command =  (f'curl "http://gan:80/run-pretrained?seed={seed}&len_ts={len_ts}&nb_ts={nb_ts}'
+                f'&num_hashtables={num_hashtables}"'
+                f'&nb_top={nb_top}'
+                f'&hash_length_percentage={hash_length_percentage}')
+
+    print(command)
+    subprocess.run(command, shell=True)
+    print("after run command")
+    # Read the generated data
     df = pd.read_csv('generation/results/generated.txt')
     print(df)
     return df

@@ -51,6 +51,8 @@ python3 manage.py createsuperuser
 ### setup the pretrained GAN Container
 ```bash
 cd generation
+docker stop gan_container
+docker rm gan_contianer
 docker build -t gan  .
 ```  
 
@@ -59,6 +61,7 @@ docker run -it --name gan_container \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/results:/app/results \
   --mount type=bind,source="$(pwd)"/run_pretrained.py,target=/app/run_pretrained.py \
+  -p 87:80 gan_container \
   gan 
 
 docker start gan_container

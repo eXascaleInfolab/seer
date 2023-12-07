@@ -20,6 +20,7 @@ RUN python -m pip install numpy pandas matplotlib && \
     python -m pip install  lshashpy3
 
 
+RUN python -m pip install flask
 
 # Set the working directory
 WORKDIR /app
@@ -29,6 +30,8 @@ COPY hashing /app/hashing
 COPY graph /app/gaph
 COPY config.toml /app
 COPY run_pretrained.py /app
+COPY html_connection.py /app
 
+EXPOSE 80
 # Set the default command
-#CMD ["bash"]
+CMD ["python", "html_connection.py"]
