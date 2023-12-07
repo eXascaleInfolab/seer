@@ -32,7 +32,7 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
                 f'&hash_length_percentage={hash_length_percentage}')
 
     print(command)
-    subprocess.run(command, shell=True)
+    result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print("after run command")
     # Read the generated data
     df = pd.read_csv('generation/results/generated.txt')
