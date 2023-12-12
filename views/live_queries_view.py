@@ -11,9 +11,9 @@ import json
 
 from clickhouse_driver import Client
 
-host = "clickhouse" #clickhouse
-
+host = "172.17.0.1" #clickhouse
 old_result = None
+client = Client(host=host, port=9000)
 
 
 class LiveQueryView(OfflineQueryView):

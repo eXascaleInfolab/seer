@@ -20,18 +20,18 @@ services:
       - PYTHONUNBUFFERED=1
     command: gunicorn djangoProject.wsgi:application --bind 0.0.0.0:8001
 
-  clickhouse:
-    image: clickhouse/clickhouse-server
-    container_name: clickhouse-demo
-    ports:
-      - "8123:8123"
-      - "9001:9000"
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    volumes:
-      - clickhouse_data:/var/lib/clickhouse
-      - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
-    restart: unless-stopped
+#  clickhouse:
+#    image: clickhouse/clickhouse-server
+#    container_name: clickhouse-demo
+#    ports:
+#      - "8123:8123"
+#      - "9001:9000"
+#    environment:
+#      - ALLOW_EMPTY_PASSWORD=yes
+#    volumes:
+#      - clickhouse_data:/var/lib/clickhouse
+#      - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
+#    restart: unless-stopped
 
   gan:
     build: ./generation
@@ -49,3 +49,5 @@ services:
 volumes:
   static_volume:
   clickhouse_data:
+
+
