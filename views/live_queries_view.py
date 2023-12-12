@@ -49,7 +49,8 @@ class LiveQueryView(OfflineQueryView):
         import time
         start = time.time()
         query_data = client.execute(parsed_query)
-        runtime = time.time() - start
+        runtime = (time.time() - start)*1000
+        runtime = round(runtime,2)
         query_data = sorted(query_data, key=lambda x: x[0])
 
         print("EEEE", len(query_data))
