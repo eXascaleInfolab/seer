@@ -85,12 +85,9 @@
 
     </div>
 
-    {#    <script src="https://code.highcharts.com/modules/accessibility.js"></script>#}
-
     {% include "compression/compressionCode.html" %}
 
     <script>
-        let AAAAA = 0;
         const compressionDataUrl = '{% url "compression" %}'
 
         function getCompressionData(dataType, dataset = "") {
@@ -128,7 +125,11 @@
                 return
             }
             compressionManager.displayChart();
-            document.getElementById("showCompression").style.display = "block";
+            {#document.getElementById("showCompression").style.display = "block";#}
+            document.getElementById("compression-container").style.display = "block";
+            compressionManager.displayCompression();
+
+
         });
 
         document.getElementById("showCompression").addEventListener("click", function (event) {
