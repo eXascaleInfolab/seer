@@ -17,7 +17,7 @@
                 const selectedValue = document.getElementById('feature').value;
                 // Perform actions based on the selected value
 
-                compressionManager = new CompressionManager(selectedValue, compression_data_sets[selectedValue]);
+                compressionManager = new CompressionManager(selectedValue);
                 // Add your code for the 'scarsity' option
 
             }
@@ -79,18 +79,43 @@
             </div>
         </div>
 
+        <form id="token-form" style="display:none">
+            {% csrf_token %}
+        </form>
+
     </div>
 
     {#    <script src="https://code.highcharts.com/modules/accessibility.js"></script>#}
 
-    {% include "compressionCode.html" %}
+    {% include "compression/compressionCode.html" %}
+
     <script>
         let AAAAA = 0;
-        const compression_data_sets = {{ compression_data|safe }};
+        const compressionDataUrl = '{% url "compression" %}'
+
+        function getCompressionData(dataType, dataset = "") {
+            var form = $('#token-form');
+            var data = form.serialize() + "&dataType=" + dataType + "&dataset=" + dataset;
+            return $.ajax({
+                url: compressionDataUrl,
+                type: 'POST',
+                data: data,
+                success: function (response) {
+                    console.log(response)
+                }
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                // Code to handle failure
+                console.error("Request failed: " + textStatus + ", " + errorThrown);
+                // You can also display a failure message to the user here
+            });
+        }
+
+        {#const compression_data_sets = {{ compression_data|safe }};#}
 
         let dataType = 'repeats';
 
-        let compressionManager = new CompressionManager('scarsity', compression_data_sets['scarsity'], "");
+        let compressionManager = new CompressionManager('scarsity', "");
 
         //set function for showCompression btn
 

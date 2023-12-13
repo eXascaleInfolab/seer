@@ -11,7 +11,8 @@ import json
 
 from clickhouse_driver import Client
 
-host = "clickhouse"
+import os
+host = "clickhouse" if os.getenv("using_docker") else "localhost"
 old_result = None
 
 
@@ -24,7 +25,7 @@ class LiveQueryView(OfflineQueryView):
     template = loader.get_template('queries/queries_live.html')
 
     def post(self, request):
-        print("LAUNCHIGN ONLINE QUERYs")
+        print("LAUNCHIGN LIVE QUERYs")
         entry = dict(request.POST)
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)

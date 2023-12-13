@@ -84,7 +84,8 @@
     function getGeneratedDatasets() {
         $('#generationBtn').addClass("disabled")
         var form = $('#generation-form');
-        var data = form.serialize()+"&generate=true";
+        let { min, max } = getRange()
+        var data = form.serialize()+"&generate=true&min="+min+"&max="+max;
         return $.ajax({
             url: url,
             type: 'POST',

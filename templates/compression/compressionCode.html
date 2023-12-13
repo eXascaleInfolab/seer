@@ -1,7 +1,7 @@
 <script>
 
     class CompressionManager {
-        constructor(dataType, data, title = null) {
+        constructor(dataType, title = null) {
             console.log("CompressionManager", dataType)
             this.title = title;
             if (this.title == null) {
@@ -9,19 +9,30 @@
             }
 
             this.dataType = dataType;
-            this.data = data;
-            this.levels = Object.keys(data);
-            this.currentLevel = this.levels[0];
+            getCompressionData(dataType).done(response =>  {
+                console.log("data")
 
-            this.initialDataSet = data[this.currentLevel]["data"];
-            this.initialCompression = data[this.levels[0]]["compression"]
 
-            this.chartTime = this.initialDataSet["time"].map((time) => {
-                return Date.parse(time);
-            });
+                console.log("THIIIS" , this)
 
-            this.initializeCharts();
-            this.createDropdown();
+                this.data = response.data
+                this.levels = Object.keys(this.data);
+                this.currentLevel = this.levels[0];
+
+                console.log(this.data)
+                console.log(this.levels)
+                console.log("curr" , this.currentLevel)
+                this.initialDataSet = this.data[this.currentLevel]["data"];
+
+                this.initialCompression = this.data[this.levels[0]]["compression"]
+
+                this.chartTime = this.initialDataSet["time"].map((time) => {
+                    return Date.parse(time);
+                });
+
+                this.initializeCharts();
+                this.createDropdown();
+            })
         }
 
         initializeCharts() {

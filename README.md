@@ -63,7 +63,7 @@ docker run -it --name gan_container \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/results:/app/results \
   --mount type=bind,source="$(pwd)"/run_pretrained.py,target=/app/run_pretrained.py \
-  -p 87:80 gan_container \
+  -p 87:80 \
   gan 
 
 docker start gan_container

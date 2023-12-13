@@ -118,7 +118,7 @@ def plot_result(data, lsh_res, nb_ts, len_ts, seed):
 
 window = 3072
 
-def run_pretrained_(seed, *, len_ts, nb_ts,
+def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
                     num_hashtables_=int(config['num_hashtables']),
                     nb_top_=int(config['n_top']),
                     hash_length_percentage_=int(config['hash_length_percentage'])
@@ -138,7 +138,11 @@ def run_pretrained_(seed, *, len_ts, nb_ts,
 
     try:
         data = pd.read_csv(fseed)
-        data = data.iloc[:, 0].tolist()
+        #at least  6134
+        if max - min < 6134:
+            min = 0
+            max = 6500
+        data = data.iloc[min:max, 0].tolist()
         data = moving_avg(data, 5).tolist()
 
         df_segments = pd.read_csv(fsynth).T

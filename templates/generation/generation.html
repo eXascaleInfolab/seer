@@ -129,7 +129,21 @@
             },
             xAxis: {
                 type: 'datetime',
-
+                minRange: 7000,
+                maxRange :  7000*10,
+                events: {
+                    afterSetExtremes: function (e) {
+                        var maxDistance = 7000*10; //8 months time
+                        var xaxis = this;
+                        if ((e.max - e.min) > maxDistance) {
+                            var min = e.max - maxDistance;
+                            var max = e.max;
+                            window.setTimeout(function () {
+                                xaxis.setExtremes(min, max);
+                            }, 1);
+                        }
+                    }
+                }
             },
             yAxis: {
                 title: {
@@ -152,6 +166,15 @@
             },
 
         });
+
+
+        function getRange(){
+            let { min, max , dataMin ,  dataMax } = dataChart.xAxis[0].getExtremes();
+            let min_ = Math.max(min,dataMin)
+            let max_ = Math.min(max,dataMax)
+            return {max : max_ , min : min_}
+        }
+
 
         let generationChart = Highcharts.chart(`generation-container`, {
             chart: {
