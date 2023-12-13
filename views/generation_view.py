@@ -34,15 +34,15 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 class GenerationView(View):
     context = {
         'title': 'Generation using GAN',
-        "len_ts": [2000, 5000, 10000, 100000],
-        "nb_ts": [1, 2, 5, 10],
-        "num_hashtables": [1, 3, 5, 10],
-        "nb_top": [1, 4, 8, 16, 20],
-        "hash_length_percentage": [1, 3, 5, 10, 20, 50]
+        "len_ts": [10000 ,2000, 5000,10000, 100000],
+        "nb_ts": [5 , 1 , 2, 5 , 10],
+        "num_hashtables": [8 , 3, 5 ,  10],
+        "nb_top": [8, 1, 4, 8, 16, 20],
+        "hash_length_percentage": [3, 1, 3, 5, 10, 20, 50]
     }
 
     template = loader.get_template('generation/generation.html')
-    data_sets = [("bafu", "Bafu"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
+    data_sets = [("temperature", "Temperature"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
 
     def get(self, request, dataset):
         self.context["data_info"] = generation_datasets_info[dataset]
@@ -77,9 +77,14 @@ class GenerationView(View):
                                          nb_top=nb_top,hash_length_percentage=hash_length_percentage,min=min,max=max)
 
             generated_data = [data_df.iloc[:, i].values.tolist() for i in range(data_df.shape[1])]
+
+
+
+            original = pd.read_csv( f"{folder}/{data_set}/original.txt").iloc[min:max,0].values.flatten().tolist()
             return JsonResponse({
                 'generated': generated_data,
-                'name': [dataset[1] for dataset in self.data_sets if dataset[0] == data_set][0]
+                'name': [dataset[1] for dataset in self.data_sets if dataset[0] == data_set][0],
+                'original' : original
             })
 
     def load_orginal_data(self, path):

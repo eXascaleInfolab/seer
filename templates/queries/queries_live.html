@@ -1,7 +1,39 @@
 {% extends "queries/queries.html" %}
 {% load static %}
 
+
+
+{% block evaluate %}
+    <div style="display: flex; align-items: center;">
+        <select id="system-select">
+            {% for system in systems %}
+                <option value="{{ system }}">{{ system }}</option>
+            {% endfor %}
+        </select>
+        <button id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
+    </div>
+
+    <script>
+        document.getElementById('evaluateBTN').addEventListener('click', function () {
+            var selectedSystem = document.getElementById('system-select').value;
+            var form = document.querySelector('.query-box-form');
+            var existingInput = form.querySelector('input[name="system"]');
+
+            if (existingInput) {
+                existingInput.value = selectedSystem;  // Modify the existing input
+            } else {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'system';
+                input.value = selectedSystem;
+                form.appendChild(input);  // Append new input
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block query_results %}
+
     <div id="errorDisplay"></div>
 
     <div id="results-container">

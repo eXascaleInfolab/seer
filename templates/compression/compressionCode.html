@@ -12,9 +12,6 @@
             getCompressionData(dataType).done(response =>  {
                 console.log("data")
 
-
-                console.log("THIIIS" , this)
-
                 this.data = response.data
                 this.levels = Object.keys(this.data);
                 this.currentLevel = this.levels[0];

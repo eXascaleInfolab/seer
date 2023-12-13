@@ -1,6 +1,6 @@
 {
-  "bafu": {
-    "title": "BAFU",
+  "temperature": {
+    "title": "Temperature",
     "description" : "",
     "link": "http://www.bafu.admin.ch/",
     "source": "Federal Office for the Environment FOEN",

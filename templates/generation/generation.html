@@ -4,6 +4,31 @@
 
 {#context contains: data_sets  #}
 {% block content_fluid %}
+    <style>
+        #loading-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px; /* Adjust the height as needed */
+        {#background-color: #f0f0f0; /* Optional: for better visibility of the div */#}
+        }
+    </style>
+    <script>
+        let gif_src = "https://i.gifer.com/ZKZg.gif" //https://i.gifer.com/ZKZg.gif
+        function showLoadingGif() {
+            var loadingDiv = document.getElementById('loading-info');
+            loadingDiv.innerHTML = '<img src="' + gif_src + '" alt="Loading..."  style="width: 100px; height: 100px;">';
+        }
+
+        function hideLoadingGif() {
+            var loadingDiv = document.getElementById('loading-info');
+            loadingDiv.innerHTML = '';
+        }
+
+        // Call the function to show the loading gif
+    </script>
+
+
     <div class="row">
 
         <div class="col-md-9">
@@ -17,6 +42,9 @@
                 <div id="generation-container" style="height: 1000px"></div>
             </div>
 
+            <div id="loading-info">
+
+            </div>
         </div>
         <div class="col-md-3" id="menu">
             {#            <h3>Time Series Generation</h3>#}
@@ -44,9 +72,12 @@
             // Set generation-chart visible
             document.getElementById("generation-chart").style.display = "block";
             getGeneratedDatasets().done(function (data) {
+                hideLoadingGif()
                 $('#generationBtn').removeClass("disabled")
 
                 var newData = data.generated;
+                var originalData = data.original
+
                 console.log(newData);
                 console.log("AAAA");
 
@@ -84,6 +115,15 @@
                         yAxis: index,
                         showInLegend: false// Use the index of the last added axis
                     }, false);
+                    generationChart.addSeries({
+                        name: data.name + "_original" + index + 1,
+                        data: originalData,
+                        yAxis: index,
+                        opacity: 0.5,
+                        dashStyle: 'dot',
+                        showInLegend: false// Use the index of the last added axis
+                    }, false);
+                    console.log(originalData[index], "EEE")
                 });
 
                 generationChart.redraw();
@@ -115,10 +155,6 @@
 
         }
 
-        {#let collapseBtn = document.getElementById("collapseBtn");#}
-        {#collapseBtn.addEventListener("click", collapseAxes);#}
-
-
         let dataChart = Highcharts.chart(`data-container`, {
             chart: {
                 type: 'line',
@@ -130,10 +166,10 @@
             xAxis: {
                 type: 'datetime',
                 minRange: 7000,
-                maxRange :  7000*10,
+                maxRange: 7000 * 10,
                 events: {
                     afterSetExtremes: function (e) {
-                        var maxDistance = 7000*10; //8 months time
+                        var maxDistance = 7000 * 10; //8 months time
                         var xaxis = this;
                         if ((e.max - e.min) > maxDistance) {
                             var min = e.max - maxDistance;
@@ -168,11 +204,11 @@
         });
 
 
-        function getRange(){
-            let { min, max , dataMin ,  dataMax } = dataChart.xAxis[0].getExtremes();
-            let min_ = Math.max(min,dataMin)
-            let max_ = Math.min(max,dataMax)
-            return {max : max_ , min : min_}
+        function getRange() {
+            let {min, max, dataMin, dataMax} = dataChart.xAxis[0].getExtremes();
+            let min_ = Math.max(min, dataMin)
+            let max_ = Math.min(max, dataMax)
+            return {max: max_, min: min_}
         }
 
 

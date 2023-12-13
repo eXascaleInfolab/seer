@@ -31,6 +31,18 @@ services:
       - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
     restart: unless-stopped
 
+
+  timescaledb:
+    image: timescale/timescaledb-ha:pg14-latest
+    container_name: timescaledb-demo
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${DATASET_PATH}:/datasets
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
   gan:
     build: ./generation
     container_name: gan_container

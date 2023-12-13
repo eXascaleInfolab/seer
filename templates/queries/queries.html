@@ -7,7 +7,6 @@
             .online-only {
                 display: none;
             }
-
         </style>
     {% endblock %}
 
@@ -50,8 +49,9 @@
 
     </style>
 
-
-    <button id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
+    {% block evaluate %}
+        <button id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
+    {% endblock %}
 
     <script>
         const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
