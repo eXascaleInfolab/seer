@@ -47,9 +47,7 @@ class LiveQueryView(OfflineQueryView):
         data = json.loads(json_data)
 
         parsed_entry = self.parse_entry(data[0])
-        print(data)
         system = data[0]["system"]
-        print("SYYYYYYYYYYYYYYYYYSTEM" , system)
         q_n = parsed_entry["query"]
         query_template = load_query(system, q_n)
         query_template = query_template.replace("<db>", "d1")

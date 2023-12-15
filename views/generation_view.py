@@ -11,16 +11,21 @@ host = "gan" if os.getenv("using_docker") else "172.17.0.2"
 with open('generation_data/datasets.json', 'r') as file:
     generation_datasets_info = json.load(file)
 
+ts_multipliers = {
+    "same": 1, "2x": 2, "3x": 3, "5x": 5
+}
 
-def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3,  min= 0 , max = 10000):
+
+def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3, min=0, max=10000):
     # sample command = curl "http://{host}:80/run-pretrained?seed=bafu&len_ts=10000&nb_ts=1
+    len_ts = ts_multipliers[len_ts]*(max-min)
     import subprocess
-    command =  (f'curl "http://{host}:80/run-pretrained?seed={seed}&len_ts={len_ts}&nb_ts={nb_ts}'
-                f'&num_hashtables={num_hashtables}'
-                f'&nb_top={nb_top}'
-                f'&hash_length_percentage={hash_length_percentage}'
-                f'&min={min}'
-                f'&max={max}"')
+    command = (f'curl "http://{host}:80/run-pretrained?seed={seed}&len_ts={len_ts}&nb_ts={nb_ts}'
+               f'&num_hashtables={num_hashtables}'
+               f'&nb_top={nb_top}'
+               f'&hash_length_percentage={hash_length_percentage}'
+               f'&min={min}'
+               f'&max={max}"')
 
     print(command)
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -34,9 +39,9 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 class GenerationView(View):
     context = {
         'title': 'Generation using GAN',
-        "len_ts": [10000 ,2000, 5000,10000, 100000],
-        "nb_ts": [5 , 1 , 2, 5 , 10],
-        "num_hashtables": [8 , 3, 5 ,  10],
+        "len_ts": ["same", "same", "2x", "3x", "5x"],
+        "nb_ts": [5, 1, 2, 5, 10],
+        "num_hashtables": [8, 1, 5, 8, 10],
         "nb_top": [8, 1, 4, 8, 16, 20],
         "hash_length_percentage": [3, 1, 3, 5, 10, 20, 50]
     }
@@ -67,30 +72,27 @@ class GenerationView(View):
             len_ts = request.POST.get('len_ts')
             nb_ts = request.POST.get('nb_ts')
             num_hashtables = request.POST.get('num_hashtables')
-            nb_top =  request.POST.get('nb_top')
-            hash_length_percentage =  request.POST.get('hash_length_percentage')
+            nb_top = request.POST.get('nb_top')
+            hash_length_percentage = request.POST.get('hash_length_percentage')
             min = round(float(request.POST.get('min')))
             max = round(float(request.POST.get('max')))
 
-
-            data_df = get_generated_data(data_set,len_ts=len_ts,nb_ts=nb_ts,num_hashtables=num_hashtables,
-                                         nb_top=nb_top,hash_length_percentage=hash_length_percentage,min=min,max=max)
+            data_df = get_generated_data(data_set, len_ts=len_ts, nb_ts=nb_ts, num_hashtables=num_hashtables,
+                                         nb_top=nb_top, hash_length_percentage=hash_length_percentage, min=min, max=max)
 
             generated_data = [data_df.iloc[:, i].values.tolist() for i in range(data_df.shape[1])]
 
-
-
-            original = pd.read_csv( f"{folder}/{data_set}/original.txt").iloc[min:max,0].values.flatten().tolist()
+            original = pd.read_csv(f"{folder}/{data_set}/original.txt").iloc[min:max, 0].values.flatten().tolist()
             return JsonResponse({
                 'generated': generated_data,
                 'name': [dataset[1] for dataset in self.data_sets if dataset[0] == data_set][0],
-                'original' : original
+                'original': original
             })
 
     def load_orginal_data(self, path):
         import pandas as pd
         df = pd.read_csv(path, sep=",")
-        return df.values.flatten().tolist()
+        return df.values.flatten()[:15000].tolist()
 
     def load_generated_data(self, path, length, count):
         import pandas as pd

@@ -12,12 +12,21 @@
     <input type="hidden" id="datasetSelect" name="dataset" value="{{ dataset }}">
 
 
-    <h4 style="color:dimgrey;margin-top: 20px">Datasize
-        <hr class="vline">
-    </h4>
+    {#    <h4 style="color:dimgrey;margin-top: 20px">Data Size#}
+    {#        <hr class="vline">#}
+    {#    </h4>#}
+    <label for="generationLength">Size Seed Data</label>
+    <div class="form-group " style="margin-left:0;margin-right:0">
+        <select id="len_ts" class="form-control" name="len_ts"
+                onchange="">
+            <option value=1 selected> full</option>
 
+            <option value=0 selected> as selected in chart</option>
 
-    <label for="generationLength">TS Length:</label>
+        </select>
+    </div>
+
+    <label for="generationLength">Length New Series </label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="len_ts" class="form-control" name="len_ts"
                 onchange="">
@@ -28,7 +37,7 @@
             {% endfor %}
         </select>
     </div>
-    <label for="generationCount">TS Number:</label>
+    <label for="generationCount"># New Series</label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="nb_ts" class="form-control" name="nb_ts"
                 onchange="">
@@ -40,14 +49,18 @@
         </select>
     </div>
 
-
-    <h4 style="color:dimgrey;margin-top: 20px">Generation Quality
-        <hr class="vline">
-    </h4>
-    <div class="vline"></div>
+    <div class="form-group">
+        <button id="generationBtn" type="button" class="btn btn-primary form-control" onclick="">Generate</button>
+    </div>
 
 
-    <label for="num_hashtables">#Hashtables:</label>
+    {#    <h4 style="color:dimgrey;margin-top: 20px">Generation Quality#}
+    {#        <hr class="vline">#}
+    {#    </h4>#}
+    {#    <div class="vline"></div>#}
+
+
+    <label for="num_hashtables"># Hashtables</label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="num_hashtables" class="form-control" name="num_hashtables"
                 onchange="">
@@ -58,7 +71,7 @@
 
         </select>
     </div>
-    <label for="generationCount">nb top:</label>
+    <label for="generationCount">nb top</label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="nb_top" class="form-control" name="nb_top"
                 onchange="">
@@ -69,7 +82,7 @@
 
         </select>
     </div>
-    <label for="generationCount">hash_length % :</label>
+    <label for="generationCount">hash_length % </label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="hash_length_percentage" class="form-control" name="hash_length_percentage"
                 onchange="">
@@ -82,7 +95,8 @@
         </select>
     </div>
     <div class="form-group">
-        <button id="generationBtn" type="button" class="btn btn-primary form-control" onclick="">Generate</button>
+        <button id="updateGenerationBtn" type="button" class="btn btn-primary form-control disabled" onclick="">Update
+        </button>
     </div>
 </form>
 
@@ -108,6 +122,8 @@
     function getGeneratedDatasets() {
         showLoadingGif()
         $('#generationBtn').addClass("disabled")
+        $('#updateGenerationBtn').addClass("disabled")
+
         var form = $('#generation-form');
         let {min, max} = getRange()
         var data = form.serialize() + "&generate=true&min=" + min + "&max=" + max;

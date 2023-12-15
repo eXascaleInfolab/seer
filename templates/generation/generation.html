@@ -42,14 +42,14 @@
                 <div id="generation-container" style="height: 1000px"></div>
             </div>
 
-            <div id="loading-info">
-
-            </div>
         </div>
         <div class="col-md-3" id="menu">
             {#            <h3>Time Series Generation</h3>#}
             {% include "parts/dataset_description.html" %}
             {% include "generation/generation_from.html" %}
+            <div id="loading-info">
+
+            </div>
         </div>
 
     </div>
@@ -74,6 +74,7 @@
             getGeneratedDatasets().done(function (data) {
                 hideLoadingGif()
                 $('#generationBtn').removeClass("disabled")
+                $('#updateGenerationBtn').removeClass("disabled")
 
                 var newData = data.generated;
                 var originalData = data.original
@@ -115,15 +116,15 @@
                         yAxis: index,
                         showInLegend: false// Use the index of the last added axis
                     }, false);
-                    generationChart.addSeries({
-                        name: data.name + "_original" + index + 1,
-                        data: originalData,
-                        yAxis: index,
-                        opacity: 0.5,
-                        dashStyle: 'dot',
-                        showInLegend: false// Use the index of the last added axis
-                    }, false);
-                    console.log(originalData[index], "EEE")
+                    {#generationChart.addSeries({#}
+                    {#    name: data.name + "_original" + index + 1,#}
+                    {#    data: originalData,#}
+                    {#    yAxis: index,#}
+                    {#    opacity: 0.5,#}
+                    {#    dashStyle: 'dot',#}
+                    {#    showInLegend: false// Use the index of the last added axis#}
+                    {# }, false);#}
+                    {#console.log(originalData[index], "EEE")#}
                 });
 
                 generationChart.redraw();
@@ -135,7 +136,9 @@
         dataset_selection.addEventListener("change", updateChart);
 
         let generationBtn = document.getElementById("generationBtn");
+        let updateGenerationBtn = document.getElementById("updateGenerationBtn");
         generationBtn.addEventListener("click", loadGeneratedData);
+        updateGenerationBtn.addEventListener("click", loadGeneratedData);
 
         let collapseAxes = function () {
             generationChart.series.forEach(function (series, index) {
