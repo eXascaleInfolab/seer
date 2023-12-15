@@ -12,7 +12,7 @@ with open('generation_data/datasets.json', 'r') as file:
     generation_datasets_info = json.load(file)
 
 ts_multipliers = {
-    "same": 1, "2x": 2, "3x": 3, "5x": 5
+    "same": 1, "2x": 2, "3x": 3, "5x": 5 , "1x" : 1
 }
 
 
@@ -39,7 +39,7 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 class GenerationView(View):
     context = {
         'title': 'Generation using GAN',
-        "len_ts": ["same", "same", "2x", "3x", "5x"],
+        "len_ts": ["1x", "1x", "2x", "3x", "5x"],
         "nb_ts": [5, 1, 2, 5, 10],
         "num_hashtables": [8, 1, 5, 8, 10],
         "nb_top": [8, 1, 4, 8, 16, 20],
