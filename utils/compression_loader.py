@@ -44,7 +44,7 @@ def convert_compression_to_KB(compression_size):
     if compression_size.endswith('GiB'):
         return float(compression_size[:-3])*134218
     if compression_size.endswith('MiB'):
-        return float(compression_size[:-3])*131
+        return float(compression_size[:-3])*1048.58
     if compression_size.endswith('B'):
         return float(float(compression_size[:-1]) / 1000)
     if compression_size.endswith('K'):
