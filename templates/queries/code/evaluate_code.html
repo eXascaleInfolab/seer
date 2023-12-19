@@ -132,7 +132,7 @@
             const runtime_data = [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
             let f = frequencies.pop(0)
             runtime_data.map((runtime, index) => {
-                runtime_data[index] = runtime * f
+                runtime_data[index] = runtime * f/100
             })
             console.log("query", query);
             // add series to chart
