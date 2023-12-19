@@ -19,21 +19,19 @@
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="len_ts" class="form-control" name="len_ts"
                 onchange="">
-            <option value=1 selected> full</option>
+            <option value=1 > full</option>
 
             <option value=0 selected> as selected in chart</option>
 
         </select>
     </div>
 
-    <label for="generationLength">Length New Series </label>
+    <label for="generationLength">Length Generated Series </label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="len_ts" class="form-control" name="len_ts"
                 onchange="">
-            <option value={{ len_ts.0 }} selected style="display:none"> {{ len_ts.0 }}</option>
-            {% for length in len_ts|slice:"1:" %}
-
-                <option value={{ length }}>{{ length }}</option>
+            {% for length in len_ts %}
+                <option value={{ length }}  {% if length == len_ts_default %} selected {% endif %}>{{ length }}</option>
             {% endfor %}
         </select>
     </div>
@@ -41,9 +39,8 @@
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="nb_ts" class="form-control" name="nb_ts"
                 onchange="">
-            <option value={{ nb_ts.0 }} selected style="display:none"> {{ nb_ts.0 }}</option>
-            {% for count in nb_ts|slice:"1:" %}
-                <option value={{ count }}>{{ count }}</option>
+            {% for count in nb_ts %}
+                <option value={{ count }} {% if count == nb_ts_default %} selected {% endif %}>{{ count }}</option>
             {% endfor %}
 
         </select>
@@ -64,9 +61,8 @@
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="num_hashtables" class="form-control" name="num_hashtables"
                 onchange="">
-            <option value={{ num_hashtables.0 }} selected style="display:none"> {{ num_hashtables.0 }}</option>
-            {% for count in num_hashtables|slice:"1:" %}
-                <option value={{ count }}>{{ count }}</option>
+            {% for count in num_hashtables %}
+                <option value={{ count }} {% if count == num_hashtables_default %} selected {% endif %} >{{ count }}</option>
             {% endfor %}
 
         </select>
@@ -75,9 +71,8 @@
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="nb_top" class="form-control" name="nb_top"
                 onchange="">
-            <option value={{ nb_top.0 }} selected style="display:none"> {{ nb_top.0 }}</option>
-            {% for count in nb_top|slice:"1:" %}
-                <option value={{ count }}>{{ count }}</option>
+            {% for count in nb_top %}
+                <option value={{ count }} {% if count == nb_top_default %} selected {% endif %} >{{ count }}</option>
             {% endfor %}
 
         </select>
@@ -86,10 +81,9 @@
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="hash_length_percentage" class="form-control" name="hash_length_percentage"
                 onchange="">
-            <option value={{ hash_length_percentage.0 }} selected
-                    style="display:none"> {{ hash_length_percentage.0 }}</option>
+
             {% for count in hash_length_percentage|slice:"1:" %}
-                <option value={{ count }}>{{ count }}</option>
+                <option value={{ count }} {% if count == hash_length_percentage_default %} selected {% endif %} >{{ count }}</option>
             {% endfor %}
 
         </select>
