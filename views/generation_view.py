@@ -37,13 +37,13 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 
 
 class GenerationView(View):
-    context = {
+    context = { #info box as in toml https://github.com/eXascaleInfolab/TSM-Bench/blob/main/generation/config.toml
         'title': 'Generation using GAN',
-        "len_ts": ["1x", "1x", "2x", "3x", "5x"],
-        "nb_ts": [5, 1, 2, 5, 10],
-        "num_hashtables": [8, 1, 5, 8, 10],
-        "nb_top": [8, 1, 4, 8, 16, 20],
-        "hash_length_percentage": [3, 1, 3, 5, 10, 20, 50]
+        "len_ts": [ "1x", "2x", "3x", "5x"], # 1x
+        "nb_ts": [5, 1, 2, 5, 10], #
+        "num_hashtables": [8, 1, 5, 8, 10], #
+        "nb_top": [ 1, 4, 10, 16, 20], #10
+        "hash_length_percentage": [3, 1, 3, 5, 10, 20, 50] #
     }
 
     template = loader.get_template('generation/generation.html')

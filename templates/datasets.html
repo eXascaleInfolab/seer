@@ -11,7 +11,7 @@
             <th>Title</th>
             <th>Source</th>
             <th style="text-align: right">Time Series</th>
-            <th style="text-align: right">Datapoints</th>
+            <th style="text-align: right">Values</th>
         </tr>
 
         {% for id, dataset in original_data_sets.items %}
@@ -21,7 +21,7 @@
                         {{ dataset.title }}
                     </a>
                 </td>
-                <td> "{{ dataset.source }}" <a href="{{ dataset.link }}"><span
+                <td> {{ dataset.source }} <a href="{{ dataset.link }}"><span
                         class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
                 <td style="text-align: right">{{ dataset.stations }}</td>
                 <td style="text-align: right">{{ dataset.datapoints }}</td>

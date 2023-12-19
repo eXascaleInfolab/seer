@@ -5,6 +5,8 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.template.loader import render_to_string
 from django.views import View
+
+from djangoProject.models import QueryModel
 from utils.CONSTANTS import INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE, DRUID
 import json
 
@@ -24,7 +26,10 @@ class OfflineQueryView(View):
         'body': 'This is the body of the Offline Queries Page',
     }
     template = loader.get_template('queries/queries.html')
+    model = QueryModel
 
+    def query_name(self, index):
+        return f"Q{index+1}"
     def get(self, request):
         import random
         random.seed(1)
@@ -39,7 +44,7 @@ class OfflineQueryView(View):
             "query": entry["query"],
             "n_s": int(entry["sensors"]),
             "n_st": int(entry["stations"]),
-            "rangeUnit": entry["time"],
+            "rangeUnit": entry["time"].lower(),
             "dataset": entry["dataset"],
             "rangeL": 1,
         }
@@ -52,8 +57,15 @@ class OfflineQueryView(View):
         result = {"data": {}}
         for i, entry in enumerate(data):
             parsed_entry = self.parse_entry(entry)
-            result["data"][f"Q{i}"] = {INFLUX: 10, QUESTDB: 3, TIMESCALEDB: 2, MONETDB: 4, EXTREMEDB: 5, CLICKHOUSE: 6,
-                                       DRUID: 7}
+            print(parsed_entry)
+            runtimes= QueryModel.get_all_system_runtimes(dataset=parsed_entry["dataset"],
+                                               query="q"+parsed_entry["query"],
+                                               n_sensors=parsed_entry["n_s"],
+                                               n_stations=parsed_entry["n_st"],
+                                               time_range=parsed_entry["rangeUnit"]
+                                               )
+
+            result["data"][self.query_name(i)] = runtimes
 
         return JsonResponse(result)
 

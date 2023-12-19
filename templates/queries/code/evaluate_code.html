@@ -4,6 +4,18 @@
 
     evaluateBTN.addEventListener("click", evaluate)
 
+
+
+    function getFrequencies() {
+        let query_frequencies = document.getElementsByClassName('frequency-input');
+        let length = query_frequencies.length;
+        let frequencies = []
+        for (let i = 0; i < length; i++) {
+            frequencies.push(parseInt(query_frequencies[i].value));
+        }
+        return frequencies
+    }
+
     function evaluate() {
 
         if (!QueryHandler.checkFrequencies()) {
@@ -13,12 +25,13 @@
             return false
         }
 
-        let query_frequencies = document.getElementsByClassName('frequency-input');
-        let length = query_frequencies.length;
-        let frequencies = []
-        for (let i = 0; i < length; i++) {
-            frequencies.push(query_frequencies[i].value);
-        }
+        let query_frequencies = getFrequencies()
+
+        {#let length = query_frequencies.length;#}
+        {#let frequencies = []#}
+        {#for (let i = 0; i < length; i++) {#}
+        {#    frequencies.push(query_frequencies[i].value);#}
+        {# }#}
 
         // Fetch all forms with class 'query-box-form'
         const forms = document.querySelectorAll('.query-box-form');
@@ -104,7 +117,6 @@
     function updateChart(newData) {
         console.log("updatechart")
         if (!chart) {
-            console.log("no chart")
             createChart(newData);
         } else {
             // Remove all current series
@@ -114,10 +126,11 @@
             }
         }
         console.log(newData)
-        Object.keys(newData).forEach(query => {
+        Object.keys(newData).forEach((query => {
             const query_runtime = newData[query];
-            console.log("AAAAAAAAAAAAAAAAAAAAAa", query);
-
+            const data = [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid],
+            frequencies = getFrequencies()
+            frequencies.pop(0)
             console.log("query", query);
             // add series to chart
             chart.addSeries({
