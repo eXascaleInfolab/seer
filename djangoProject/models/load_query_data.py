@@ -9,7 +9,7 @@ from djangoProject.models import QueryModel
 import pandas as pd
 
 
-def load_offline_query_data(systems=("timescaledb", "extremedb"), datasets=("d1")):
+def load_offline_query_data(systems=("timescaledb", "extremedb"), datasets=("d1",)):
     path = "query_data/offline_queries/"
     columns = ["runtime", "var", "query", "n_sensors", "n_stations", "timerange"]
     for dataset in datasets:

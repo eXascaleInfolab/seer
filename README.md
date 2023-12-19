@@ -12,26 +12,26 @@ vim .env
 ```bash
 docker-compose up -d --build
 ```  
-The Webside should be running under http://0.0.0.0:12007
+The Webside should be running under http://localhost:12007
 
 ## Collect static files , create admin account and migrate the database
 find id of "app" with docker ps
 ```bash
 container_id=$(docker ps | grep app | awk '{print $1}')
 echo "$container_id"
-docker exec -it container_id  python3 manage.py collectstatic
-docker exec -it container_id  python3 manage.py makemigrations
-docker exec -it container_id  python3 manage.py migrate
-docker exec -it container_id  python3 manage.py createsuperuser
+docker exec -it $container_id  python3 manage.py collectstatic
+docker exec -it $container_id  python3 manage.py makemigrations
+docker exec -it $container_id  python3 manage.py migrate
+docker exec -it $container_id  python3 manage.py createsuperuser
 
-docker restart  container_id
+docker restart  $container_id
 ```
 
 ## Load query data into django models
 
 Open the django shell
 ```bash
-docker exec -it container_id  python3 shell
+docker exec -it $container_id  python3 manage.py shell
 ```  
 
 Inside the shell execute the following commands:
