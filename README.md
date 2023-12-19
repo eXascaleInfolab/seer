@@ -12,44 +12,33 @@ vim .env
 ```bash
 docker-compose up -d --build
 ```  
+The Webside should be running under http://0.0.0.0:12007
 
-## collect static files and create admin account
+## Collect static files , create admin account and migrate the database
 find id of "app" with docker ps
 ```bash
-docker exec -it 9d7d042c5b49  python3 manage.py collectstatic
-docker exec -it 9d7d042c5b49  python3 manage.py createsuperuser
-docker restart  9d7d042c5b49
+container_id=$(docker ps | grep app | awk '{print $1}')
+echo "$container_id"
+docker exec -it container_id  python3 manage.py collectstatic
+docker exec -it container_id  python3 manage.py makemigrations
+docker exec -it container_id  python3 manage.py migrate
+docker exec -it container_id  python3 manage.py createsuperuser
+
+docker restart  container_id
 ```
 
-### setup the pretrained GAN Container
+## Load query data into django models
+
+Open the django shell
 ```bash
-cd generation
-docker stop gan_container
-docker rm gan_contianer
-docker build -t gan  .
+docker exec -it container_id  python3 shell
 ```  
 
-```bash
-docker run -it --name gan_container \
-  -v $(pwd)/data:/app/data \
-  -v $(pwd)/results:/app/results \
-  --mount type=bind,source="$(pwd)"/run_pretrained.py,target=/app/run_pretrained.py \
-  -p 87:80 \
-  gan 
-
-docker start gan_container
-```  
-
-### Useful Commands
-```bash
-
-docker exec -it gan_container /bin/bash 
-
-docker exec gan_container python3 run_pretrained.py --seed bafu
-
-docker stop gan_container  
-docker rm gan_container 
-```  
+Inside the shell execute the following commands:
+```python
+from djangoProject.models.load_query_data import load_offline_query_data
+load_offline_query_data()
+```
 
 
 
