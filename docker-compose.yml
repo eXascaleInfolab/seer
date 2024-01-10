@@ -19,7 +19,7 @@ services:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
       - using_docker=1
-      - DOCKER_HOST="172.17.0.1"
+      - DOCKER_HOST=172.17.0.1
     command: gunicorn djangoProject.wsgi:application --bind 0.0.0.0:8001
 
   clickhouse:
