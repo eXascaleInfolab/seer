@@ -21,6 +21,7 @@ system_module_map = {"clickhouse": clickhouse,
 
 
 def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
+    print("running query", q_n, "on system", system)
     query_template = load_query(system, q_n)
     query_template = query_template.replace("<db>", "d1")
 
@@ -38,6 +39,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     start = time.time()
     try:
         query_data = system_connection.execute(parsed_query)
+        # print(query_data)
     except:
         print("error in query;", parsed_query)
         query_data = []

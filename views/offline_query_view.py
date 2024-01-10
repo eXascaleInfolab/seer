@@ -24,18 +24,24 @@ class OfflineQueryView(View):
         'title': 'Offline Queries',
         'heading': 'Welcome to the Offline Queries Page',
         'body': 'This is the body of the Offline Queries Page',
+        "classes": "offline-query",
+        "datasets": ["Temperature1", "Temperature2"],
+        "station_ticks": [2, 4, 6, 8, 10],
+        "sensor_ticks": [1, 20, 40, 60, 80, 100],
+        "time_ticks": ["Min", "H", "D", "W", "M"]
     }
     template = loader.get_template('queries/queries.html')
     model = QueryModel
 
     def query_name(self, index):
-        return f"Q{index+1}"
+        return f"Q{index + 1}"
+
     def get(self, request):
         import random
         random.seed(1)
         template = loader.get_template('queries/queries.html')
 
-        self.context["query_frame"] = render_to_string('queries/query-box.html', {})
+        self.context["query_frame"] = render_to_string('queries/query-box.html', self.context)
         self.context["time_stamps"] = random.sample(time_stamps_options * 100, 100)
         return HttpResponse(self.template.render(self.context, request))
 
@@ -58,12 +64,12 @@ class OfflineQueryView(View):
         for i, entry in enumerate(data):
             parsed_entry = self.parse_entry(entry)
             print(parsed_entry)
-            runtimes= QueryModel.get_all_system_runtimes(dataset=parsed_entry["dataset"],
-                                               query="q"+parsed_entry["query"],
-                                               n_sensors=parsed_entry["n_s"],
-                                               n_stations=parsed_entry["n_st"],
-                                               time_range=parsed_entry["rangeUnit"]
-                                               )
+            runtimes = QueryModel.get_all_system_runtimes(dataset=parsed_entry["dataset"],
+                                                          query="q" + parsed_entry["query"],
+                                                          n_sensors=parsed_entry["n_s"],
+                                                          n_stations=parsed_entry["n_st"],
+                                                          time_range=parsed_entry["rangeUnit"]
+                                                          )
 
             result["data"][self.query_name(i)] = runtimes
 
@@ -75,6 +81,11 @@ class OnlineQueryView(OfflineQueryView):
         'title': 'Online Queries',
         'heading': 'Welcome to the Online Queries Page',
         'body': 'This is the body of the Offline Queries Page',
+        "datasets": ["Temperature1"],
+        "classes": "online-query",
+        # "station_ticks": [2, 4, 6, 8, 10],
+        # "sensor_ticks": [1, 20, 40, 60, 80, 100],
+        # "time_ticks": ["Min", "H", "D", "W", "M"]
     }
     template = loader.get_template('queries/online-queries.html')
 

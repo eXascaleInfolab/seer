@@ -59,12 +59,11 @@
                     <ul class="dropdown-menu"><a class="dropdown-toggle" data-toggle="dropdown" role="button"
                                                  aria-haspopup="true" aria-expanded="false">
                     </a>
+                        {% for dataset in datasets %}
                         <li><a class="swap-sup-select row">
-                            d1
+                            {{ dataset }}
                         </a></li>
-                        <li><a class="swap-sup-select row">
-                            d2
-                        </a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

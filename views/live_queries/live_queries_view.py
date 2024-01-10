@@ -38,6 +38,11 @@ class LiveQueryView(OfflineQueryView):
         'title': 'Live Queries',
         'heading': 'Welcome to the Online Queries Page',
         "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
+        "classes" : "live-query",
+        "datasets": ["Temperature1", "Temperature2"],
+        "station_ticks": [2, 4, 6, 8, 10],
+        "sensor_ticks": [1, 20, 40, 60, 80, 100],
+        "time_ticks": ["Min", "H", "D", "W"]
     }
 
     template = loader.get_template('queries/queries_live.html')

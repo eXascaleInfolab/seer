@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block content %}
+    {% include "queries/queries.css.html" %}
+    <script>
+        console.log("setting slider values")
+        const timeTicks = {{ time_ticks|safe }}
+        const stationTicks = {{ station_ticks }}
+        const sensorTicks = {{ sensor_ticks }}
+    </script>
     {% block query-spec %}
         <style>
             .online-only {
@@ -80,7 +87,12 @@
     {% endblock %}
 
     {% block query_scripts %}
-        <script src="{% static 'js/slider_script.js' %}"></script>
+        <script>
+            console.log("query frame content", queryFrameContent)
+
+
+        </script>
+        {% include "queries/code/slider-script.html" %}
         {% include "queries/code/offline_queries_css.html" %}
         {% include "queries/code/query_init_code.html" %}
         {% include "queries/code/evaluate_code.html" %}

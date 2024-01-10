@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 pip3 install pymonetdb
 sudo touch /etc/apt/sources.list.d/monetdb.list
 sudo chmod 777 /etc/apt/sources.list.d/monetdb.list

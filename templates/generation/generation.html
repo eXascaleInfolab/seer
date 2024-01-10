@@ -27,8 +27,8 @@
             var btn = document.createElement("button");   // Create a <button> element
             btn.innerHTML = "Store"
             btn.className = "btn btn-primary";
-            btn.style.width = "30px"
-            btn.style.height = "20px"
+            btn.style.width = "300px"
+            btn.style.height = "60px"
             btn.style.fontSize = "15px"
             loadingDiv.appendChild(btn);
         }
@@ -87,8 +87,6 @@
                 var newData = data.generated;
                 var originalData = data.original
 
-                console.log(newData);
-                console.log("AAAA");
 
                 // Remove all series from generationChart
                 while (generationChart.series.length > 0) {

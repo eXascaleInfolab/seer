@@ -4,8 +4,6 @@
 
     evaluateBTN.addEventListener("click", evaluate)
 
-
-
     function getFrequencies() {
         let query_frequencies = document.getElementsByClassName('frequency-input');
         let length = query_frequencies.length;
@@ -26,12 +24,6 @@
         }
 
         let query_frequencies = getFrequencies()
-
-        {#let length = query_frequencies.length;#}
-        {#let frequencies = []#}
-        {#for (let i = 0; i < length; i++) {#}
-        {#    frequencies.push(query_frequencies[i].value);#}
-        {# }#}
 
         // Fetch all forms with class 'query-box-form'
         const forms = document.querySelectorAll('.query-box-form');

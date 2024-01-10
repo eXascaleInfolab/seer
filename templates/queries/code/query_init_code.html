@@ -107,9 +107,13 @@
             },
         });
 
-        extractRangeAttributes()
-        extractRangeAttributes("slider-sensors", [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 11, {})
-        extractRangeAttributes("slider-stations", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, {})
+        init_slider("slider-time",timeTicks , {  1: "Minute",
+                                        2: "Hour",
+                                        3: "Day",
+                                        4: "Week",
+                                        5: "Month" })
+        init_slider("slider-sensors", sensorTicks)
+        init_slider("slider-stations", stationTicks)
 
     }
 
