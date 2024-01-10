@@ -1,6 +1,6 @@
 """
 load data from server if needed
-scp -r luca@diufrm144:~/TSM-Bench/utils/full_results  ~/PycharmProjects/djangoProject/query_data/offline_queries
+scp -r luca@diufrm110:/localdata/TSM-Bench/utils/full_results/d1/influx.csv  ~/PycharmProjects/djangoProject/query_data/offline_queries/d1/
 
 """
 import struct

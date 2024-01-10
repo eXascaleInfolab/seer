@@ -1,6 +1,6 @@
 <script>
 
-    function extractRangeAttributes(class_ = "slider-time",
+    function init_slider(class_ = "slider-time",
                                     labels = ["Min", "H", "D", "W", "M"],
                                     n_ticks = 5,
                                     value_map = {
@@ -11,6 +11,7 @@
                                         5: "Month"
                                     }
     ) {
+        n_ticks = labels.length
         //bind the slider
         //the slider will update data-link=class_ values with the value or the mapped value if defined
         $("." + class_).each(function () {

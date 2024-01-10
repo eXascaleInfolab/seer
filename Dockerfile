@@ -18,7 +18,8 @@ COPY . /usr/src/app
 RUN pip install --no-cache-dir -r  requirements.txt
 RUN pip install gunicorn
 RUN pip install docker
-RUN pip install install psycopg2-binary
-
+RUN pip install psycopg2-binary
+RUN pip install influxdb
+RUN pip install pymonetdb
 # Run the application
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

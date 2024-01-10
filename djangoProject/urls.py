@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from views.index_view import IndexView
-from views.live_queries_view import LiveQueryView
+from views.live_queries.live_queries_view import LiveQueryView
 from views.offline_query_view import OfflineQueryView, OnlineQueryView
 from views.compression_view import CompressionView
 from views.generation_view import GenerationView

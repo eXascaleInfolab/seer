@@ -23,6 +23,14 @@
         function hideLoadingGif() {
             var loadingDiv = document.getElementById('loading-info');
             loadingDiv.innerHTML = '';
+            // append large button to gif
+            var btn = document.createElement("button");   // Create a <button> element
+            btn.innerHTML = "Store"
+            btn.className = "btn btn-primary";
+            btn.style.width = "30px"
+            btn.style.height = "20px"
+            btn.style.fontSize = "15px"
+            loadingDiv.appendChild(btn);
         }
 
         // Call the function to show the loading gif

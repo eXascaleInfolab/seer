@@ -5,8 +5,8 @@ from django.views import View
 import json
 import pandas as pd
 import os
-
-host = "gan" if os.getenv("using_docker") else "172.17.0.2"
+import subprocess
+host = "gan" if os.getenv("using_docker") else "172.17.0.1"
 
 with open('generation_data/datasets.json', 'r') as file:
     generation_datasets_info = json.load(file)
@@ -15,6 +15,10 @@ ts_multipliers = {
     "same": 1, "2x": 2, "3x": 3, "5x": 5 , "1x" : 1
 }
 
+##Local test
+host = "gan" if os.getenv("using_docker") else "localhost"
+command = f'curl "http://{host}:87/run-pretrained?seed={"temperature"}&len_ts={1000}&nb_ts={2}"'
+subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_length_percentage=3, min=0, max=10000):
     # sample command = curl "http://{host}:80/run-pretrained?seed=bafu&len_ts=10000&nb_ts=1
@@ -29,6 +33,8 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 
     print(command)
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    import time
+    time.sleep(3)
     print("after run command")
     # Read the generated data
     df = pd.read_csv('generation/results/generated.txt')
