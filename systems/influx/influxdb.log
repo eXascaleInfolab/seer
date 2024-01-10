@@ -1,0 +1,108 @@
+ts=2024-01-10T08:39:17.773572Z lvl=info msg="InfluxDB starting" log_id=0mddG23G000 version=1.7.10 branch=1.7 commit=f46f63d4e2d9684a2dd716594ab609ccd32f0a5b
+ts=2024-01-10T08:39:17.773643Z lvl=info msg="Go runtime" log_id=0mddG23G000 version=go1.12.6 maxprocs=16
+ts=2024-01-10T08:39:17.885634Z lvl=info msg="Using data dir" log_id=0mddG23G000 service=store path=/home/ig/.influxdb/data
+ts=2024-01-10T08:39:17.885687Z lvl=info msg="Compaction settings" log_id=0mddG23G000 service=store max_concurrent_compactions=8 throughput_bytes_per_second=50331648 throughput_bytes_per_second_burst=50331648
+ts=2024-01-10T08:39:17.885702Z lvl=info msg="Open store (start)" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open op_event=start
+ts=2024-01-10T08:39:17.896041Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/23/_00001.wal size=159055
+ts=2024-01-10T08:39:17.896066Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/20/_00001.wal size=1540882
+ts=2024-01-10T08:39:17.896045Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/21/_00001.wal size=49208
+ts=2024-01-10T08:39:17.898942Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/_internal/monitor/1/000000005-000000002.tsm id=0 duration=2.414ms
+ts=2024-01-10T08:39:17.899164Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/_internal/monitor/19/000000001-000000001.tsm id=0 duration=2.635ms
+ts=2024-01-10T08:39:17.899224Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/_internal/monitor/13/000000003-000000002.tsm id=0 duration=2.694ms
+ts=2024-01-10T08:39:17.899237Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/1/_00002.wal size=2449
+ts=2024-01-10T08:39:17.899431Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/13/_00001.wal size=115481
+ts=2024-01-10T08:39:17.899397Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/_internal/monitor/2/000000003-000000002.tsm id=0 duration=2.863ms
+ts=2024-01-10T08:39:17.899629Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/2/_00001.wal size=7968737
+ts=2024-01-10T08:39:17.899205Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/_internal/monitor/18/000000001-000000001.tsm id=0 duration=2.670ms
+ts=2024-01-10T08:39:17.900132Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/18/_00001.wal size=1029937
+ts=2024-01-10T08:39:17.899446Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/_internal/monitor/19/_00001.wal size=29241
+ts=2024-01-10T08:39:17.905502Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/d1/autogen/25/000000002-000000001.tsm id=1 duration=1.279ms
+ts=2024-01-10T08:39:17.906053Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/d1/autogen/25/000000001-000000001.tsm id=0 duration=1.813ms
+ts=2024-01-10T08:39:17.906242Z lvl=info msg="Opened file" log_id=0mddG23G000 engine=tsm1 service=filestore path=/home/ig/.influxdb/data/d1/autogen/24/000000001-000000001.tsm id=0 duration=1.824ms
+ts=2024-01-10T08:39:17.906633Z lvl=info msg="Reading file" log_id=0mddG23G000 engine=tsm1 service=cacheloader path=/home/ig/.influxdb/wal/d1/autogen/24/_00004.wal size=2048990
+ts=2024-01-10T08:39:17.911597Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/1 duration=19.464ms
+ts=2024-01-10T08:39:17.912641Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/d1/autogen/25 duration=10.003ms
+ts=2024-01-10T08:39:17.916531Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/19 duration=24.645ms
+ts=2024-01-10T08:39:17.920557Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/21 duration=28.468ms
+ts=2024-01-10T08:39:17.928929Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/23 duration=36.734ms
+ts=2024-01-10T08:39:17.931271Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/13 duration=39.292ms
+ts=2024-01-10T08:39:17.932553Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/d1/autogen/24 duration=29.811ms
+ts=2024-01-10T08:39:17.981753Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/18 duration=89.722ms
+ts=2024-01-10T08:39:18.022592Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/20 duration=130.664ms
+ts=2024-01-10T08:39:18.254325Z lvl=info msg="Opened shard" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open index_version=inmem path=/home/ig/.influxdb/data/_internal/monitor/2 duration=362.260ms
+ts=2024-01-10T08:39:18.254511Z lvl=info msg="Open store (end)" log_id=0mddG23G000 service=store trace_id=0mddG2VG000 op_name=tsdb_open op_event=end op_elapsed=368.811ms
+ts=2024-01-10T08:39:18.254892Z lvl=info msg="Opened service" log_id=0mddG23G000 service=subscriber
+ts=2024-01-10T08:39:18.254909Z lvl=info msg="Starting monitor service" log_id=0mddG23G000 service=monitor
+ts=2024-01-10T08:39:18.254920Z lvl=info msg="Registered diagnostics client" log_id=0mddG23G000 service=monitor name=build
+ts=2024-01-10T08:39:18.254929Z lvl=info msg="Registered diagnostics client" log_id=0mddG23G000 service=monitor name=runtime
+ts=2024-01-10T08:39:18.254938Z lvl=info msg="Registered diagnostics client" log_id=0mddG23G000 service=monitor name=network
+ts=2024-01-10T08:39:18.254951Z lvl=info msg="Registered diagnostics client" log_id=0mddG23G000 service=monitor name=system
+ts=2024-01-10T08:39:18.255278Z lvl=info msg="Starting precreation service" log_id=0mddG23G000 service=shard-precreation check_interval=10m advance_period=30m
+ts=2024-01-10T08:39:18.255291Z lvl=info msg="Starting snapshot service" log_id=0mddG23G000 service=snapshot
+ts=2024-01-10T08:39:18.255304Z lvl=info msg="Starting continuous query service" log_id=0mddG23G000 service=continuous_querier
+ts=2024-01-10T08:39:18.255319Z lvl=info msg="Starting HTTP service" log_id=0mddG23G000 service=httpd authentication=false
+ts=2024-01-10T08:39:18.255328Z lvl=info msg="opened HTTP access log" log_id=0mddG23G000 service=httpd path=stderr
+ts=2024-01-10T08:39:18.255355Z lvl=info msg="Storing statistics" log_id=0mddG23G000 service=monitor db_instance=_internal db_rp=monitor interval=10s
+ts=2024-01-10T08:39:18.255430Z lvl=info msg="Listening on HTTP" log_id=0mddG23G000 service=httpd addr=[::]:8086 https=false
+ts=2024-01-10T08:39:18.255667Z lvl=info msg="Starting retention policy enforcement service" log_id=0mddG23G000 service=retention check_interval=30m
+ts=2024-01-10T08:39:18.255788Z lvl=info msg="Listening for signals" log_id=0mddG23G000
+ts=2024-01-10T08:39:18.257215Z lvl=info msg="Sending usage statistics to usage.influxdata.com" log_id=0mddG23G000
+ts=2024-01-10T08:39:19.254909Z lvl=info msg="TSM compaction (start)" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group op_event=start
+ts=2024-01-10T08:39:19.254976Z lvl=info msg="Beginning compaction" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group tsm1_files_n=2
+ts=2024-01-10T08:39:19.254988Z lvl=info msg="Compacting file" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/home/ig/.influxdb/data/d1/autogen/25/000000001-000000001.tsm
+ts=2024-01-10T08:39:19.254998Z lvl=info msg="Compacting file" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group tsm1_index=1 tsm1_file=/home/ig/.influxdb/data/d1/autogen/25/000000002-000000001.tsm
+ts=2024-01-10T08:39:19.472323Z lvl=info msg="Compacted file" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/home/ig/.influxdb/data/d1/autogen/25/000000002-000000002.tsm.tmp
+ts=2024-01-10T08:39:19.472355Z lvl=info msg="Finished compacting files" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group tsm1_files_n=1
+ts=2024-01-10T08:39:19.472360Z lvl=info msg="TSM compaction (end)" log_id=0mddG23G000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0mddG7qW000 op_name=tsm1_compact_group op_event=end op_elapsed=217.469ms
+ts=2024-01-10T08:49:18.254670Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW000 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254718Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW003 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254718Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW002 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254755Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW004 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254776Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW006 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254771Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW005 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254796Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW008 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254673Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW001 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.254819Z lvl=info msg="Cache snapshot (start)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW007 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-10T08:49:18.269981Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW002 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/1 duration=15.291ms
+ts=2024-01-10T08:49:18.270052Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW002 op_name=tsm1_cache_snapshot op_event=end op_elapsed=15.353ms
+ts=2024-01-10T08:49:18.278383Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW005 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/23 duration=23.632ms
+ts=2024-01-10T08:49:18.278488Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW005 op_name=tsm1_cache_snapshot op_event=end op_elapsed=23.730ms
+ts=2024-01-10T08:49:18.278360Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW004 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/19 duration=23.612ms
+ts=2024-01-10T08:49:18.278525Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW004 op_name=tsm1_cache_snapshot op_event=end op_elapsed=23.777ms
+ts=2024-01-10T08:49:18.280054Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW003 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/13 duration=25.349ms
+ts=2024-01-10T08:49:18.280116Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW003 op_name=tsm1_cache_snapshot op_event=end op_elapsed=25.411ms
+ts=2024-01-10T08:49:18.286180Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW001 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/21 duration=31.543ms
+ts=2024-01-10T08:49:18.286212Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW001 op_name=tsm1_cache_snapshot op_event=end op_elapsed=31.561ms
+ts=2024-01-10T08:49:18.286732Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW008 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/18 duration=31.940ms
+ts=2024-01-10T08:49:18.286781Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW008 op_name=tsm1_cache_snapshot op_event=end op_elapsed=31.989ms
+ts=2024-01-10T08:49:18.286731Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW006 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/20 duration=31.958ms
+ts=2024-01-10T08:49:18.286792Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW006 op_name=tsm1_cache_snapshot op_event=end op_elapsed=32.019ms
+ts=2024-01-10T08:49:18.287381Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW000 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/2 duration=32.743ms
+ts=2024-01-10T08:49:18.287396Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW000 op_name=tsm1_cache_snapshot op_event=end op_elapsed=32.746ms
+ts=2024-01-10T08:49:18.287389Z lvl=info msg="Snapshot for path written" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW007 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/24 duration=32.599ms
+ts=2024-01-10T08:49:18.287411Z lvl=info msg="Cache snapshot (end)" log_id=0mddG23G000 engine=tsm1 trace_id=0mddpggW007 op_name=tsm1_cache_snapshot op_event=end op_elapsed=32.611ms
+[httpd] 172.18.0.4 - name [10/Jan/2024:09:50:36 +0100] "GET /query?q=select+%2A+from+d1+limit+10%3B HTTP/1.1" 200 65 "-" "python-requests/2.31.0" 52b83808-af95-11ee-8001-4cd577e2e3db 3277
+[httpd] 172.18.0.4 - name [10/Jan/2024:09:50:52 +0100] "GET /query?q=select+%2A+from+d1+limit+10%3B HTTP/1.1" 200 65 "-" "python-requests/2.31.0" 5bed8ebf-af95-11ee-8002-4cd577e2e3db 507
+[httpd] 172.18.0.4 - name [10/Jan/2024:09:50:56 +0100] "GET /query?q=select+%2A+from+d1.d1+limit+10%3B HTTP/1.1" 200 65 "-" "python-requests/2.31.0" 5e9f3977-af95-11ee-8003-4cd577e2e3db 353
+ts=2024-01-10T08:51:32.534900Z lvl=info msg="Executing query" log_id=0mddG23G000 service=query query="SELECT * FROM d1.autogen.sensor LIMIT 10"
+[httpd] 172.18.0.4 - name [10/Jan/2024:09:51:32 +0100] "GET /query?q=select+%2A+from+%22d1%22.%22autogen%22.%22sensor%22+limit+10%3B HTTP/1.1" 200 8395 "-" "python-requests/2.31.0" 73f2d69e-af95-11ee-8004-4cd577e2e3db 68408
+ts=2024-01-10T09:09:18.255943Z lvl=info msg="Retention policy deletion check (start)" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check op_event=start
+ts=2024-01-10T09:09:18.266967Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=1 db_rp=monitor
+ts=2024-01-10T09:09:18.268066Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=2 db_rp=monitor
+ts=2024-01-10T09:09:18.269186Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=13 db_rp=monitor
+ts=2024-01-10T09:09:18.270222Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=18 db_rp=monitor
+ts=2024-01-10T09:09:18.271299Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=19 db_rp=monitor
+ts=2024-01-10T09:09:18.272292Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=20 db_rp=monitor
+ts=2024-01-10T09:09:18.273381Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=21 db_rp=monitor
+ts=2024-01-10T09:09:18.274286Z lvl=info msg="Deleted shard group" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_group=23 db_rp=monitor
+ts=2024-01-10T09:09:18.275432Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=21 db_rp=monitor
+ts=2024-01-10T09:09:18.276760Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=23 db_rp=monitor
+ts=2024-01-10T09:09:18.278369Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=18 db_rp=monitor
+ts=2024-01-10T09:09:18.280221Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=2 db_rp=monitor
+ts=2024-01-10T09:09:18.280852Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=1 db_rp=monitor
+ts=2024-01-10T09:09:18.281627Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=19 db_rp=monitor
+ts=2024-01-10T09:09:18.282791Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=13 db_rp=monitor
+ts=2024-01-10T09:09:18.283524Z lvl=info msg="Deleted shard" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check db_instance=_internal db_shard_id=20 db_rp=monitor
+ts=2024-01-10T09:09:18.283561Z lvl=info msg="Retention policy deletion check (end)" log_id=0mddG23G000 service=retention trace_id=0mdeywBl000 op_name=retention_delete_check op_event=end op_elapsed=27.646ms
+ts=2024-01-10T09:39:18.255912Z lvl=info msg="Retention policy deletion check (start)" log_id=0mddG23G000 service=retention trace_id=0mdggnRl000 op_name=retention_delete_check op_event=start
+ts=2024-01-10T09:39:18.256017Z lvl=info msg="Retention policy deletion check (end)" log_id=0mddG23G000 service=retention trace_id=0mdggnRl000 op_name=retention_delete_check op_event=end op_elapsed=0.122ms
