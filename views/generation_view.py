@@ -48,7 +48,7 @@ class GenerationView(View):
         "len_ts": ["1x", "2x", "3x", "5x"],
         "len_ts_default": "1x",
         "nb_ts": [1, 2, 5, 10], #
-        "nb_ts_default": 5,
+        "nb_ts_default": 1,
         "num_hashtables": [1, 5, 8, 10],
         "num_hashtables_default": 8,
         "nb_top": [1, 4, 10, 16, 20],
