@@ -4,12 +4,13 @@
         constructor(dataType, title = null) {
             console.log("CompressionManager", dataType)
             this.title = title;
+            this.extremes = null;
             if (this.title == null) {
                 this.title = dataType;
             }
 
             this.dataType = dataType;
-            getCompressionData(dataType).done(response =>  {
+            getCompressionData(dataType).done(response => {
                 console.log("data")
 
                 this.data = response.data
@@ -18,7 +19,7 @@
 
                 console.log(this.data)
                 console.log(this.levels)
-                console.log("curr" , this.currentLevel)
+                console.log("curr", this.currentLevel)
                 this.initialDataSet = this.data[this.currentLevel]["data"];
 
                 this.initialCompression = this.data[this.levels[0]]["compression"]
@@ -32,7 +33,27 @@
             })
         }
 
+        setChartExtremes() {
+            if (this.extremes == null) {
+                let current_extremes = this.dataChart.xAxis[0].getExtremes()
+                let dataMax = current_extremes.max
+                console.log("setting extremes", dataMax)
+                this.dataChart.xAxis[0].setExtremes(dataMax - (1000 * 60 * 10), dataMax, true, false)
+            }
+            else {
+               let current_extremes = this.extremes
+                let dataMax = current_extremes.max
+                let dataMin = current_extremes.min
+                console.log("setting extremes", dataMax)
+                this.dataChart.xAxis[0].setExtremes(dataMin, dataMax, true, false)
+            }
+            this.extremes = this.dataChart.xAxis[0].getExtremes()
+        }
+
         initializeCharts() {
+            if(this.extremes != null){
+                this.extremes = this.dataChart.xAxis[0].getExtremes()
+            }
             this.dataChart = Highcharts.chart(`data-container`, {
                     chart: {
                         type: 'line',
@@ -43,6 +64,7 @@
                     },
                     xAxis: {
                         type: 'datetime',
+                        ordinal: false,
                     },
                     yAxis: {
                         title: {
@@ -80,20 +102,25 @@
                         adaptToUpdatedData: false,
                         enabled: true, // Set to true to enable the navigator
                     },
-                    scrollbar: {
-                        enabled: true, // Set to true to show a scrollbar below the chart
-                        liveRedraw: false
-                    },
+                    {#scrollbar: {#}
+                    {#    enabled: true, // Set to true to show a scrollbar below the chart#}
+                    {#    liveRedraw: false#}
+                    {# },#}
                     credits: {
                         enabled: false,
                     },
+                    {#events: {#}
+                    {#    load() {#}
+                    {#        const chart = this#}
+                    {#        let startDate = 10000 * 6 * 10#}
+                    {#        let endDate = 10000 * 6 * 10 * 2#}
+                    {#        chart.xAxis[0].setExtremes(startDate, endDate)#}
+                    {#    }#}
+                    {# },#}
                     rangeSelector: {
-                        {#allButtonsEnabled: true,#}
+                        selected: 2,
+                        enabled: true,
                         buttons: [{
-                            type: 'millisecond',
-                            count: 10000,
-                            text: '10s'
-                        }, {
                             type: 'millisecond',
                             count: 10000 * 6,
                             text: '1m'
@@ -106,19 +133,13 @@
                             count: 10000 * 6 * 60,
                             text: '1h'
                         }],
-                        selected: 2,
-                        enabled: true,
                     },
-
                 }
-            )
-            ;
+            );
+            this.setChartExtremes()
+            const compressionManager = this;
 
-            const
-                compressionManager = this;
-
-            this
-                .compressionChart = Highcharts.chart(`compression-container`, {
+            this.compressionChart = Highcharts.chart(`compression-container`, {
                 chart: {
                     type: 'column',
                 },
@@ -139,7 +160,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Compression (KB)'
+                        text: 'Total Compression (KB)'
                     }
                 },
                 xAxis: {
@@ -147,11 +168,6 @@
                     labels: {
                         allowOverlap: true,
                         padding: 0,
-                        {#events: {#}
-                        {#    click: (e) => {#}
-                        {#        this.setLevel(e.target.value);#}
-                        {#    }#}
-                        {# },#}
                     },
                 },
 
