@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{#context contains: dataset  #}
+{% block content_fluid %}
+    <div class="row">
+        <div class="col-md-9" style="height:100%">
+
+            <div id="data-chart">
+                <div id="data-container" style="height: calc(100vh - 70px);"></div>
+            </div>
+        </div>
+        <div class="col-md-3" id="menu">
+            {% include "parts/dataset_description.html" %}
+        </div>
+    </div>
+    {% csrf_token %}
+<script>
+    const dataset = "{{ dataset }}";
+    console.log("dataset", dataset)
+    const renderedSeries = []
+    // on document ready send request to obtian data from rendered series
+
+    console.log("eeeeeeee")
+
+    let dataChart = Highcharts.chart(`data-container`, {
+        chart: {
+            type: 'line',
+            zoomType: 'x'
+        },
+        title: {
+            text: ""//this.title
+        },
+        xAxis: {
+            type: 'datetime',
+            minRange: 7000,
+            maxRange: 7000 * 10,
+            events: {
+                afterSetExtremes: function (e) {
+                    var maxDistance = 7000 * 10; //8 months time
+                    var xaxis = this;
+                    if ((e.max - e.min) > maxDistance) {
+                        var min = e.max - maxDistance;
+                        var max = e.max;
+                        window.setTimeout(function () {
+                            xaxis.setExtremes(min, max);
+                        }, 1);
+                    }
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Value'
+            }
+        },
+        legend: {
+            enabled: true,
+            verticalAlign: 'top',
+        },
+        series: renderedSeries,
+        navigator: {
+            enabled: true, // Set to true to enable the navigator
+            xAxis: {
+                // Configuration specific to the navigator's X-axis
+            }
+        },
+        rangeSelector: {
+            buttons: [
+                {
+                    type: 'week',
+                    count: 1,
+                    text: '1w'
+                },
+                {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                },
+                {
+                    type: 'year',
+                    count: 1,
+                    text: '1y'
+                },
+                {
+                    type: 'year',
+                    count: 2,
+                    text: '2y'
+                },
+                {
+                    type: 'year',
+                    count: 5,
+                    text: '5y'
+                }
+            ],
+            inputEnabled: false,
+            selected: 3 // 2y
+        },
+        scrollbar: {
+            liveRedraw: false
+        },
+    });
+
+     $(document).ready(function () {
+        console.log("READY")
+        $.ajax({
+            url: "{% url 'datasetDisplay' dataset=dataset %}",
+            type: "POST",
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            data: {
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                {#renderedSeries = data;#}
+                data.dataset.forEach(d => {
+                    console.log("adding series", d.name)
+                    dataChart.addSeries( {
+                        name: d.name,
+                        data: d.data,
+                        type: 'line',
+                        tooltip: {
+                            valueDecimals: 2
+                        }
+                    })
+                })
+            }
+        });
+    });
+
+</script>
+{% endblock %}

@@ -5,6 +5,12 @@
     <div class="row">
         <div class="col-md-9" style="height:100%">
             {#            <h4> DATA </h4>#}
+            <label for="dataset" style="display: inline-block; margin-right: 10px;">Dataset:</label>
+            <select id="dataset" style="display: inline-block; width: 120px;" class="form-control" name="dataset">
+                <option value="d1">Temp1</option>
+                <option value="d2">Temp2</option>
+            </select>
+
             <div id="data-container" style="height: calc(100vh - 60px);">
             </div>
 
@@ -32,21 +38,19 @@
                 <div
                         style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
 
-                    <label for="feature" style="width: 30%; text-align: left;">Dataset:</label>
 
-                    <label for="feature" style="width: 30%; text-align: left;">Feature:</label>
+                    <label for="feature" style="width: 25%; text-align: left;">&nbspFeature:</label>
 
-                    <label for="feature" style="width: 30%; text-align: left;">Level:</label>
+                    <label for="feature" style="width: 25%; text-align: left;">&nbspLevel:</label>
+
+                    <label for="" style="width: 30%; text-align: left;"></label>
+
 
                 </div>
 
                 <div class="form-group"
                      style="margin-left: 0; margin-right: 0; position: relative; display: flex; justify-content: space-between; align-items: center;">
 
-                    <select id="dataset" style="width: 30%;" class="form-control" name="dataset">
-                        <option value="d1">D1</option>
-                        <option value="d2">D2</option>
-                    </select>
 
                     <select id="feature" style="width: 30%;" class="form-control" name="dataType"
                             onchange="handleFormSubmit(event)">
@@ -61,17 +65,20 @@
                         <!-- Content for the level-dropdown goes here -->
                     </div>
 
+                    <div style="width: 30%;">
+                        <button id="applyBtn"
+                                class="btn btn-default pull-left">
+                            Apply
+                        </button>
+                        <button id="showCompression"
+                                class="btn btn-default pull-right" style="display:none ">
+                            Show Compression
+                        </button>
+                    </div>
+
+
                 </div>
-                <div class="form-group clearfix">
-                    <button id="applyBtn"
-                            class="btn btn-default pull-left">
-                        Apply
-                    </button>
-                    <button id="showCompression"
-                            class="btn btn-default pull-right" style="display:none ">
-                        Show Compression
-                    </button>
-                </div>
+
             </form>
 
             <div id="compression-container" style="display: none">

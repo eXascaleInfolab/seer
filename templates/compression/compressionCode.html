@@ -102,21 +102,9 @@
                         adaptToUpdatedData: false,
                         enabled: true, // Set to true to enable the navigator
                     },
-                    {#scrollbar: {#}
-                    {#    enabled: true, // Set to true to show a scrollbar below the chart#}
-                    {#    liveRedraw: false#}
-                    {# },#}
                     credits: {
                         enabled: false,
                     },
-                    {#events: {#}
-                    {#    load() {#}
-                    {#        const chart = this#}
-                    {#        let startDate = 10000 * 6 * 10#}
-                    {#        let endDate = 10000 * 6 * 10 * 2#}
-                    {#        chart.xAxis[0].setExtremes(startDate, endDate)#}
-                    {#    }#}
-                    {# },#}
                     rangeSelector: {
                         selected: 2,
                         enabled: true,
@@ -160,7 +148,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Total Compression (KB)'
+                        text: 'Storage Size in KB'
                     }
                 },
                 xAxis: {
@@ -168,6 +156,7 @@
                     labels: {
                         allowOverlap: true,
                         padding: 0,
+                        enabled: false
                     },
                 },
 

@@ -82,7 +82,11 @@
                 //trim white space
                 var elementValue = element.innerHTML.replace(/\s/g, '');
                 console.log("elementValue", elementValue)
+                var queryFrame = element.closest('.query-frame');
+                var hiddenInput = queryFrame.querySelector('input[data-link="data-set"]');
+                hiddenInput.value = elementValue
                 selectMain.setAttribute("data-value", elementValue);
+                init_slider("slider-stations", [1,200,500] , {} , queryFrame  )
             });
         })
 

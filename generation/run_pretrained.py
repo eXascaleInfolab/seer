@@ -131,6 +131,7 @@ def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
     nb_top = nb_top_
     hash_length_percentage = hash_length_percentage_
 
+    print("loading original data and synthetic data from" , seed)
     fseed = 'data/' + seed + '/original.txt'
     fsynth = 'data/' + seed + '/synthetic.txt'
     # len_ts = 10000
@@ -149,7 +150,7 @@ def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
 
         lsh_res = TS_LSH(data, df_segments, nb_ts, len_ts)
 
-        plot_result(data, lsh_res, nb_ts, len_ts, seed)
+        #plot_result(data, lsh_res, nb_ts, len_ts, seed)
         lsh_res = pd.DataFrame(lsh_res).T
         # lsh_res.to_csv('results/'+seed+'.txt', header = False, index = False, float_format='%.3f')
 

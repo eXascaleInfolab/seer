@@ -32,8 +32,6 @@
             {#btn.style.fontSize = "15px"#}
             {#loadingDiv.appendChild(btn);#}
         }
-
-        // Call the function to show the loading gif
     </script>
 
 
@@ -96,14 +94,26 @@
                 while (generationChart.yAxis.length > 0) {
                     generationChart.yAxis[0].remove();
                 }
-
+                // ad the originalData at the beggining of the new data
+                console.log(originalData)
+                console.log("adding data")
+                console.log(newData)
+                newData.unshift(originalData)
+                console.log(newData)
                 nGenerated = newData.length
                 document.getElementById('generation-container').style.height = ((nGenerated) * 120 + 70) + 'px'
 
                 newData.forEach(function (ts, index) {
+                    let yaxisLAbel = ""
+                    if (index === 0) {
+                        yaxisLAbel = "Original"
+                    }
+                    //else {
+                    //    yaxisLAbel = "Generated " + index
+                    //}
                     generationChart.addAxis({
                         title: {
-                            text: ""
+                            text: yaxisLAbel
                         },
                         top: index * 120 + "px",
                         offset: 1,
@@ -111,6 +121,7 @@
                         height: "120px",
                         minPadding: '0',
                         endOnTick: false,
+
                     })
                 })
 
@@ -122,15 +133,6 @@
                         yAxis: index,
                         showInLegend: false// Use the index of the last added axis
                     }, false);
-                    {#generationChart.addSeries({#}
-                    {#    name: data.name + "_original" + index + 1,#}
-                    {#    data: originalData,#}
-                    {#    yAxis: index,#}
-                    {#    opacity: 0.5,#}
-                    {#    dashStyle: 'dot',#}
-                    {#    showInLegend: false// Use the index of the last added axis#}
-                    {# }, false);#}
-                    {#console.log(originalData[index], "EEE")#}
                 });
 
                 generationChart.redraw();

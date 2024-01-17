@@ -1,15 +1,24 @@
 <script>
 
     function init_slider(class_ = "slider-time",
-                                    labels = ["Min", "H", "D", "W", "M"],
-                                    value_map = { }
+                         labels = ["Min", "H", "D", "W", "M"],
+                         value_map = {}, parentElement = null
     ) {
+        console.log(parentElement)
         n_ticks = labels.length
-        //bind the slider
-        //the slider will update data-link=class_ values with the value or the mapped value if defined
+        let reInit = false
         $("." + class_).each(function () {
+            // check if parentElement is not null if it is not null skil iff
+            // current element is below parent element and put reInit = True
+            let SliderElement = this
+            if (parentElement) {
+                console.log(this)
+                console.log($(this).closest(parentElement).length)
+                reInit = $(this).closest(parentElement).length > 0;
+                console.log(this.a)
+            }
             const this_ = this
-            if (!$(this).hasClass("ui-slider")) {
+            if (reInit || !$(this).hasClass("ui-slider")) {
                 $(this).slider({
                     range: "min",
                     value: Math.floor(n_ticks / 2 + 1),
@@ -34,17 +43,21 @@
                 });
             }
 
-
+            {#const ticks = $(SliderElement).nextElementSibling#}
         });
+
+
         // create the tickz
         sliders = document.getElementsByClassName(class_)
         slider = sliders[sliders.length - 1]
 
         const ticks = slider.nextElementSibling
 
-        if (ticks.hasChildNodes()) {
+        if (!reInit && ticks.hasChildNodes()) {
+            console.log("sckippt reintialization")
             return
         }
+        ticks.innerHTML = ""
         //append grid 2 lines 5 columns
         flexContainer = document.createElement("div")
         flexContainer.classList.add("flex-container")
@@ -77,6 +90,12 @@
         flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
         flexContainer2.style.textAlign = "center"
         ticks.appendChild(flexContainer2)
+    }
+
+    function updateLabels(labels) {
+        //labels = ["Min", "H", "D", "W", "M"]
+        n_ticks = labels.length
+        console.log(this)
     }
 
     function get_slider_values(element) {

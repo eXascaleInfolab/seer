@@ -1,6 +1,6 @@
 from utils.query_translator import load_query, timescaledb_query_parser, clickhouse_query_parser
 from views.live_queries.system_query_maps import run_query
-from views.offline_query_view import OfflineQueryView
+from views.queries import OfflineQueryView
 from django.http import JsonResponse
 from django.template import loader
 import json
@@ -39,16 +39,17 @@ class LiveQueryView(OfflineQueryView):
         'heading': 'Welcome to the Online Queries Page',
         "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
         "classes" : "live-query",
-        "datasets": ["Temperature1", "Temperature2"],
+        "datasets": ["Temp1", "Temp2"],
         "station_ticks": [2, 4, 6, 8, 10],
         "sensor_ticks": [1, 20, 40, 60, 80, 100],
         "time_ticks": ["Min", "H", "D", "W"]
     }
 
+
     template = loader.get_template('queries/queries_live.html')
 
     def post(self, request):
-        print("LAUNCHIGN LIVE QUERYs")
+        print("LAUNCHING LIVE QUERYs")
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
 

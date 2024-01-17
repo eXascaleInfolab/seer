@@ -48,11 +48,11 @@ services:
     build: ./generation
     container_name: gan_container
     volumes:
-      - ./generation/data:/app/data
-      - ./generation/results:/app/results
-      - ./generation/run_pretrained.py:/app/run_pretrained.py
+      - ./generation:/app
     ports:
       - "87:80"
+    environment:
+      - FLASK_ENV=development
     restart: unless-stopped
 
 

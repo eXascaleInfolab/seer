@@ -17,9 +17,9 @@
     {#    </h4>#}
     <label for="generationLength">Seed Data Length</label>
     <div class="form-group " style="margin-left:0;margin-right:0">
-        <select id="len_ts" class="form-control" name="len_ts"
+        <select id="len_seed" class="form-control" name="len_seed"
                 onchange="">
-            <option value=1 > full</option>
+            <option value="full" > full</option>
 
             <option value=0 selected> as selected in chart</option>
 
@@ -35,7 +35,7 @@
             {% endfor %}
         </select>
     </div>
-    <label for="generationCount"># New Series</label>
+    <label for="generationCount">Number of generated Series</label>
     <div class="form-group " style="margin-left:0;margin-right:0">
         <select id="nb_ts" class="form-control" name="nb_ts"
                 onchange="">

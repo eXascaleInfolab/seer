@@ -13,6 +13,7 @@ hash_length_percentage_default = int(config['hash_length_percentage'])
 
 @app.route('/run-pretrained')
 def run_pretrained():
+    print("run pretrained")
     # Capture arguments from URL query parameters
     seed = request.args.get('seed', 'bafu')
     len_ts = int(request.args.get('len_ts', '200'))

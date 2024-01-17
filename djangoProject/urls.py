@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from views.generation.dataset_view import DatasetView
 from views.index_view import IndexView
 from views.live_queries.live_queries_view import LiveQueryView
-from views.offline_query_view import OfflineQueryView, OnlineQueryView
+from views.queries import OfflineQueryView, OnlineQueryView
 from views.compression_view import CompressionView
-from views.generation_view import GenerationView
-from views.datasets_view import DatasetsView
+from views.generation.generation_view import GenerationView
+from views.generation.datasets_view import DatasetsView
 
 
 urlpatterns = [
@@ -32,7 +34,10 @@ urlpatterns = [
     path('queries-live' , LiveQueryView.as_view(),name= 'live-queries'),
 
     path('compression', CompressionView.as_view(), name='compression'),
+
+    ### generation
     path('datasets', DatasetsView.as_view(), name='datasets'),
+    path('dataset/<str:dataset>', DatasetView.as_view(), name='datasetDisplay'),
     path('generation/<str:dataset>', GenerationView.as_view(), name='generation'),
 ]
 print(urlpatterns)
