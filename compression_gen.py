@@ -117,13 +117,16 @@ def generate_delta(length, num_series, delta_percentage):
 def export(ts, file):
     df = pd.DataFrame(ts).T
 
-    df['time'] = [datetime.fromtimestamp((ms + i * 1000 * granularity) // 1000).strftime("%Y/%m/%dT%H:%M:%S") for i in
+    df['time'] = [datetime.fromtimestamp((ms + i * 1000 * granularity) // 1000).strftime("%Y-%m-%dT%H:%M:%S") for i in
                   range(len(df))]
 
     df['id_station'] = ['st' + str(i // (len(df) // 10)) for i in range(len(df))]
 
     df = df[['time'] + ['id_station'] + [col for col in df.columns if col != 'time' and col != 'id_station']]
-
+    df[[col for col in df.columns if col != 'time' and col != 'id_station']] = df[[col for col in df.columns if col != 'time' and col != 'id_station']].round(6)
+    #rename integer cols to s1 s2 s3 etc
+    df.rename(columns={col: 's' + str(i - 2) for i, col in enumerate(df.columns) if col != 'time' and col != 'id_station'},
+              inplace=True)
     df.to_csv(file, index=False)
 
     return df
@@ -133,57 +136,27 @@ length = 4000*10
 
 num_series = 100
 
-repeats_percentage = 90
+repeats_percentage = 10
 
-scarsity_percentage = 10
+scarsity_percentage = 90
+
 
 delta_percentage = 0.1
+time_series_data = generate_delta(length, num_series, delta_percentage)
+time_series_data = export(time_series_data, 'delta_' + str(delta_percentage) + '.csv')
+
+# time_series_data = generate_scarsity(length, num_series, scarsity_percentage)
+# time_series_data = export(time_series_data, 'scarsity_' + str(scarsity_percentage) + '.csv')
+# delta_percentage = 10
+# time_series_data = generate_delta(length, num_series, delta_percentage)
+# time_series_data = export(time_series_data, 'delta_' + str(delta_percentage) + '.csv')
+
+repeats_percentage = 10
 
 time_series_data = generate_repeats(length, num_series, repeats_percentage)
 time_series_data = export(time_series_data, 'repeats_' + str(repeats_percentage) + '.csv')
 
-# Plot the time series
-
-# time_series_data.plot(marker='o', linestyle='-')
+# repeats_percentage = 90
 #
-# plt.title('Repeats ' + str(repeats_percentage))
-#
-# plt.xlabel('Time')
-#
-# plt.ylabel('Value')
-#
-# plt.grid(True)
-#
-# plt.show()
-#
-time_series_data = generate_scarsity(length, num_series, scarsity_percentage)
-#
-time_series_data = export(time_series_data, 'scarsity_' + str(scarsity_percentage) + '.csv')
-#
-# time_series_data.plot(marker='o', linestyle='-')
-#
-# plt.title('Scarsity ' + str(scarsity_percentage))
-#
-# plt.xlabel('Time')
-#
-# plt.ylabel('Value')
-#
-# plt.grid(True)
-#
-# plt.show()
-#
-time_series_data = generate_delta(length, num_series, delta_percentage)
-#
-time_series_data = export(time_series_data, 'delta_' + str(delta_percentage) + '.csv')
-#
-# time_series_data.plot(marker='o', linestyle='-')
-#
-# plt.title('Delta ' + str(delta_percentage))
-#
-# plt.xlabel('Time')
-#
-# plt.ylabel('Value')
-#
-# plt.grid(True)
-#
-# plt.show()
+# time_series_data = generate_repeats(length, num_series, repeats_percentage)
+# time_series_data = export(time_series_data, 'repeats_' + str(repeats_percentage) + '.csv')

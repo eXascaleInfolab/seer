@@ -163,6 +163,7 @@
                 series: Object.keys(this.initialCompression).map(system => {
                     return {
                         name: system,
+                        color: {"clickhouse": "#20B2AA", "druid": "#FFA500", "influx": "#FFB6C1", "timescaledb": "#696969"}[system],
                         data: [this.initialCompression[system]]
                     }
                 })
