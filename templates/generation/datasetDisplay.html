@@ -16,120 +16,105 @@
         </div>
     </div>
     {% csrf_token %}
-<script>
-    const dataset = "{{ dataset }}";
-    console.log("dataset", dataset)
-    const renderedSeries = []
-    // on document ready send request to obtian data from rendered series
+    <script>
+        const dataset = "{{ dataset }}";
+        const renderedSeries = []
+        // on document ready send request to obtian data from rendered series
 
-    console.log("eeeeeeee")
-
-    let dataChart = Highcharts.chart(`data-container`, {
-        chart: {
-            type: 'line',
-            zoomType: 'x'
-        },
-        title: {
-            text: ""//this.title
-        },
-        xAxis: {
-            type: 'datetime',
-            minRange: 7000,
-            maxRange: 7000 * 10,
-            events: {
-                afterSetExtremes: function (e) {
-                    var maxDistance = 7000 * 10; //8 months time
-                    var xaxis = this;
-                    if ((e.max - e.min) > maxDistance) {
-                        var min = e.max - maxDistance;
-                        var max = e.max;
-                        window.setTimeout(function () {
-                            xaxis.setExtremes(min, max);
-                        }, 1);
-                    }
+        let dataChart = Highcharts.chart(`data-container`, {
+            chart: {
+                type: 'line',
+                zoomType: 'x'
+            },
+            plotOptions: {
+                series: {
+                    pointStart: Date.UTC(2020, 0, 1),
+                    pointInterval: 1000 * 10
                 }
-            }
-        },
-        yAxis: {
+            },
             title: {
-                text: 'Value'
-            }
-        },
-        legend: {
-            enabled: true,
-            verticalAlign: 'top',
-        },
-        series: renderedSeries,
-        navigator: {
-            enabled: true, // Set to true to enable the navigator
+                text: ""//this.title
+            },
             xAxis: {
-                // Configuration specific to the navigator's X-axis
-            }
-        },
-        rangeSelector: {
-            buttons: [
-                {
-                    type: 'week',
-                    count: 1,
-                    text: '1w'
-                },
-                {
-                    type: 'month',
-                    count: 1,
-                    text: '1m'
-                },
-                {
-                    type: 'year',
-                    count: 1,
-                    text: '1y'
-                },
-                {
-                    type: 'year',
-                    count: 2,
-                    text: '2y'
-                },
-                {
-                    type: 'year',
-                    count: 5,
-                    text: '5y'
+                type: 'datetime',
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
                 }
-            ],
-            inputEnabled: false,
-            selected: 3 // 2y
-        },
-        scrollbar: {
-            liveRedraw: false
-        },
-    });
+            },
+            legend: {
+                enabled: true,
+                verticalAlign: 'top',
+            },
+            series: renderedSeries,
+            navigator: {
+                enabled: true, // Set to true to enable the navigator
+            },
+            rangeSelector: {
+                selected: 3,
+                enabled: true,
+                buttons: [{
+                    type: 'millisecond',
+                    count: 10000 * 6,
+                    text: '1m'
+                }, {
+                    type: 'millisecond',
+                    count: 10000 * 6 * 10,
+                    text: '10m'
+                }, {
+                    type: 'millisecond',
+                    count: 10000 * 6 * 60,
+                    text: '1h'
+                }, {
+                    type: 'millisecond',
+                    count: 10000 * 6 * 60 * 24,
+                    text: '1d'
+                },
+                    {
+                        type: 'millisecond',
+                        count: 10000 * 6 * 60 * 24 * 7,
+                        text: '1w'
+                    },
+                    {
+                        type: 'all',
+                        text: 'All'
+                    }],
+            },
 
-     $(document).ready(function () {
-        console.log("READY")
-        $.ajax({
-            url: "{% url 'datasetDisplay' dataset=dataset %}",
-            type: "POST",
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            scrollbar: {
+                liveRedraw: false
             },
-            data: {
-            },
-            dataType: "json",
-            success: function (data) {
-                console.log(data);
-                {#renderedSeries = data;#}
-                data.dataset.forEach(d => {
-                    console.log("adding series", d.name)
-                    dataChart.addSeries( {
-                        name: d.name,
-                        data: d.data,
-                        type: 'line',
-                        tooltip: {
-                            valueDecimals: 2
-                        }
-                    })
-                })
-            }
         });
-    });
 
-</script>
+        $(document).ready(function () {
+            console.log("READY")
+            $.ajax({
+                url: "{% url 'datasetDisplay' dataset=dataset %}",
+                type: "POST",
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    {#renderedSeries = data;#}
+                    data.dataset.forEach((d, i) => {
+                        console.log("adding series", d.name)
+                        dataChart.addSeries({
+                            name: d.name,
+                            data: d.data,
+                            type: 'line',
+                            visible: i < 4,
+                            tooltip: {
+                                valueDecimals: 2
+                            }
+                        })
+                    })
+                }
+            });
+        });
+
+    </script>
 {% endblock %}

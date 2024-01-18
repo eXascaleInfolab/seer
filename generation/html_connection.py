@@ -23,12 +23,13 @@ def run_pretrained():
     hash_length_percentage_ = int(request.args.get('hash_length_percentage', hash_length_percentage_default))
     min = int(request.args.get('min'))
     max = int(request.args.get('max'))
+    selected_series = int(request.args.get('selected_series'))
     print(request.args)
     # Add more arguments as needed
 
     run_pretrained_(seed, len_ts=len_ts, nb_ts=nb_ts,
                     num_hashtables_=num_hashtables_, nb_top_=nb_top_, hash_length_percentage_=hash_length_percentage_,
-                    min=min, max=max)
+                    min=min, max=max , selected_series=selected_series)
     # Run the subprocess and capture output
 
     # Return the captured output

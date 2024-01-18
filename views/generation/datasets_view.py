@@ -5,6 +5,7 @@ from django.views import View
 from django.db import connection
 from utils.compression_loader import load_compression_data_sets, load_systems_compression
 from utils.numpy_loader import NumpyEncoder
+from views.generation.utils import get_datasets_infos, get_datasets
 import json
 
 data_sets = {
@@ -24,18 +25,32 @@ data_sets = {
            "data_points": "17.2B", }
 }
 
-with open('config/datasets.json', 'r') as file:
-    generation_datasets = json.load(file)
 
-class DatasetsView(View):
+
+class DatasetsDisplayView(View):
     context = {
         'title': 'TSM - Datasets',
     }
-    template = loader.get_template('datasets.html')
+    template = loader.get_template('generation/datasetsForDisplay.html')
     data_generation_sets = [("bafu", "Bafu"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
 
     def get(self, request):
         self.context['data_sets'] = data_sets
-        self.context['original_data_sets'] = generation_datasets
+        self.context['original_data_sets'] = get_datasets_infos()
+
+        return HttpResponse(self.template.render(self.context, request))
+
+
+
+class GenerationDatasetsView(DatasetsDisplayView):
+    context = {
+        'title': 'TSM - Datasets',
+    }
+    template = loader.get_template('generation/datasetsForGeneration.html')
+    data_generation_sets = [("bafu", "Bafu"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
+
+    def get(self, request):
+        self.context['data_sets'] = data_sets
+        self.context['original_data_sets'] = get_datasets_infos()
 
         return HttpResponse(self.template.render(self.context, request))

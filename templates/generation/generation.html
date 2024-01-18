@@ -65,8 +65,29 @@
             console.log("updateChart");
             select_dataset().done(function (data) {
                 var newData = data.original;
-                dataChart.series[0].update({name: data.name}, false)
-                dataChart.series[0].setData(newData);
+
+                {#dataChart.series[0].update({name: data.name}, false)#}
+                {#dataChart.series[0].setData(newData);#}
+
+                let visible = true
+                newData.forEach(d => {
+                    if(visible){
+                        dataChart.series[0].update({data: d.data})
+                    }
+                    console.log("adding series", d.name)
+                    dataChart.addSeries({
+                        name: d.name,
+                        data: d.data,
+                        type: 'line',
+                        tooltip: {
+                            valueDecimals: 2
+                        },
+                        visible: visible
+                    })
+                    visible = false
+                })
+
+
             });
         }
 
@@ -201,15 +222,31 @@
                 enabled: true,
                 verticalAlign: 'top',
             },
-            series: [{name: "", data: []}],
+            series: [{visible:false, showInLegend:false, name: "", data: []}],
             navigator: {
                 enabled: true, // Set to true to enable the navigator
-                xAxis: {
-                    // Configuration specific to the navigator's X-axis
-                }
             },
             scrollbar: {
                 enabled: true // Set to true to show a scrollbar below the chart
+            },
+            plotOptions: {
+                series: {
+                    events: {
+                        show: (function () {
+                            const s = this
+                            var chart = this.chart
+                            chart.series.forEach(function (series, index) {
+                                {#if (series.name.includes("Navigator")) return;#}
+                                if (series != s && index != 0) {
+                                    series.hide()
+                                }
+                                else {
+                                    document.getElementById("selected-series").value = index+1 // ignore first sereis place holder
+                                }
+                            })
+                        })
+                    }
+                }
             },
 
         });

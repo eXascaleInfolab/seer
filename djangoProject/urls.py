@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path
 
 from views.generation.dataset_view import DatasetView
+from views.generation.upload_view import upload_datasets
 from views.index_view import IndexView
 from views.live_queries.live_queries_view import LiveQueryView
 from views.queries import OfflineQueryView, OnlineQueryView
 from views.compression_view import CompressionView
 from views.generation.generation_view import GenerationView
-from views.generation.datasets_view import DatasetsView
+from views.generation.datasets_view import DatasetsDisplayView, GenerationDatasetsView
 
 
 urlpatterns = [
@@ -36,8 +37,11 @@ urlpatterns = [
     path('compression', CompressionView.as_view(), name='compression'),
 
     ### generation
-    path('datasets', DatasetsView.as_view(), name='datasets'),
+    path('datasets', DatasetsDisplayView.as_view(), name='datasets'),
+    path('datasets-generation', GenerationDatasetsView.as_view(), name='datasets-generation'),
     path('dataset/<str:dataset>', DatasetView.as_view(), name='datasetDisplay'),
     path('generation/<str:dataset>', GenerationView.as_view(), name='generation'),
+
+    path('upload-datasets/', upload_datasets, name='upload_datasets'),
 ]
 print(urlpatterns)

@@ -11,31 +11,31 @@
                         <small>Workload evaluator for TSDBs</small>
                     </h1>
                 </div>
-{#                <p>#}
-{#                    SEER is an online tool to evaluate the performance of time series database systems on large#}
-{#                    datasets.#}
-{#                </p>#}
-{#                <p>#}
-{#                    This tool was created at the <a href="http://exascale.info/">eXascale Infolab</a>, a research group#}
-{#                    at the <a href="http://www.unifr.ch/">University of Fribourg</a>, Switzerland.#}
-{#                </p>#}
+                <p>
+                    SEER is an online tool to evaluate the performance of time series database systems on large
+                    datasets.
+                </p>
+                <p>
+                    This tool was created at the <a href="http://exascale.info/">eXascale Infolab</a>, a research group
+                    at the <a href="http://www.unifr.ch/">University of Fribourg</a>, Switzerland.
+                </p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
                 <hr>
-{#                <h3><strong>TSM-Bench</strong></h3>#}
-{##}
-{#                <a href="https://dl.acm.org/doi/pdf/10.14778/3611479.3611532">TSM-Bench</a>#}
-{#                is a new evaluation benchmark specifically designed for time series data used#}
-{#                in monitoring applications. TSM-Bench packs several salient features#}
-{#                into a comprehensive framework that includes: (1) A suite#}
-{#                of fundamental queries found in common workloads, serving as#}
-{#                building blocks for more complex time series analytical operations;#}
-{#                (2) Various realistic workloads that support dynamic query variability;#}
-{#                (3) Generation mechanism of large and multiple realistic time#}
-{#                series based on seed data collected from real-world applications.#}
+                <h3><strong>TSM-Bench</strong></h3>
+
+                <a href="https://dl.acm.org/doi/pdf/10.14778/3611479.3611532">TSM-Bench</a>
+                is a new evaluation benchmark specifically designed for time series data used
+                in monitoring applications. TSM-Bench packs several salient features
+                into a comprehensive framework that includes: (1) A suite
+                of fundamental queries found in common workloads, serving as
+                building blocks for more complex time series analytical operations;
+                (2) Various realistic workloads that support dynamic query variability;
+                (3) Generation mechanism of large and multiple realistic time
+                series based on seed data collected from real-world applications.
 
 
                 <hr>
@@ -44,13 +44,14 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <p><b>Generation:</b></p>
+                        <p><b>Data:</b></p>
                         <ul>
-                            <li><a href='{% url "datasets" %}'>Datasets</a></li>
+                            <li><a href='{% url "datasets" %}'>Display</a></li>
+                            <li><a href='{% url "datasets-generation" %}'>Generation</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4">
-                        <p><b>Query Workloads:</b></p>
+                        <p><b>Workloads Evaluation:</b></p>
                         <ul>
                             <li><a href='{% url "offline-queries" %}'>Offline Queries</a></li>
                             <li><a href='{% url "offline-queries" %}'>Online Queries</a></li>
@@ -59,7 +60,7 @@
                         </ul>
                     </div>
                     <div class="col-md-5">
-                        <p><b>Compression Performance</b></p>
+                        <p><b>Feature Impact</b></p>
                         <ul>
                             <li><a href='{% url "compression" %}'>Compression</a></li>
                         </ul>

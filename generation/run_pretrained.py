@@ -118,12 +118,13 @@ def plot_result(data, lsh_res, nb_ts, len_ts, seed):
 
 window = 3072
 
-def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
+
+def run_pretrained_(seed, *, len_ts, nb_ts, min, max,
                     num_hashtables_=int(config['num_hashtables']),
                     nb_top_=int(config['n_top']),
-                    hash_length_percentage_=int(config['hash_length_percentage'])
+                    hash_length_percentage_=int(config['hash_length_percentage']),
+                    selected_series=0
                     ):
-
     global num_hashtables
     global nb_top
     global hash_length_percentage
@@ -131,7 +132,7 @@ def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
     nb_top = nb_top_
     hash_length_percentage = hash_length_percentage_
 
-    print("loading original data and synthetic data from" , seed)
+    print("loading original data and synthetic data from", seed)
     fseed = 'data/' + seed + '/original.txt'
     fsynth = 'data/' + seed + '/synthetic.txt'
     # len_ts = 10000
@@ -139,20 +140,37 @@ def run_pretrained_(seed, *, len_ts, nb_ts , min , max ,
 
     try:
         data = pd.read_csv(fseed)
-        #at least  6134
+        # at least  6134
         if max - min < 6134:
             min = 0
             max = 6500
-        data = data.iloc[min:max, 0].tolist()
+        print("selected series", selected_series)
+        data = data.iloc[min:max, selected_series].tolist()
         data = moving_avg(data, 5).tolist()
 
         df_segments = pd.read_csv(fsynth).T
 
-        lsh_res = TS_LSH(data, df_segments, nb_ts, len_ts)
 
-        #plot_result(data, lsh_res, nb_ts, len_ts, seed)
+        # nromalize data
+        data_mean , data_std = np.mean(data), np.std(data)
+        data_normalized = (data - data_mean) / data_std
+
+        #nromalize df_segments
+
+        segments_mean , segments_std = np.mean(df_segments), np.std(df_segments)
+        df_segments_normalized = (df_segments - segments_mean) / segments_std
+
+
+        #lsh_res = TS_LSH(data, df_segments, nb_ts, len_ts)
+
+        lsh_res = TS_LSH(data_normalized, df_segments_normalized, nb_ts, len_ts)
+
+        # plot_result(data, lsh_res, nb_ts, len_ts, seed)
         lsh_res = pd.DataFrame(lsh_res).T
         # lsh_res.to_csv('results/'+seed+'.txt', header = False, index = False, float_format='%.3f')
+
+        # denormalize
+        lsh_res = lsh_res * data_std + data_mean
 
         print('Generated', lsh_res.shape[1], 'time series of length', lsh_res.shape[0])
         lsh_res.to_csv("results/generated.txt", header=False, index=False, float_format='%.3f')

@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.views import View
 
-from views.generation.utils import generation_datasets_info
+from views.generation.utils import get_dataset_info
 
 dataset_folder = "generation/data"
 class DatasetView(View):
@@ -18,7 +18,7 @@ class DatasetView(View):
 
     def get(self, request, dataset):
         self.context['dataset'] = dataset
-        self.context["data_info"] = generation_datasets_info[dataset]
+        self.context["data_info"] = get_dataset_info(dataset)
         return HttpResponse(self.template.render(self.context, request))
 
     def post(self,request, dataset):
