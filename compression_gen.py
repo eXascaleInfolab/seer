@@ -1,12 +1,10 @@
 import random
 
-import matplotlib.pyplot as plt
 
 import pandas as pd
 
 from datetime import datetime
 
-from tqdm import tqdm
 
 dtime = datetime(2019, 4, 30, 00)
 
@@ -30,7 +28,7 @@ def generate_repeats(length, num_series, repeats_percentage):
 
         time_series = []
 
-        previous_value = random.uniform(0, 1)  # Initialize the first value randomly
+        previous_value = round(random.uniform(0, 1),6)  # Initialize the first value randomly
 
         for _ in range(length):
 
@@ -122,9 +120,9 @@ def export(ts, file):
     df['time'] = [datetime.fromtimestamp((ms + i * 1000 * granularity) // 1000).strftime("%Y/%m/%dT%H:%M:%S") for i in
                   range(len(df))]
 
-    df['st'] = ['st' + str(i // (len(df) // 10)) for i in range(len(df))]
+    df['id_station'] = ['st' + str(i // (len(df) // 10)) for i in range(len(df))]
 
-    df = df[['time'] + ['st'] + [col for col in df.columns if col != 'time' and col != 'st']]
+    df = df[['time'] + ['id_station'] + [col for col in df.columns if col != 'time' and col != 'id_station']]
 
     df.to_csv(file, index=False)
 
@@ -139,10 +137,9 @@ repeats_percentage = 90
 
 scarsity_percentage = 10
 
-delta_percentage = 10
+delta_percentage = 0.1
 
 time_series_data = generate_repeats(length, num_series, repeats_percentage)
-
 time_series_data = export(time_series_data, 'repeats_' + str(repeats_percentage) + '.csv')
 
 # Plot the time series
@@ -159,9 +156,9 @@ time_series_data = export(time_series_data, 'repeats_' + str(repeats_percentage)
 #
 # plt.show()
 #
-# time_series_data = generate_scarsity(length, num_series, scarsity_percentage)
+time_series_data = generate_scarsity(length, num_series, scarsity_percentage)
 #
-# time_series_data = export(time_series_data, 'scarsity_' + str(scarsity_percentage) + '.csv')
+time_series_data = export(time_series_data, 'scarsity_' + str(scarsity_percentage) + '.csv')
 #
 # time_series_data.plot(marker='o', linestyle='-')
 #
@@ -175,9 +172,9 @@ time_series_data = export(time_series_data, 'repeats_' + str(repeats_percentage)
 #
 # plt.show()
 #
-# time_series_data = generate_delta(length, num_series, delta_percentage)
+time_series_data = generate_delta(length, num_series, delta_percentage)
 #
-# time_series_data = export(time_series_data, 'delta_' + str(delta_percentage) + '.csv')
+time_series_data = export(time_series_data, 'delta_' + str(delta_percentage) + '.csv')
 #
 # time_series_data.plot(marker='o', linestyle='-')
 #
