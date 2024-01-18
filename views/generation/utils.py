@@ -4,7 +4,10 @@ import json
 
 def get_datasets_infos():
     with open('config/datasets.json', 'r') as file:
-        datasets_info = json.load(file)
+        try:
+            datasets_info = json.load(file)
+        except:
+            datasets_info = {}
     return datasets_info
 
 def get_datasets():

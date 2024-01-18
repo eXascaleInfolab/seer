@@ -83,10 +83,17 @@
                 var elementValue = element.innerHTML.replace(/\s/g, '');
                 console.log("elementValue", elementValue)
                 var queryFrame = element.closest('.query-frame');
-                var hiddenInput = queryFrame.querySelector('input[data-link="data-set"]');
-                hiddenInput.value = elementValue
                 selectMain.setAttribute("data-value", elementValue);
-                {#init_slider("slider-stations", [1,200,500] , {} , queryFrame  )#}
+
+                let newStation = stationTicks
+                if (elementValue === "TempMulti") {
+                    newStation = [1, 10, 50, 100]
+                }
+                if (elementValue === "TempLong" || elementValue === "TempMulti") {
+                    var hiddenInput = queryFrame.querySelector('input[data-link="data-set"]');
+                    hiddenInput.value = elementValue
+                    init_slider("slider-stations", newStation, {}, queryFrame)
+                }
             });
         })
 
@@ -111,11 +118,13 @@
             },
         });
 
-        init_slider("slider-time",timeTicks , {  1: "Minute",
-                                        2: "Hour",
-                                        3: "Day",
-                                        4: "Week",
-                                        5: "Month" })
+        init_slider("slider-time", timeTicks, {
+            1: "Minute",
+            2: "Hour",
+            3: "Day",
+            4: "Week",
+            5: "Month"
+        })
         init_slider("slider-sensors", sensorTicks)
         init_slider("slider-stations", stationTicks)
 
@@ -253,7 +262,7 @@
         var parentElement = document.getElementById("frequency-query");
 
         // Append the container div to the parent element
-        if(parentElement){
+        if (parentElement) {
             parentElement.appendChild(containerDiv);
         }
 
@@ -354,7 +363,7 @@
         },
 
         checkFrequencies() {
-            if(!document.getElementById("frequency-query")){
+            if (!document.getElementById("frequency-query")) {
                 return true
             }
             var frequencyInputs = document.getElementsByClassName("frequency-input")

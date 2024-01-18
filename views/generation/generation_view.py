@@ -82,7 +82,7 @@ class GenerationView(View):
             # return JsonResponse(data)
 
             df = self.load_orginal_data(original_data_set_path)
-            data = [{"name": dataset + str(i + 1), "data": df[col].values.tolist()} for i, col in enumerate(df.columns)]
+            data = [{"name":  get_dataset_info(data_set)["header"][i] ,   "data": df[col].values.tolist()} for i, col in enumerate(df.columns)]
             return JsonResponse({
                 'original': data,
                 'name': [dataset[1] for dataset in self.data_sets if dataset[0] == data_set][0]
@@ -107,7 +107,7 @@ class GenerationView(View):
                                          max=max_ , selected_series=selected_series)
 
             generated_data = [data_df.iloc[:, i].values.tolist() for i in range(data_df.shape[1])]
-
+            print(selected_series)
             original = pd.read_csv(f"{folder}/{data_set}/original.txt").iloc[min_:max_, selected_series].values.flatten().tolist()
             return JsonResponse({
                 'generated': generated_data,

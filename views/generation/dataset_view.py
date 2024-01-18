@@ -28,7 +28,7 @@ class DatasetView(View):
         df = df.iloc[:self.max_rows, :self.max_ts]
         # convert to list of lists
 
-        data = [ { "name" :  dataset+str(i+1) ,  "data" :  df[col].values.tolist()  } for i, col in enumerate(df.columns)]
+        data = [ { "name" :  get_dataset_info(dataset)["header"][i] ,  "data" :  df[col].values.tolist()  } for i, col in enumerate(df.columns)]
         # return JsonResponse(data)
         return JsonResponse({
             'dataset': data,

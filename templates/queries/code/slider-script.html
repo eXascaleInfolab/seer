@@ -4,53 +4,60 @@
                          labels = ["Min", "H", "D", "W", "M"],
                          value_map = {}, parentElement = null
     ) {
+        console.log("init slider")
         console.log(parentElement)
         n_ticks = labels.length
         let reInit = false
+        let SliderElement = null
         $("." + class_).each(function () {
             // check if parentElement is not null if it is not null skil iff
             // current element is below parent element and put reInit = True
-            let SliderElement = this
+            SliderElement = this
             if (parentElement) {
-                console.log(this)
-                console.log($(this).closest(parentElement).length)
                 reInit = $(this).closest(parentElement).length > 0;
-                console.log(this.a)
             }
             const this_ = this
-            if (reInit || !$(this).hasClass("ui-slider")) {
+            if (reInit || !$(SliderElement).hasClass("ui-slider")) {
+                var queryFrame = $(this_).closest('.query-frame');
+                console.log("initalizing slider", SliderElement)
+                let initial_tick = Math.floor(n_ticks / 2 + 1)
                 $(this).slider({
                     range: "min",
-                    value: Math.floor(n_ticks / 2 + 1),
+                    value: initial_tick,
                     min: 1,
                     max: n_ticks,
                     step: 1,
                     slide: function (event, ui) {
                         // search for closest data-type="time-interval" and update its value
-                        var queryFrame = $(this_).closest('.query-frame');
                         var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
                         console.log(class_, ui.value)
 
                         queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1]);
 
                         if (value_map[ui.value] === undefined) {
-                            return
+                            queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1])
                         } else (
                             queryFrame.find('[data-link=' + class_ + ']').val(value_map[ui.value])
                         )
                         elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
                     }
                 });
+
+                if (value_map[initial_tick] === undefined) {
+                    queryFrame.find('[data-link=' + class_ + ']').val(labels[initial_tick-1])
+
+                } else (
+                    queryFrame.find('[data-link=' + class_ + ']').val(value_map[initial_tick-1])
+                )
+
             }
 
             {#const ticks = $(SliderElement).nextElementSibling#}
         });
 
-
         // create the tickz
-        sliders = document.getElementsByClassName(class_)
-        slider = sliders[sliders.length - 1]
-
+        //sliders = document.getElementsByClassName(class_)
+        let slider = SliderElement//sliders[sliders.length - 1]
         const ticks = slider.nextElementSibling
 
         if (!reInit && ticks.hasChildNodes()) {

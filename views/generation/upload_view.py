@@ -12,9 +12,8 @@ def upload_datasets(request):
 
         title = request.POST.get('title')
         url = request.POST.get('url', "-")
-        source = request.POST.get('source' , "")
-        description = request.POST.get('description' , "")
-
+        source = request.POST.get('source', "")
+        description = request.POST.get('description', "")
 
         if title in os.listdir(folder):
             return HttpResponse("There already is a dataset with this name")
@@ -24,20 +23,37 @@ def upload_datasets(request):
 
         # Handle original dataset upload
         original_file = request.FILES.get('original_csv')
+        headers = []
         if original_file:
             fs = FileSystemStorage(location=folder)
-            fs.save(original_file.name, original_file)
-            datapoints = len(open(folder + original_file.name).readlines()) - 1
-            columns = len(open(folder + original_file.name).readline().split(','))
+            file_path = fs.save("original.txt", original_file)
+
+            with fs.open(file_path, 'r') as file:
+                lines = file.readlines()
+                headers = lines[0].strip().split(',')
+                datapoints = len(lines) - 1
+                columns = len(headers)
+
+            # Rewrite file without header
+            with fs.open(file_path, 'w') as file:
+                file.writelines(lines[1:])
 
         # Handle synthetic dataset upload
         synthetic_file = request.FILES.get('synthetic_csv')
         if synthetic_file:
-            fs = FileSystemStorage(location=folder)
-            fs.save(synthetic_file.name, synthetic_file)
+            fs.save("synthetic.txt", synthetic_file)
 
         with open('config/datasets.json', 'r') as file:
             datasets_info = json.load(file)
+
+
+        print("headers", headers)
+        headers = [ header.strip() for header in headers ]
+        headers = [ header.replace(" ", "_") for header in headers ]
+
+        is_int_or_float = lambda x: x.replace('.', '', 1).isdigit()
+
+        headers = [ header if not is_int_or_float(header) else  title+str(i+1)   for i, header in enumerate(headers)]
 
         datasets_info[title] = {
             "title": title,
@@ -47,6 +63,7 @@ def upload_datasets(request):
             "sensors": columns,
             "stations": columns,
             "datapoints": datapoints,
+            "header": headers,
             "isCustom": True
         }
 
@@ -55,4 +72,3 @@ def upload_datasets(request):
 
         # return generation view with dataset=title
         return GenerationView().get(request, title)
-
