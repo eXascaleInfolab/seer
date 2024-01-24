@@ -36,6 +36,7 @@
         {#        </div>#}
         <div id="menu" class="col-md-3" style="padding-top: 10px;">
             <h3> Feature Contamination</h3>
+            <div id="description"></div>
             {#            <h3>Show Time Series</h3>#}
             <form id="retrieveForm">
 
@@ -113,6 +114,9 @@
                 data: data,
                 success: function (response) {
                     console.log(response)
+                    let description = response.description
+                    document.getElementById("description").innerHTML = description
+                    return response
                 }
 
             }).fail(function (jqXHR, textStatus, errorThrown) {

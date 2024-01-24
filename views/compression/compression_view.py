@@ -47,7 +47,9 @@ class CompressionView(View):
             data[level] = {}
 
             print("reading" , file)
-            df = pd.read_csv(f"{compression_data_folder_ts}/{file}", usecols=self.data_cols)
+            df = pd.read_csv(f"{compression_data_folder_ts}/{file}", usecols=self.data_cols+["id_station"] , skiprows= lambda x: x > 5000)
+            df = df[df["id_station"] == df["id_station"][0]]
+            df = df.drop(columns=["id_station"])
             data_set_result = {}
             for col in self.data_cols:
                 data_set_result[col] = df[col].values.tolist()
@@ -56,9 +58,14 @@ class CompressionView(View):
             data[level]['compression'] = {}
             for system in self.systems:
                 print("system" , system)
-                data[level]['compression'][system] = system_compressions[system][level][0]
+                data[level]['compression'][system] = system_compressions[system].get(level, (-1,-1))[0]
 
         result = {"data": data}
         result = convert_np_values(result)
 
+        description = "test"
+        with open(f"{self.compression_data_folder}/ts/{dataset}/description.txt" , "r") as file:
+            description = file.read()
+
+        result["description"] = description
         return JsonResponse(result)
