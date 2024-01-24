@@ -2,9 +2,8 @@ import json
 import os
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-
+from django.shortcuts import redirect
 from views.generation.generation_view import GenerationView
-
 
 def upload_datasets(request):
     if request.method == 'POST':
@@ -22,7 +21,17 @@ def upload_datasets(request):
             os.makedirs(folder)
 
         # Handle original dataset upload
-        original_file = request.FILES.get('original_csv')
+
+        files = request.FILES.getlist('files')  # 'files' is the name of your input field
+        original_file = None
+        synthetic_file = None
+
+        for file in files:
+            if 'original' in file.name:
+                original_file = file
+            elif 'synthetic' in file.name:
+                synthetic_file = file
+
         headers = []
         if original_file:
             fs = FileSystemStorage(location=folder)
@@ -39,15 +48,12 @@ def upload_datasets(request):
                 file.writelines(lines[1:])
 
         # Handle synthetic dataset upload
-        synthetic_file = request.FILES.get('synthetic_csv')
         if synthetic_file:
             fs.save("synthetic.txt", synthetic_file)
 
         with open('config/datasets.json', 'r') as file:
             datasets_info = json.load(file)
 
-
-        print("headers", headers)
         headers = [ header.strip() for header in headers ]
         headers = [ header.replace(" ", "_") for header in headers ]
 
@@ -71,4 +77,4 @@ def upload_datasets(request):
             json.dump(datasets_info, file, indent=4)
 
         # return generation view with dataset=title
-        return GenerationView().get(request, title)
+        return redirect('/generation/{title}')   #   GenerationView().get(request, title)

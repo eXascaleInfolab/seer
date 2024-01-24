@@ -43,7 +43,7 @@
             console.log(`Form ${index + 1} data:`, formData);
         });
         console.log(JSON.stringify(formsData))
-        // Send POST request with forms data
+
         fetch(window.location.href, {
             method: 'POST',
             headers: {
@@ -57,6 +57,8 @@
                 //        #runtime, query, numberOfQueries, query_results
 
                 displayOnlineResults(data.runtime, data.query, data.numberOfQueries, data.query_results)
+                console.log("boxplot data: " , data.boxplot_data)
+                addBoxPlot(data.label, data.boxplot_data)
             })
             .catch((error) => console.error('Error:', error));
     }

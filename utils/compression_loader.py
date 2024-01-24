@@ -57,8 +57,9 @@ def convert_compression_to_KB(compression_size):
 
 
 
-def load_systems_compression():
-    path = os.path.join('compression_data', 'compressions')
+def load_systems_compression(dataset):
+    print("loading systems compression for ", dataset)
+    path = os.path.join('compression_data', 'compressions' , dataset)
     systems = {}
     for file in os.listdir(path):
         system_name = file.split('_')[0]

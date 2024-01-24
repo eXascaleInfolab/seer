@@ -1,14 +1,18 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block content_fluid %}
     <div class="row">
         <div class="col-md-9" style="height:100%">
             {#            <h4> DATA </h4>#}
             <label for="dataset" style="display: inline-block; margin-right: 10px;">Dataset:</label>
-            <select id="dataset" style="display: inline-block; width: 120px;" class="form-control" name="dataset">
-                <option value="d1">Temp1</option>
-                <option value="d2">Temp2</option>
+            <select id="dataset-select" style="display: inline-block; width: 120px;" class="form-control"
+                    name="dataset">
+                {% for dataset in compression_datasets %}
+                    <option value="{{ dataset }}">{{ dataset }}</option>
+                {% endfor %}
+                {#                <option value="d1">Synthetic</option>#}
+                {#                <option value="d2">Temperature</option>#}
             </select>
 
             <div id="data-container" style="height: calc(100vh - 60px);">
@@ -23,7 +27,7 @@
                 const selectedValue = document.getElementById('feature').value;
                 // Perform actions based on the selected value
 
-                compressionManager = new CompressionManager(selectedValue);
+                compressionManager = new CompressionManager(compressionManager.dataset , selectedValue);
                 // Add your code for the 'scarsity' option
 
             }
@@ -99,9 +103,10 @@
     <script>
         const compressionDataUrl = '{% url "compression" %}'
 
-        function getCompressionData(dataType, dataset = "") {
+        function getCompressionData(dataset, feature) {
+            console.log("sending request", dataset, feature)
             var form = $('#token-form');
-            var data = form.serialize() + "&dataType=" + dataType + "&dataset=" + dataset;
+            var data = form.serialize() + "&feature=" + feature + "&dataset=" + dataset;
             return $.ajax({
                 url: compressionDataUrl,
                 type: 'POST',
@@ -119,9 +124,10 @@
 
         {#const compression_data_sets = {{ compression_data|safe }};#}
 
-        let dataType = 'repeats';
+        let feature = 'repeats';
+        let datasets = {{ compression_datasets|safe }};
 
-        let compressionManager = new CompressionManager('scarsity', "");
+        let compressionManager = new CompressionManager(datasets[0], feature, "");
 
         //set function for showCompression btn
 
@@ -137,9 +143,14 @@
             {#document.getElementById("showCompression").style.display = "block";#}
             document.getElementById("compression-container").style.display = "block";
             compressionManager.displayCompression();
-
-
         });
+
+        document.getElementById("dataset-select").addEventListener("change", function (event) {
+            //prevent default
+            event.preventDefault();
+            compressionManager = new CompressionManager(event.target.value, feature,"");
+        });
+
 
         document.getElementById("showCompression").addEventListener("click", function (event) {
             //prevent default

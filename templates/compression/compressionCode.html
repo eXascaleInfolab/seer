@@ -1,20 +1,26 @@
 <script>
 
     class CompressionManager {
-        constructor(dataType, title = null) {
-            console.log("CompressionManager", dataType)
+        constructor(dataset, feature, title = null) {
+            console.log("CompressionManager", dataset, feature)
             this.title = title;
             this.extremes = null;
             if (this.title == null) {
-                this.title = dataType;
+                this.title = feature;
             }
 
-            this.dataType = dataType;
-            getCompressionData(dataType).done(response => {
+            this.feature = feature; // scarsity or outliers
+            this.dataset = dataset;
+
+            getCompressionData(dataset, feature).done(response => {
                 console.log("data")
 
                 this.data = response.data
                 this.levels = Object.keys(this.data);
+
+                this.levels = this.levels.sort()
+
+                console.log("levels", this.levels)
                 this.currentLevel = this.levels[0];
 
                 console.log(this.data)
@@ -22,43 +28,58 @@
                 console.log("curr", this.currentLevel)
                 this.initialDataSet = this.data[this.currentLevel]["data"];
 
+                this.columns = Object.keys(this.initialDataSet).filter((key) => {
+                    return key !== 'time';
+                });
+
                 this.initialCompression = this.data[this.levels[0]]["compression"]
 
                 this.chartTime = this.initialDataSet["time"].map((time) => {
                     return Date.parse(time);
                 });
-
-                this.initializeCharts();
                 this.createDropdown();
+                this.initializeCharts();
             })
         }
 
         setChartExtremes() {
-            if (this.extremes == null) {
-                let current_extremes = this.dataChart.xAxis[0].getExtremes()
-                let dataMax = current_extremes.max
-                console.log("setting extremes", dataMax)
-                this.dataChart.xAxis[0].setExtremes(dataMax - (1000 * 60 * 10), dataMax, true, false)
-            }
-            else {
-               let current_extremes = this.extremes
-                let dataMax = current_extremes.max
-                let dataMin = current_extremes.min
-                console.log("setting extremes", dataMax)
-                this.dataChart.xAxis[0].setExtremes(dataMin, dataMax, true, false)
-            }
-            this.extremes = this.dataChart.xAxis[0].getExtremes()
-        }
+            {#if (this.extremes == null) {#}
+            {#    let current_extremes = this.dataChart.xAxis[0].getExtremes()#}
+            {#    let dataMax = current_extremes.max#}
+            {#    console.log("setting extremes", dataMax)#}
+            {#    this.dataChart.xAxis[0].setExtremes(dataMax - (1000 * 60 * 10), dataMax, true, false)#}
+            {# } else {#}
+            {#    let current_extremes = this.extremes#}
+            {#    let dataMax = current_extremes.max#}
+            {#    let dataMin = current_extremes.min#}
+            {#    console.log("setting extremes", dataMax)#}
+            {#    this.dataChart.xAxis[0].setExtremes(dataMin, dataMax, true, false)#}
+            {# }#}
+            {#this.extremes = this.dataChart.xAxis[0].getExtremes()#}
+         }
 
         initializeCharts() {
-            if(this.extremes != null){
+            if (this.extremes != null) {
                 this.extremes = this.dataChart.xAxis[0].getExtremes()
             }
+            let chart_time =  this.chartTime
             this.dataChart = Highcharts.chart(`data-container`, {
                     chart: {
                         type: 'line',
-                        zoomType: 'x'
-                    },
+                        zoomType: 'x',
+                        events: {
+                            load() {
+                                console.log("load")
+                                const chart = this,
+                                    startDate = Date.UTC(2021, 2, 26),
+                                    endDate = Date.UTC(2021, 8, 26);
+
+
+                                chart.xAxis[0].setExtremes( chart_time[chart_time.length-300],  chart_time[chart_time.length] , true, false)
+                             }
+                        }
+                     },
+
                     title: {
                         text: ""//this.title
                     },
@@ -75,29 +96,16 @@
                         enabled: true,
                         verticalAlign: 'top',
                     },
-                    series: [{ // [ time.1 ,  scarsity_data['s0'][1] ..... ]
-                        name: 's0',
-                        id: 's0',
-                        data: this.chartTime.map((time, index) => {
-                            return [time, this.initialDataSet['s0'][index]]
-                        })
-                    },
-                        {
-                            name: 's1',
-                            id: 's1',
-                            visible: false,
+                    series: this.columns.map((column, index) => {
+                        return {
+                            name: column,
+                            id: column,
+                            visible: index === 0,
                             data: this.chartTime.map((time, index) => {
-                                return [time, this.initialDataSet['s1'][index]]
+                                return [time, this.initialDataSet[column][index]]
                             })
-                        },
-                        {
-                            name: 's2',
-                            id: 's2',
-                            visible: false,
-                            data: this.chartTime.map((time, index) => {
-                                return [time, this.initialDataSet['s2'][index]]
-                            })
-                        }],
+                        }
+                    }),
                     navigator: {
                         adaptToUpdatedData: false,
                         enabled: true, // Set to true to enable the navigator
@@ -122,7 +130,8 @@
                             text: '1h'
                         }],
                     },
-                }
+
+                },
             );
             this.setChartExtremes()
             const compressionManager = this;
@@ -163,7 +172,12 @@
                 series: Object.keys(this.initialCompression).map(system => {
                     return {
                         name: system,
-                        color: {"clickhouse": "#20B2AA", "druid": "#FFA500", "influx": "#FFB6C1", "timescaledb": "#696969"}[system],
+                        color: {
+                            "clickhouse": "#20B2AA",
+                            "druid": "#FFA500",
+                            "influx": "#FFB6C1",
+                            "timescaledb": "#696969"
+                        }[system],
                         data: [this.initialCompression[system]]
                     }
                 })
@@ -183,7 +197,7 @@
             for (const level of this.levels) {
                 const levelOption = document.createElement('option');
                 levelOption.value = level;
-                levelOption.text = level;
+                levelOption.text = level.split("_").length > 1 ? level.split("_")[1] : level;
                 dropdown.add(levelOption);
             }
             const levelDropdown = document.getElementById('level-dropdown');
@@ -216,7 +230,7 @@
             let counter = 0
 
 
-            if (this.dataType === "scarsity") {
+            if (this.feature === "scarsity") {
                 var used_colors = []
                 this.dataChart.series.forEach(
                     //update series opacity and line style
@@ -251,7 +265,7 @@
                     counter = counter + 1 // 3 sensors
                 }
 
-            } else if (this.dataType === "outliers") {
+            } else if (this.feature === "outliers") {
                 for (const sensor of Object.keys(newData)) {
                     if (sensor === 'time') continue;
                     try {

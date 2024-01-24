@@ -7,7 +7,7 @@ import json
 import time
 import random
 from clickhouse_driver import Client
-
+import numpy as np
 import os
 
 old_result = None
@@ -39,14 +39,14 @@ class LiveQueryView(OfflineQueryView):
         'heading': 'Welcome to the Online Queries Page',
         "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
         "classes" : "live-query",
-        "datasets": ["Temp1", "Temp2"],
+        "datasets": ["TempLong"],
         "station_ticks": [2, 4, 6, 8, 10],
         "sensor_ticks": [1, 20, 40, 60, 80, 100],
         "time_ticks": ["Min", "H", "D", "W"]
     }
 
 
-    template = loader.get_template('queries/queries_live.html')
+    template = loader.get_template('queries/live_queries/queries_live.html')
 
     def post(self, request):
         print("LAUNCHING LIVE QUERYs")
@@ -55,6 +55,8 @@ class LiveQueryView(OfflineQueryView):
 
         parsed_entry = self.parse_entry(data[0])
         system = data[0]["system"]
+        query_iterations = int(data[0]["query_iterations"])
+        print("query_iterations", query_iterations)
         q_n = parsed_entry["query"]
 
         n_st = parsed_entry["n_st"]
@@ -63,13 +65,28 @@ class LiveQueryView(OfflineQueryView):
         rangeL = parsed_entry["rangeL"]
         random.seed(1)
 
-        queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1")
+        queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset="d1")
         query_data = queryResult.query_data
 
 
 
         result = {}
         result["runtime"] = queryResult.runtime
+        result["runtimes"] = runtimes = queryResult.runtimes
+
+        runtimes = np.array(runtimes)
+        box_plot_data = [min(runtimes) ,  float(np.percentile(runtimes, 25)) ,  float(np.percentile(runtimes, 50)) ,  float(np.percentile(runtimes, 75)), max(runtimes) ]
+        result["boxplot_data"] = box_plot_data
+
+
+        # Determine outliers (values outside 1.5 * IQR from the quartiles)
+        iqr = np.percentile(runtimes, 50)-np.percentile(runtimes, 25)
+        lower_bound = np.percentile(runtimes, 25) - 1.5 * iqr
+        upper_bound = np.percentile(runtimes, 75) + 1.5 * iqr
+        outliers = runtimes[ (runtimes < lower_bound) | (runtimes > upper_bound)]
+
+        result["outliers"] = outliers.tolist()
+        result["label"] =  f"{system} q{q_n}"
         result["query"] = queryResult.query
         result["numberOfQueries"] = len(query_data)
         result["query_results"] = query_data[:min(12, len(query_data))]

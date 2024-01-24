@@ -4,15 +4,16 @@
     <div class="page-header">
         <h2>Datasets</h2>
     </div>
-{#    <h3>Original</h3>#}
+        <h3>Existing</h3>
     <table class="table">
         <tbody>
         <tr>
             <th>Title</th>
             <th>Source</th>
+            <th>Description</th>
+
             <th style="text-align: right">Time Series</th>
             <th style="text-align: right">Values</th>
-            <th style="text-align: right">Description</th>
 
         </tr>
 
@@ -23,11 +24,12 @@
                         {{ dataset.title }}
                     </a>
                 </td>
+                <td>{{ dataset.description }}</td>
+
                 <td> {{ dataset.source }} <a href="{{ dataset.link }}"><span
                         class="glyphicon glyphicon-link" aria-hidden="true"></span></a></td>
                 <td style="text-align: right">{{ dataset.stations }}</td>
                 <td style="text-align: right">{{ dataset.datapoints }}</td>
-                <td style="text-align: right">{{ dataset.description }}</td>
 
                 {#                <td style="text-align: right">{{ dataset.datapoints }}</td>#}
                 {##}
@@ -38,38 +40,46 @@
         </tbody>
     </table>
 
-    <h3>Upload Datasets</h3>
+    <h3>New Datasets</h3>
     <form action="{% url 'upload_datasets' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
+
+        <!-- add info box
+        Upload the two files original.txt  and synthetic.txt provided TS-LSH
+
+        #change browse  upload
+        -->
+
+
         <!-- File Upload for Original CSV -->
         <div>
-            <label for="original_csv">Upload Original Dataset:</label>
-            <input type="file" id="original_csv" name="original_csv" accept=".csv .txt">
-        </div>
-
+{#            <label for="original_csv">Upload Original Dataset:</label>#}
+            <input type="file" id="files" name="files" label="test"  multiple ><br><br>
+{#            <input type="file" id="original_csv" name="original_csv" accept=".txt">#}
+ </div>
         <!-- File Upload for Synthetic CSV -->
-        <div>
-            <label for="synthetic_csv">Upload Synthetic Dataset:</label>
-            <input type="file" id="synthetic_csv" name="synthetic_csv" accept=".csv .txt">
-        </div>
-{#        <h3>Description</h3>#}
-        <div>
+{#        <div>#}
+{#            <label for="synthetic_csv">Upload Synthetic Dataset:</label>#}
+{#            <input type="file" id="synthetic_csv" name="synthetic_csv" accept=".txt">#}
+{#        </div>#}
+        {#        <h3>Description</h3>#}
             <!-- specify title -->
+           <div style="margin-top:-25px">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
 
-             <label for="description">Description:</label>
+            <label for="description">Description:</label>
             <input type="text" id="description" name="description" value="">
 
-             <label for="url">url:</label>
+            <label for="url">url:</label>
             <input type="text" id="url" name="url" value="">
 
-             <label for="source">Source:</label>
+            <label for="source">Source:</label>
             <input type="text" id="source" name="source" value="">
         </div>
 
-        <button type="submit">Upload Datasets</button>
+        <button style="margin-top:15px" type="submit">Submit</button>
     </form>
 
 {% endblock %}

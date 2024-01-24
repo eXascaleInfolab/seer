@@ -1,0 +1,91 @@
+{% extends "queries/queries.html" %}
+{% load static %}
+
+{% block evaluate %}
+
+    <div class="row" style="width:50%">
+        <div class="form-group">
+            <label for="system-select"> System
+                {#                            {% include "parts/info.html" with text="Ingestion Speed" %}#}
+            </label>
+            <select class="form-control" id="system-select">
+                {% for system in systems %}
+                    <option value="{{ system }}">{{ system }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group" style="margin-left: 20px">
+            <label for="query-iterations"> # Runs
+                {#                            {% include "parts/info.html" with text="Ingestion Speed" %}#}
+            </label>
+            <select id="query-iterations" class="form-control">
+                <option> 10</option>
+                <option> 20</option>
+                <option> 50</option>
+                <option> 100</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="evaluateBTN"> &#8203;
+                {#                            {% include "parts/info.html" with text="Ingestion Speed" %}#}
+            </label>
+            <button class="form-control" id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('evaluateBTN').addEventListener('click', function () {
+            var selectedSystem = document.getElementById('system-select').value;
+            var queryIterations = document.getElementById('query-iterations').value;
+
+            var form = document.querySelector('.query-box-form');
+            var existingSystemInput = form.querySelector('input[name="system"]');
+            var queryIterationsInput = form.querySelector('input[name="query_iterations"]');
+
+
+            if (existingSystemInput) {
+                existingSystemInput.value = selectedSystem;  // Modify the existing input
+            } else {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'system';
+                input.value = selectedSystem;
+                form.appendChild(input);  // Append new input
+            }
+              if (queryIterationsInput) {
+                queryIterationsInput.value = queryIterations;  // Modify the existing input
+            } else {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'query_iterations';
+                input.value = queryIterations;
+                form.appendChild(input);  // Append new input
+            }
+
+        });
+    </script>
+{% endblock %}
+
+{% block query_results %}
+
+    <div id="errorDisplay"></div>
+
+    <div id="results-container">
+        <!-- Results will be displayed here -->
+    </div>
+
+
+    <div id="box-plot-container">
+
+    </div>
+{% endblock %}
+
+{% block query_scripts %}
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+    {% include "queries/code/slider-script.html" %}
+    {% include "queries/code/offline_queries_css.html" %}
+    {% include "queries/code/evaluate_code_live.html" %}
+    {% include "queries/code/query_init_code.html" %}
+    {% include "queries/live_queries/box_plot.html" %}
+{% endblock %}

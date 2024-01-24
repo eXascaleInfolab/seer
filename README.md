@@ -98,3 +98,11 @@ You can check that the data is loaded correctly by checking its compression in t
 ```bash
 docker exec -it clickhouse-demo clickhouse-client --query "SELECT table, formatReadableSize(sum(bytes)) as size FROM system.parts WHERE active AND table='$dataset' GROUP BY table;"
 ```  
+
+
+
+###  Monetdb
+```bash
+cd systems/monetdb
+sh install.sh 
+```  

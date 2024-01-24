@@ -2,6 +2,8 @@ import random
 import time
 from collections import namedtuple
 
+import numpy as np
+
 from utils.query_translator import load_query
 import os
 from systems import clickhouse, timescaledb, influx, monetdb
@@ -36,18 +38,24 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
 
     parsed_query = system_module.parse_query(query_template, date=date, rangeUnit=rangeUnit, rangeL=rangeL,
                                              sensor_list=random_sensors, station_list=random_stations)
-    start = time.time()
+    runtimes = []
     try:
-        query_data = system_connection.execute(parsed_query)
+        for i in range(n_it+2):# 2 warmup queries
+            start = time.time()
+            query_data = system_connection.execute(parsed_query)
+            runtime = (time.time() - start) * 1000
+            if i > 1:
+                runtimes.append(runtime)
         # print(query_data)
     except Exception as e:
         print(e)
         print("error in query;", parsed_query)
         query_data = []
 
-    runtime = (time.time() - start) * 1000
-    runtime = round(runtime, 2)
+    runtime = np.mean(runtimes)
 
+    runtime = round(runtime, 2)
+    print(query_data)
     if system == "influx":
         query_data = [ list(result) for result in  query_data][0]
         #cast dict to tuples (key1,value1,key2 ,value2..
@@ -56,5 +64,6 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     query_data = sorted(query_data, key=lambda x: x[0])
 
 
-    QueryResult = namedtuple("QueryResult", "runtime query_data query")
-    return QueryResult(runtime, query_data, parsed_query)
+    QueryResult = namedtuple("QueryResult", "runtime query_data query runtimes")
+    print("W")
+    return QueryResult(runtime, query_data, parsed_query , runtimes)

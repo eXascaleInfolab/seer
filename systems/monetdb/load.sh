@@ -25,7 +25,6 @@ mclient -p54320 -d mydb --interactive --timer=performance -s "DROP TABLE IF EXIS
 
 end_time=$(date +%s.%N)
 elapsed_time=$(echo "$end_time - $start_time" | bc)
-#echo "Loading time: $elapsed_time seconds" > loading_time_$dataset.txt
 
 
 echo "compression"
