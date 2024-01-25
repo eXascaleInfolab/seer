@@ -100,6 +100,7 @@ class OnlineQueryView(OfflineQueryView):
         entry = dict(request.POST)
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
+        print(data)
 
         parsed_entry = self.parse_entry(data[0])
 

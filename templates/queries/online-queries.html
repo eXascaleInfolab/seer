@@ -9,6 +9,29 @@
 {% endblock %}
 
 {% block query_results %}
+    <script>
+        console.log("test")
+        $(document).ready(function () {
+            document.getElementById('evaluateBTN').addEventListener('click', function () {
+                console.log("getting ingestion rate")
+
+                var ingestionRate = document.getElementById('ingestion').value;
+
+                var form = document.querySelector('.query-box-form');
+                var ingestionRateInput = form.querySelector('input[name="ingestion_rate"]');
+
+                if (ingestionRateInput) {
+                    ingestionRateInput.value = ingestionRate;  // Modify the existing input
+                } else {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'ingestion_rate';
+                    input.value = ingestionRate;
+                    form.appendChild(input);  // Append new input
+                }
+            }, true);
+        });
+    </script>
     <div id="errorDisplay"></div>
     <div id="chart-container" style="width: 600px; height: 400px;margin-top: 40px"></div>
 {% endblock %}

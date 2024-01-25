@@ -10,7 +10,7 @@ from utils.numpy_loader import NumpyEncoder, convert_np_values
 import json
 class CompressionView(View):
     compression_data_folder = "compression_data"
-    compression_datasets = list(os.listdir("compression_data/ts"))
+    compression_datasets = list(os.listdir("compression_data/ts"))[::-1]
     systems = ["clickhouse", "influx", "druid", "timescaledb"]
     data_cols = ['time', 's0' , 's1' , 's2']
 
@@ -47,9 +47,10 @@ class CompressionView(View):
             data[level] = {}
 
             print("reading" , file)
-            df = pd.read_csv(f"{compression_data_folder_ts}/{file}", usecols=self.data_cols+["id_station"] , skiprows= lambda x: x > 5000)
-            df = df[df["id_station"] == df["id_station"][0]]
+            df = pd.read_csv(f"{compression_data_folder_ts}/{file}", usecols=self.data_cols+["id_station"] , skiprows= lambda x: x > 1000 or x==1)
+            df = df[df["id_station"] == df["id_station"][1]]
             df = df.drop(columns=["id_station"])
+            print(df)
             data_set_result = {}
             for col in self.data_cols:
                 data_set_result[col] = df[col].values.tolist()
