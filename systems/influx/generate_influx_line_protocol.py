@@ -11,7 +11,8 @@ else:
 
 print(f"transofrming {dataset}")
 
-dataset_path = os.getenv("DATASET_PATH")
+dataset_path = "query_data/live_queries"
+
 
 data_src = open(f'../../{dataset_path}/{dataset}.csv')
 data_target= open(f'{dataset}-influxdb.csv','a')
