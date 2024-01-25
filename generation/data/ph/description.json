@@ -7,7 +7,7 @@
   "stations": 10,
   "datapoints": 109019,
   "header": [
-    "Br",
+    "Brugg",
     "Mellingen",
     "Andelfingen",
     "Riazzino",
@@ -17,14 +17,10 @@
     "Rekingen",
     "Chancy",
     "Sensematt",
-     "Rekingen",
-    "Chancy",
-    "Sensematt",
-    "Chancy",
-    "Sensematt",
-     "Rekingen",
-    "Chancy",
-    "Sensematt"
+    "Rhein",
+    "Limmat",
+    "Aare",
+    "Thur"
   ],
   "isCustom": true
 }
