@@ -45,9 +45,17 @@ class OnlineQueryView(OfflineQueryView):
         entry = dict(request.POST)
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
-        print(data)
+        ingestion_rate = data[0]["ingestion_rate"]
+        query = data[0]["query"]
 
-        parsed_entry = self.parse_entry(data[0])
+        print("ingestion_rate", ingestion_rate)
+        print("query", query)
+
+
+
+        query_data = get_query_data(query,ingestion_rate)
+
+        print(query_data)
 
         result = {INFLUX: 1, QUESTDB: 3, TIMESCALEDB: 2, MONETDB: 4, EXTREMEDB: 5, CLICKHOUSE: 6, DRUID: 7}
         result = {"data": {"Online Query": result}}
