@@ -1,0 +1,12 @@
+delta_1 11.52MiB .854394770s
+delta_3 11.71MiB .858912272s
+delta_5 11.77MiB .842907257s
+delta_10 11.80MiB .908416182s
+scarsity_10 10.44MiB .900816007s
+scarsity_30 9.72MiB .920316274s
+scarsity_60 6.92MiB .864060208s
+scarsity_80 4.12MiB .821036239s
+repeats_10 10.26MiB .904314210s
+repeats_30 9.38MiB .915101908s
+repeats_70 5.40MiB .862178305s
+repeats_90 2.24MiB .900652508s

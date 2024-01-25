@@ -72,8 +72,8 @@ def upload_datasets(request):
             "isCustom": True
         }
 
-        from views.generation.utils import store_dataset_description
-        store_dataset_description(description_dict)
+        from views.generation.utils import store_description
+        store_description(description_dict)
 
         # return generation view with dataset=title
         return redirect('/generation/{title}')   #   GenerationView().get(request, title)
