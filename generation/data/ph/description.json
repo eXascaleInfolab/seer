@@ -1,0 +1,30 @@
+{
+  "title": "ph",
+  "description": "Records measuring water acidity/alkalinity in Swiss hydrometric data",
+  "link": "http://www.bafu.admin.ch/",
+  "source": "FOEN",
+  "sensors": 10,
+  "stations": 10,
+  "datapoints": 109019,
+  "header": [
+    "Br",
+    "Mellingen",
+    "Andelfingen",
+    "Riazzino",
+    "Hagneck",
+    "Laufenburg",
+    "Bern",
+    "Rekingen",
+    "Chancy",
+    "Sensematt",
+     "Rekingen",
+    "Chancy",
+    "Sensematt",
+    "Chancy",
+    "Sensematt",
+     "Rekingen",
+    "Chancy",
+    "Sensematt"
+  ],
+  "isCustom": true
+}
