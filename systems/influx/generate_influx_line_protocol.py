@@ -1,7 +1,7 @@
 import datetime
 import time
 import sys
-
+import os
 dataset = "d1"
 # Check if the correct number of arguments is provided
 if len(sys.argv) != 2:
@@ -11,7 +11,9 @@ else:
 
 print(f"transofrming {dataset}")
 
-data_src = open(f'../../datasets/{dataset}.csv')
+dataset_path = os.getenv("DATASET_PATH")
+
+data_src = open(f'../../{dataset_path}/{dataset}.csv')
 data_target= open(f'{dataset}-influxdb.csv','a')
 head_line=f"# DDL\n CREATE DATABASE {dataset}\n"
 head_line2=f"# DML\n# CONTEXT-DATABASE: {dataset}\n"
