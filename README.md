@@ -12,7 +12,7 @@ vim .env
 ```bash
 docker-compose up -d --build
 ```  
-The Webside should be running under http://localhost:12007
+The Website should be running under http://localhost:12007
 
 ## Collect static files, create admin account and migrate the database
 
