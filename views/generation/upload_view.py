@@ -51,8 +51,7 @@ def upload_datasets(request):
         if synthetic_file:
             fs.save("synthetic.txt", synthetic_file)
 
-        with open('config/datasets.json', 'r') as file:
-            datasets_info = json.load(file)
+
 
         headers = [ header.strip() for header in headers ]
         headers = [ header.replace(" ", "_") for header in headers ]
@@ -61,7 +60,7 @@ def upload_datasets(request):
 
         headers = [ header if not is_int_or_float(header) else  title+str(i+1)   for i, header in enumerate(headers)]
 
-        datasets_info[title] = {
+        description_dict = {
             "title": title,
             "description": description,
             "link": url,
@@ -73,8 +72,8 @@ def upload_datasets(request):
             "isCustom": True
         }
 
-        with open('config/datasets.json', 'w') as file:
-            json.dump(datasets_info, file, indent=4)
+        from views.generation.utils import store_dataset_description
+        store_dataset_description(description_dict)
 
         # return generation view with dataset=title
         return redirect('/generation/{title}')   #   GenerationView().get(request, title)
