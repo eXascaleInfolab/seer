@@ -49,6 +49,7 @@ Create dataset d1 that is used for the live query evaluation.
 ```shell
 cd query_data/live_queries
 sh build_d1.sh
+cd ../..
 ```
 
 ### Clickhouse
@@ -86,10 +87,12 @@ docker exec -it clickhouse-demo clickhouse-client --query "SELECT table, formatR
 
 ###  Monetdb
 ```bash
+
 cd systems/monetdb
 sh install.sh 
 sh launch.sh
 sh load.sh 
+cd ../..
 ```  
 
 

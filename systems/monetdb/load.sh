@@ -12,7 +12,7 @@ fi
 echo $dataset
 current="$(pwd)"
 
-DATASET_PATH='${current}../../query_data/live_queries/${dataset}'
+DATASET_PATH='${current}/../../query_data/live_queries/${dataset}'
 
 
 
