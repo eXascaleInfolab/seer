@@ -1,0 +1,88 @@
+<script>
+    BoxPlotChart = Highcharts.chart('box-plot-container', {
+
+        chart: {
+            type: 'boxplot'
+        },
+
+        title: {
+            text: 'Runtime Box Plots'
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        xAxis: {
+            categories: ['1', '2', '3', '4', '5'],
+            title: {
+                text: 'Query'
+            }
+        },
+
+        yAxis: {
+            title: {
+                text: 'Runtime (ms)'
+            },
+        },
+
+        series: [{
+            name: 'Observations',
+            data: [
+                [760, 801, 848, 895, 965],
+                [733, 853, 939, 980, 1080],
+                [714, 762, 817, 870, 918],
+                [724, 802, 806, 871, 950],
+                [834, 836, 864, 882, 910]
+            ],
+            tooltip: {
+                headerFormat: '<em>Experiment No {point.key}</em><br/>'
+            }
+        }, {
+            name: 'Outliers',
+            color: Highcharts.getOptions().colors[0],
+            type: 'scatter',
+            data: [ // x, y positions where 0 is the first category
+                [0, 644],
+                [4, 718],
+                [4, 951],
+                [4, 969]
+            ],
+            marker: {
+                fillColor: 'white',
+                lineWidth: 1,
+                lineColor: Highcharts.getOptions().colors[0]
+            },
+            tooltip: {
+                pointFormat: 'Observation: {point.y}'
+            }
+        }]
+
+    });
+
+    function clearBoxPlotChart() {
+        let n_points = BoxPlotChart.series[0].points.length
+        BoxPlotChart.series[0].points.forEach(p => p.remove())
+        BoxPlotChart.series[1].points.forEach(p => p.remove())
+        BoxPlotChart.series[0].points.forEach(p => p.remove())
+        BoxPlotChart.series[1].points.forEach(p => p.remove())
+    }
+
+    clearBoxPlotChart()
+
+    function addBoxPlot(label, data) {
+        //remove all boxplots from BoxPlotChart
+        let current_data = BoxPlotChart.series[0].data
+        console.log("current data", current_data)
+
+        BoxPlotChart.series[0].addPoint(data)
+
+        let categories = BoxPlotChart.xAxis[0].categories
+
+        categories = categories.map(x => x)
+        categories.push(label)
+        BoxPlotChart.xAxis[0].setCategories(categories);
+    }
+
+
+</script>
