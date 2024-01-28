@@ -40,7 +40,7 @@ class OnlineQueryView(OfflineQueryView):
         "station_ticks": [],
         "sensor_ticks": [],
         "time_ticks": [],
-        "ingestion_rates": [1,2, 10, 20, 50 , 100],
+        "ingestion_rates": [1, 10, 20, 50 , 100],
     }
     template = loader.get_template('queries/online-queries.html')
 
