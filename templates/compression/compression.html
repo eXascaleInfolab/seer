@@ -27,7 +27,7 @@
                 const selectedValue = document.getElementById('feature').value;
                 // Perform actions based on the selected value
 
-                compressionManager = new CompressionManager(compressionManager.dataset , selectedValue);
+                compressionManager = new CompressionManager(compressionManager.dataset, selectedValue);
                 // Add your code for the 'scarsity' option
 
             }
@@ -59,9 +59,10 @@
 
                     <select id="feature" style="width: 30%;" class="form-control" name="dataType"
                             onchange="handleFormSubmit(event)">
-                        <option value="scarsity">Missing Values</option>
+
                         <option value="repeats">Repeats</option>
-{#                        <option value="outliers">Outliers</option>#}
+                        <option value="scarsity">Missing Values</option>
+                        {#                        <option value="outliers">Outliers</option>#}
                         <option value="delta">Delta</option>
 
                     </select>
@@ -152,7 +153,7 @@
         document.getElementById("dataset-select").addEventListener("change", function (event) {
             //prevent default
             event.preventDefault();
-            compressionManager = new CompressionManager(event.target.value, feature,"");
+            compressionManager = new CompressionManager(event.target.value, feature, "");
         });
 
 

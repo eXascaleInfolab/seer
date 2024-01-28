@@ -14,7 +14,7 @@ from views.queries import OfflineQueryView
 
 
 def get_query_data(q_n, ingestion_rate, dataset="d1"):
-    folder = f"query_data/online_queres/{dataset}"
+    folder = f"query_data/online_queries/{dataset}"
     results = {}
     for file in os.listdir(folder):
         system = file.split(".")[0]
@@ -57,8 +57,8 @@ class OnlineQueryView(OfflineQueryView):
 
         print(query_data)
 
-        result = {INFLUX: 1, QUESTDB: 3, TIMESCALEDB: 2, MONETDB: 4, EXTREMEDB: 5, CLICKHOUSE: 6, DRUID: 7}
-        result = {"data": {"Online Query": result}}
+        result = {INFLUX: 100, QUESTDB: 3, TIMESCALEDB: 2, MONETDB: 4, EXTREMEDB: 5, CLICKHOUSE: 6, DRUID: 7}
+        result = {"data" : {"online": result}}
 
         # return json respone
         return JsonResponse(result)

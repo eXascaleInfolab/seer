@@ -1,2 +1,0 @@
-Synthetic data randomly generated, with a normal distribution, with a mean of 0 and a standard deviation of 1. The data is generated using the numpy library.
-The file size of the original dataset is 81.8MB.

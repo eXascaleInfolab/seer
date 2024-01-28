@@ -12,7 +12,7 @@ class CompressionView(View):
     compression_data_folder = "compression_data"
     compression_datasets = list(os.listdir("compression_data/ts"))[::-1]
     systems = ["clickhouse", "influx", "druid", "timescaledb"]
-    data_cols = ['time', 's0' , 's1' , 's2']
+    data_cols = ['time', 's0' , 's1' , 's2' , "s3" , "s4" , "s5" , "s6" , "s7" , "s8", "s9" , "s10"]
 
     context = {
         'title': 'Compression View',

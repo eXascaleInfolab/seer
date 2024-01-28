@@ -22,7 +22,8 @@ from views.generation.dataset_view import DatasetView
 from views.generation.upload_view import upload_datasets
 from views.index_view import IndexView
 from views.live_queries.live_queries_view import LiveQueryView
-from views.queries import OfflineQueryView, OnlineQueryView
+from views.online_query_view import OnlineQueryView
+from views.queries import OfflineQueryView
 from views.generation.generation_view import GenerationView
 from views.generation.datasets_view import DatasetsDisplayView, GenerationDatasetsView
 

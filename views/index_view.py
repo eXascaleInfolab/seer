@@ -21,3 +21,13 @@ class IndexView(View):
         }
         return HttpResponse(template.render(context, request))
 
+class AboutView(View):
+    def get(self, request):
+        template = loader.get_template('about.html')
+        context = {
+            'title': 'About Page',
+            'heading': 'Welcome to the About Page',
+            'body': 'This is the body of the Index Page',
+        }
+        return HttpResponse(template.render(context, request))
+
