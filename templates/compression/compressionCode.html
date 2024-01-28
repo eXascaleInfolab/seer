@@ -18,7 +18,11 @@
                 this.data = response.data
                 this.levels = Object.keys(this.data);
 
-                this.levels = this.levels.sort()
+                this.levels = this.levels.sort((a, b) => {
+                    let numA = parseFloat(a.replace(/[^0-9.]/g, ''));
+                    let numB = parseFloat(b.replace(/[^0-9.]/g, ''));
+                    return numA - numB;
+                });
 
                 console.log("levels", this.levels)
                 this.currentLevel = this.levels[0];
@@ -43,26 +47,13 @@
         }
 
         setChartExtremes() {
-            {#if (this.extremes == null) {#}
-            {#    let current_extremes = this.dataChart.xAxis[0].getExtremes()#}
-            {#    let dataMax = current_extremes.max#}
-            {#    console.log("setting extremes", dataMax)#}
-            {#    this.dataChart.xAxis[0].setExtremes(dataMax - (1000 * 60 * 10), dataMax, true, false)#}
-            {# } else {#}
-            {#    let current_extremes = this.extremes#}
-            {#    let dataMax = current_extremes.max#}
-            {#    let dataMin = current_extremes.min#}
-            {#    console.log("setting extremes", dataMax)#}
-            {#    this.dataChart.xAxis[0].setExtremes(dataMin, dataMax, true, false)#}
-            {# }#}
-            {#this.extremes = this.dataChart.xAxis[0].getExtremes()#}
-         }
+        }
 
         initializeCharts() {
             if (this.extremes != null) {
                 this.extremes = this.dataChart.xAxis[0].getExtremes()
             }
-            let chart_time =  this.chartTime
+            let chart_time = this.chartTime
             this.dataChart = Highcharts.chart(`data-container`, {
                     chart: {
                         type: 'line',
@@ -73,10 +64,10 @@
                                 const chart = this,
                                     startDate = Date.UTC(2021, 2, 26),
                                     endDate = Date.UTC(2021, 8, 26);
-                                chart.xAxis[0].setExtremes( chart_time[chart_time.length-500],  chart_time[chart_time.length] , true, false)
-                             }
+                                chart.xAxis[0].setExtremes(chart_time[chart_time.length - 500], chart_time[chart_time.length], true, false)
+                            }
                         }
-                     },
+                    },
 
                     title: {
                         text: ""//this.title
