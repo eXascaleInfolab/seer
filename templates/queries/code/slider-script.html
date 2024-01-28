@@ -15,7 +15,6 @@
             let initial_tick = Math.floor(n_ticks / 2)
 
             this.updateValues = (link, value) => { // update value , value is the slider tick index
-                console.log(this)
                 var queryFrame = $(this).closest('.query-frame');
                 if (value_map[value] === undefined) {
                     queryFrame.find('[data-link=' + class_ + ']').val(this.labels[value])
@@ -23,11 +22,7 @@
                     queryFrame.find('[data-link=' + class_ + ']').val(value_map[value])
                 )
                 if (class_ === "slider-time") { // update time interval in the query frame
-                    console.log("updating time interval")
                     var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
-                    console.log(elementsWithDatasetAttribute)
-                    console.log(value)
-                    console.log(value_map[value])
                     elementsWithDatasetAttribute[0].innerText = value_map[value];
                 }
             }
@@ -51,7 +46,6 @@
                 let initial_tick = Math.floor(n_ticks / 2)
 
                 const ticks = this.nextElementSibling
-                console.log("updating labels", this, ticks)
 
                 ticks.innerHTML = ""
                 //append grid 2 lines 5 columns
@@ -100,7 +94,6 @@
 
     function get_slider_values(element) {
         var queryFrame = element.closest('.query-frame');
-        console.log(queryFrame);
 
         // Use [0] to get the first element or convert NodeList to an array
         var nStations = queryFrame.querySelectorAll('[data-link="slider-stations"]')[0].value;

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from views.compression.compression_view import CompressionView
-from views.generation.dataset_view import DatasetView
+from views.generation.dataset_view import DatasetView, remove_dataset
 from views.generation.upload_view import upload_datasets
 from views.index_view import IndexView
 from views.live_queries.live_queries_view import LiveQueryView
@@ -44,5 +44,7 @@ urlpatterns = [
     path('generation/<str:dataset>', GenerationView.as_view(), name='generation'),
 
     path('upload-datasets/', upload_datasets, name='upload_datasets'),
+    path('dataset/<str:dataset>/delete',remove_dataset, name='remove'),
+
 ]
 print(urlpatterns)
