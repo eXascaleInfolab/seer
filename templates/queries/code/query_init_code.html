@@ -66,8 +66,11 @@
                 var elementValue = element.innerHTML.replace(/\s/g, '');
                 console.log("elementValue", elementValue)
                 var queryFrame = element.closest('.query-frame');
+
                 selectMain.setAttribute("data-value", elementValue);
 
+
+                // update station and time ticks for TempLong and TempMulti
                 let newStations = stationTicks
                 let newTimes = timeTicks
                 if (elementValue === "TempMulti") {
@@ -81,6 +84,9 @@
                     sliderTime.updateLabels(newTimes)
                     let sliderStations = queryFrame.querySelector('.slider-stations');
                     sliderStations.updateLabels(newStations)
+
+                    let hiddenInput = queryFrame.querySelector('input[data-link="data-set"]');
+                    hiddenInput.value = elementValue
                 }
             });
         })

@@ -10,7 +10,6 @@ import subprocess
 from views.generation.utils import get_dataset_info, get_datasets
 
 host = "gan:80" if os.getenv("using_docker") else "localhost:87"
-print("gan host", host)
 
 ts_multipliers = {
     "same": 1, "1x": 1, "2x": 2, "5x": 5, "10x": 5
@@ -37,7 +36,6 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
     result = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     import time
     time.sleep(3)
-    print("after run command")
     # Read the generated data
     df = pd.read_csv('generation/results/generated.txt')
     return df
@@ -62,7 +60,6 @@ class GenerationView(View):
 
     @property
     def data_sets(self):
-        print(get_datasets())
         return get_datasets()
 
     def get(self, request, dataset):
@@ -107,7 +104,6 @@ class GenerationView(View):
                                          max=max_ , selected_series=selected_series)
 
             generated_data = [data_df.iloc[:, i].values.tolist() for i in range(data_df.shape[1])]
-            print(selected_series)
             original = pd.read_csv(f"{folder}/{data_set}/original.txt").iloc[min_:max_, selected_series].values.flatten().tolist()
             return JsonResponse({
                 'generated': generated_data,

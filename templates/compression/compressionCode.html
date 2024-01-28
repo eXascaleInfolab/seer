@@ -135,7 +135,7 @@
                         point: {
                             events: {
                                 click: function () {
-                                    compressionManager.setLevel(this.category) // "this" from outer scope
+                                    compressionManager.setLevel(this.category)
                                 }
                             }
                         }
@@ -150,7 +150,7 @@
                     }
                 },
                 xAxis: {
-                    categories: ["clickhouse", "druid", "influx", "timescaledb"],
+                    categories: ["","clickhouse", "druid", "influx", "timescaledb"],
                     labels: {
                         allowOverlap: true,
                         padding: 0,
@@ -197,7 +197,6 @@
         }
 
         setLevel(level) {
-            console.log("set level")
             this.currentLevel = level;
         }
 
@@ -210,9 +209,9 @@
 
         displayChart() {
             var level = this.currentLevel
-            while (this.dataChart.series.length > 3) {
-                this.dataChart.series[3].remove(false);
-            }
+            while (this.dataChart.series.length > this.columns.length) {
+                this.dataChart.series[this.columns.length].remove(false);
+             }
 
             // Update the charts based on the current level
             const newData = this.data[level]["data"];

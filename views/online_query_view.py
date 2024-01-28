@@ -35,9 +35,10 @@ class OnlineQueryView(OfflineQueryView):
         'body': 'This is the body of the Offline Queries Page',
         "datasets": ["Temp1"],
         "classes": "online-query",
-        # "station_ticks": [2, 4, 6, 8, 10],
-        # "sensor_ticks": [1, 20, 40, 60, 80, 100],
-        # "time_ticks": ["Min", "H", "D", "W", "M"]
+        "systems": [INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE],
+        "station_ticks": [],
+        "sensor_ticks": [],
+        "time_ticks": []
     }
     template = loader.get_template('queries/online-queries.html')
 

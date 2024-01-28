@@ -46,7 +46,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
             runtime = (time.time() - start) * 1000
             if i > 1:
                 runtimes.append(runtime)
-        # print(query_data)
+
     except Exception as e:
         print(e)
         print("error in query;", parsed_query)
@@ -55,7 +55,6 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     runtime = np.mean(runtimes)
 
     runtime = round(runtime, 2)
-    print(query_data)
     if system == "influx":
         query_data = [ list(result) for result in  query_data][0]
         #cast dict to tuples (key1,value1,key2 ,value2..
@@ -65,5 +64,4 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
 
 
     QueryResult = namedtuple("QueryResult", "runtime query_data query runtimes")
-    print("W")
     return QueryResult(runtime, query_data, parsed_query , runtimes)

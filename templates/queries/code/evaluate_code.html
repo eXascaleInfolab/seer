@@ -69,8 +69,8 @@
 </script>
 
 <script>
-    var chart;
-    var seriesData = [];
+    let chart;
+    let seriesData = [];
 
     // Function to create or update the Highcharts chart
     function createChart() {
@@ -82,7 +82,7 @@
                 text: 'Runtime'
             },
             xAxis: {
-                categories: ["Influx", "questdb", "Timescaledb", "monetdb", "extremedb", "clickhouse", "druid"]
+                categories: systems
             },
             yAxis: {
                 min: 0,
@@ -107,7 +107,6 @@
 
     // Function to update the chart data
     function updateChart(newData) {
-        console.log("updatechart")
         if (!chart) {
             createChart(newData);
         } else {
@@ -120,34 +119,33 @@
         console.log(newData)
 
         // check of has key "online"
-        if(newData.online){
-              const online_data_array = [newData.online.influx, newData.online.questdb, newData.online.timescaledb, newData.online.monetdb, newData.online.extremedb, newData.online.clickhouse]
+        if (newData.online) {
+            const online_data_array = [newData.online.influx, newData.online.questdb, newData.online.timescaledb, newData.online.monetdb, newData.online.extremedb, newData.online.clickhouse]
+            chart.addSeries({
+                name: "online",
+                data: online_data_array,
+                showInLegend: true  // show legend
+            }, false);
+
+        } else {
+            let frequencies = getFrequencies()
+            Object.keys(newData).forEach(query => {
+                const query_runtime = newData[query]
+                const runtime_data = [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
+                let f = frequencies.pop(0)
+                runtime_data.map((runtime, index) => {
+                    runtime_data[index] = runtime * f / 100
+                })
+                console.log("query", query);
+                // add series to chart
                 chart.addSeries({
-                    name: "online",
-                    data: online_data_array,
-                    showInLegend: true  // show legend
+                    name: query,
+                    data: runtime_data,
+                    showInLegend: true
                 }, false);
-                
+            })
         }
 
-
-        console.log("test test")
-        let frequencies = getFrequencies()
-        Object.keys(newData).forEach(query => {
-            const query_runtime = newData[query]
-            const runtime_data = [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
-            let f = frequencies.pop(0)
-            runtime_data.map((runtime, index) => {
-                runtime_data[index] = runtime * f/100
-            })
-            console.log("query", query);
-            // add series to chart
-            chart.addSeries({
-                name: query,
-                data: runtime_data,
-                showInLegend: true
-            }, false);
-        })
         chart.redraw();
     }
 </script>

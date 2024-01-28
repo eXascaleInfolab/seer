@@ -50,7 +50,6 @@ class CompressionView(View):
             df = pd.read_csv(f"{compression_data_folder_ts}/{file}", usecols=self.data_cols+["id_station"] , skiprows= lambda x: x > 1000 or x==1)
             df = df[df["id_station"] == df["id_station"][1]]
             df = df.drop(columns=["id_station"])
-            print(df)
             data_set_result = {}
             for col in self.data_cols:
                 data_set_result[col] = df[col].values.tolist()

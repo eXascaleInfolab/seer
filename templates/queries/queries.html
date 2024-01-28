@@ -8,6 +8,12 @@
         const timeTicks = {{ time_ticks|safe }}
         const stationTicks = {{ station_ticks }}
         const sensorTicks = {{ sensor_ticks }}
+        const systems = {{ systems|safe }}
+
+        const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
+        const timeStamp =  {{ time_stamps|safe }};
+        const queryFetchUrl = '{% url "offline-queries" %}';
+        var csrfToken = "{{ csrf_token }}"
     </script>
     {% block query-spec %}
         <style>
@@ -60,12 +66,7 @@
         <button id="evaluateBTN" style="margin-left: 20px">Evaluate</button>
     {% endblock %}
 
-    <script>
-        const queryFrameContent = `{{ query_frame|escapejs|safe }}`;
-        const timeStamp =  {{ time_stamps|safe }};
-        const queryFetchUrl = '{% url "offline-queries" %}';
-        var csrfToken = "{{ csrf_token }}"
-    </script>
+
 
 
 

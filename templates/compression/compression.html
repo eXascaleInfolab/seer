@@ -127,7 +127,6 @@
             });
         }
 
-        {#const compression_data_sets = {{ compression_data|safe }};#}
 
         let feature = 'repeats';
         let datasets = {{ compression_datasets|safe }};
@@ -145,20 +144,17 @@
                 return
             }
             compressionManager.displayChart();
-            {#document.getElementById("showCompression").style.display = "block";#}
             document.getElementById("compression-container").style.display = "block";
             compressionManager.displayCompression();
         });
 
         document.getElementById("dataset-select").addEventListener("change", function (event) {
-            //prevent default
             event.preventDefault();
             compressionManager = new CompressionManager(event.target.value, feature, "");
         });
 
 
         document.getElementById("showCompression").addEventListener("click", function (event) {
-            //prevent default
             event.preventDefault();
             compressionManager.displayCompression();
             document.getElementById("compression-container").style.display = "block";
