@@ -4,7 +4,7 @@
     <div class="page-header">
         <h2>Datasets</h2>
     </div>
-        <h3>Existing</h3>
+    <h3>Existing</h3>
     <table class="table">
         <tbody>
         <tr>
@@ -40,32 +40,53 @@
         </tbody>
     </table>
 
-    <h3>New Datasets</h3>
+    <h3>New Datasets
+        <h4>
+            <button id="descr-show" type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> show description
+            </button>
+            <button style="display: none;" id="descr-hide" type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> hide description
+            </button>
+        </h4>
+    </h3>
+
+
+    <div style="display:none;" id="descr-options">
+        <p>The required Files are:</p>
+        <ul>
+            <li>original.txt: File with the original series, add a header to the file to display column names.</li>
+            <li>synthetic.txt: As provided by TSM-BENCH.</li>
+        </ul>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#descr-show').click(function () {
+                $('#descr-options').show();
+                $('#descr-show').hide();
+                $('#descr-hide').show();
+            });
+            $('#descr-hide').click(function () {
+                $('#descr-options').hide();
+                $('#descr-show').show();
+                $('#descr-hide').hide();
+            });
+        });
+    </script>
+
     <form action="{% url 'upload_datasets' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
 
-        <!-- add info box
-        Upload the two files original.txt  and synthetic.txt provided TS-LSH
-
-        #change browse  upload
-        -->
-
-
         <!-- File Upload for Original CSV -->
         <div>
-{#            <label for="original_csv">Upload Original Dataset:</label>#}
-            <input type="file" id="files" name="files" label="test"  multiple ><br><br>
-{#            <input type="file" id="original_csv" name="original_csv" accept=".txt">#}
- </div>
-        <!-- File Upload for Synthetic CSV -->
-{#        <div>#}
-{#            <label for="synthetic_csv">Upload Synthetic Dataset:</label>#}
-{#            <input type="file" id="synthetic_csv" name="synthetic_csv" accept=".txt">#}
-{#        </div>#}
-        {#        <h3>Description</h3>#}
-            <!-- specify title -->
-           <div style="margin-top:-25px">
+            {#            <label for="original_csv">Upload Original Dataset:</label>#}
+            <input type="file" id="files" name="files" label="test" multiple><br><br>
+            {#            <input type="file" id="original_csv" name="original_csv" accept=".txt">#}
+        </div>
+        <!-- specify title -->
+        <div style="margin-top:-25px">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
 
