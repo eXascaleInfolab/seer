@@ -60,20 +60,6 @@
         </ul>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('#descr-show').click(function () {
-                $('#descr-options').show();
-                $('#descr-show').hide();
-                $('#descr-hide').show();
-            });
-            $('#descr-hide').click(function () {
-                $('#descr-options').hide();
-                $('#descr-show').show();
-                $('#descr-hide').hide();
-            });
-        });
-    </script>
 
     <form action="{% url 'upload_datasets' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}

@@ -20,7 +20,7 @@ from django.urls import path
 from views.compression.compression_view import CompressionView
 from views.generation.dataset_view import DatasetView, remove_dataset
 from views.generation.upload_view import upload_datasets
-from views.index_view import IndexView
+from views.index_view import IndexView, AboutView
 from views.live_queries.live_queries_view import LiveQueryView
 from views.online_query_view import OnlineQueryView
 from views.queries import OfflineQueryView
@@ -45,6 +45,10 @@ urlpatterns = [
 
     path('upload-datasets/', upload_datasets, name='upload_datasets'),
     path('dataset/<str:dataset>/delete',remove_dataset, name='remove'),
+
+
+    # about page
+    path('about', AboutView.as_view(), name='about'),
 
 ]
 print(urlpatterns)
