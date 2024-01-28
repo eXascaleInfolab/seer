@@ -27,11 +27,9 @@
                 {% include "parts/info.html" with text="Ingestion Speed" %}
             </label>
             <select id="ingestion" class="form-control">
-                <option> 0</option>
-                <option> 10</option>
-                <option> 20</option>
-                <option> 50</option>
-                <option> 100</option>
+                {% for i in ingestion_rates %}
+                    <option> {{ i }}</option>
+                {% endfor %}
             </select>
         </div>
 

@@ -22,8 +22,9 @@ def get_query_data(q_n, ingestion_rate, dataset="d1"):
         with open(f"{folder}/{file}", "r") as f:
             for line in open(f"{folder}/{file}"):
                 runtime, var, query, n_s, n_st, time_range, batch_size = line.split(",")
+                print(query, f"q{q_n}", batch_size, ingestion_rate)
                 query = query.strip()
-                if query == q_n and n_s == ingestion_rate:
+                if query == f"q{q_n}" and int(batch_size) == ingestion_rate:
                     results[system] = float(runtime)
     return results
 
@@ -38,7 +39,8 @@ class OnlineQueryView(OfflineQueryView):
         "systems": [INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE],
         "station_ticks": [],
         "sensor_ticks": [],
-        "time_ticks": []
+        "time_ticks": [],
+        "ingestion_rates": [1,2, 10, 20, 50 , 100],
     }
     template = loader.get_template('queries/online-queries.html')
 
@@ -46,15 +48,13 @@ class OnlineQueryView(OfflineQueryView):
         entry = dict(request.POST)
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
-        ingestion_rate = data[0]["ingestion_rate"]
+        ingestion_rate = int(data[0]["ingestion_rate"])
         query = data[0]["query"]
 
         print("ingestion_rate", ingestion_rate)
         print("query", query)
 
-
-
-        query_data = get_query_data(query,ingestion_rate)
+        query_data = get_query_data(query,ingestion_rate*10000)
 
         print(query_data)
 

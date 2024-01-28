@@ -14,6 +14,7 @@
         const timeStamp =  {{ time_stamps|safe }};
         const queryFetchUrl = '{% url "offline-queries" %}';
         var csrfToken = "{{ csrf_token }}"
+        const ingestionRates = {{ ingestion_rates|default:"[]"|safe }}
     </script>
     {% block query-spec %}
         <style>
