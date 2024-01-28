@@ -1,0 +1,128 @@
+<script>
+
+    function init_slider(class_ = "slider-time",
+                         labels = ["Min", "H", "D", "W", "M"],
+                         value_map = {}, parentElement = null
+    ) {
+        n_ticks = labels.length
+        let reInit = false
+        let SliderElement = null
+        $("." + class_).each(function () {
+            // check if parentElement is not null if it is not null skil iff
+            // current element is below parent element and put reInit = True
+            SliderElement = this
+            if (parentElement) {
+                reInit = $(this).closest(parentElement).length > 0;
+            }
+            const this_ = this
+            if (reInit || !$(SliderElement).hasClass("ui-slider")) {
+                var queryFrame = $(this_).closest('.query-frame');
+                console.log("initalizing slider", SliderElement)
+                let initial_tick = Math.floor(n_ticks / 2 + 1)
+                $(this).slider({
+                    range: "min",
+                    value: initial_tick,
+                    min: 1,
+                    max: n_ticks,
+                    step: 1,
+                    slide: function (event, ui) {
+                        // search for closest data-type="time-interval" and update its value
+                        var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
+                        console.log(class_, ui.value)
+
+                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1]);
+
+                        if (value_map[ui.value] === undefined) {
+                            queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1])
+                        } else (
+                            queryFrame.find('[data-link=' + class_ + ']').val(value_map[ui.value])
+                        )
+                        elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
+                    }
+                });
+
+                if (value_map[initial_tick] === undefined) {
+                    queryFrame.find('[data-link=' + class_ + ']').val(labels[initial_tick-1])
+
+                } else (
+                    queryFrame.find('[data-link=' + class_ + ']').val(value_map[initial_tick-1])
+                )
+
+            }
+
+            // add update labels to slider element
+           SliderElement.updateLabels = function(labels){
+                //labels = ["Min", "H", "D", "W", "M"]
+                const n_ticks = labels.length
+                const ticks = SliderElement.nextElementSibling
+                console.log("updating labels", SliderElement, ticks)
+
+
+
+                console.log(this)
+           }
+            {#const ticks = $(SliderElement).nextElementSibling#}
+        });
+
+        // create the tickz
+        //sliders = document.getElementsByClassName(class_)
+        let slider = SliderElement//sliders[sliders.length - 1]
+        const ticks = slider.nextElementSibling
+
+        if (!reInit && ticks.hasChildNodes()) {
+            console.log("sckippt reintialization")
+            return
+        }
+        ticks.innerHTML = ""
+        //append grid 2 lines 5 columns
+        flexContainer = document.createElement("div")
+        flexContainer.classList.add("flex-container")
+        flexContainer.style.display = "flex"
+        flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
+
+        const flexContainer2 = flexContainer.cloneNode(true)
+
+        flexItem = document.createElement("div")
+        flexItem.classList.add("flex-item")
+        flexItem.style.flex = "1";
+        flexItem.style.border = "None";
+        flexItem.style.height = "10px";
+        flexItem.style.verticalAlign = "top";
+        flexItem.style.overflowY = "hidden";
+        flexItem.innerHTML = "<div class='vl'> </div>"
+
+        for (i in labels) {
+            var label = labels[i]
+            var flexItem2 = flexItem.cloneNode(true)
+            flexItem2.innerHTML = "<div>" + label + "</div>"
+            flexItem2.style.overflowY = "visible";
+            flexContainer2.appendChild(flexItem2)
+        }
+        for (i = 0; i < n_ticks; i++) {
+            flexContainer.appendChild(flexItem.cloneNode(true))
+        }
+        ticks.appendChild(flexContainer)
+        flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
+        flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
+        flexContainer2.style.textAlign = "center"
+        ticks.appendChild(flexContainer2)
+    }
+
+    function updateLabels(labels) {
+        //labels = ["Min", "H", "D", "W", "M"]
+        n_ticks = labels.length
+        console.log(this)
+    }
+
+    function get_slider_values(element) {
+        var queryFrame = element.closest('.query-frame');
+        console.log(queryFrame);
+
+        // Use [0] to get the first element or convert NodeList to an array
+        var nStations = queryFrame.querySelectorAll('[data-link="slider-stations"]')[0].value;
+        var nTime = queryFrame.querySelectorAll('[data-link="slider-time"]')[0].value;
+        var nSensors = queryFrame.querySelectorAll('[data-link="slider-sensors"]')[0].value;
+
+        return {stations: parseInt(nStations), time: nTime, sensors: parseInt(nSensors)};
+    }
+</script>

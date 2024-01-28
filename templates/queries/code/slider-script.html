@@ -4,105 +4,98 @@
                          labels = ["Min", "H", "D", "W", "M"],
                          value_map = {}, parentElement = null
     ) {
-        console.log("init slider")
-        console.log(parentElement)
-        n_ticks = labels.length
-        let reInit = false
-        let SliderElement = null
+
         $("." + class_).each(function () {
-            // check if parentElement is not null if it is not null skil iff
-            // current element is below parent element and put reInit = True
-            SliderElement = this
-            if (parentElement) {
-                reInit = $(this).closest(parentElement).length > 0;
+            if ($(this).hasClass("ui-slider")) {
+                return //continue since its already initalized
             }
-            const this_ = this
-            if (reInit || !$(SliderElement).hasClass("ui-slider")) {
-                var queryFrame = $(this_).closest('.query-frame');
-                console.log("initalizing slider", SliderElement)
-                let initial_tick = Math.floor(n_ticks / 2 + 1)
-                $(this).slider({
-                    range: "min",
-                    value: initial_tick,
-                    min: 1,
-                    max: n_ticks,
-                    step: 1,
-                    slide: function (event, ui) {
-                        // search for closest data-type="time-interval" and update its value
-                        var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
-                        console.log(class_, ui.value)
+            this.labels = labels
 
-                        queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1]);
+            let n_ticks = labels.length
+            let initial_tick = Math.floor(n_ticks / 2)
 
-                        if (value_map[ui.value] === undefined) {
-                            queryFrame.find('[data-link=' + class_ + ']').val(labels[ui.value - 1])
-                        } else (
-                            queryFrame.find('[data-link=' + class_ + ']').val(value_map[ui.value])
-                        )
-                        elementsWithDatasetAttribute[0].innerText = value_map[ui.value];
-                    }
-                });
-
-                if (value_map[initial_tick] === undefined) {
-                    queryFrame.find('[data-link=' + class_ + ']').val(labels[initial_tick-1])
-
+            this.updateValues = (link, value) => { // update value , value is the slider tick index
+                console.log(this)
+                var queryFrame = $(this).closest('.query-frame');
+                if (value_map[value] === undefined) {
+                    queryFrame.find('[data-link=' + class_ + ']').val(this.labels[value])
                 } else (
-                    queryFrame.find('[data-link=' + class_ + ']').val(value_map[initial_tick-1])
+                    queryFrame.find('[data-link=' + class_ + ']').val(value_map[value])
                 )
+                if (class_ === "slider-time") { // update time interval in the query frame
+                    console.log("updating time interval")
+                    var elementsWithDatasetAttribute = queryFrame.find('[data-type="time-interval"]');
+                    console.log(elementsWithDatasetAttribute)
+                    console.log(value)
+                    console.log(value_map[value])
+                    elementsWithDatasetAttribute[0].innerText = value_map[value];
+                }
+            }
+            let sliderElement = this
+            $(this).slider({
+                range: "min",
+                value: initial_tick,
+                min: 0,
+                max: n_ticks-1,
+                step: 1,
+                slide: function (event, ui) {
+                    sliderElement.updateValues(class_, ui.value)
+                }
+            });
 
+            // add update labels to slider element
+            this.updateLabels = labels => {
+                //labels = ["Min", "H", "D", "W", "M"]
+                this.labels = labels
+                let n_ticks = labels.length
+                let initial_tick = Math.floor(n_ticks / 2)
+
+                const ticks = this.nextElementSibling
+                console.log("updating labels", this, ticks)
+
+                ticks.innerHTML = ""
+                //append grid 2 lines 5 columns
+                flexContainer = document.createElement("div")
+                flexContainer.classList.add("flex-container")
+                flexContainer.style.display = "flex"
+                flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
+
+                const flexContainer2 = flexContainer.cloneNode(true)
+
+                flexItem = document.createElement("div")
+                flexItem.classList.add("flex-item")
+                flexItem.style.flex = "1";
+                flexItem.style.border = "None";
+                flexItem.style.height = "10px";
+                flexItem.style.verticalAlign = "top";
+                flexItem.style.overflowY = "hidden";
+                flexItem.innerHTML = "<div class='vl'> </div>"
+
+                for (i in labels) {
+                    var label = labels[i]
+                    var flexItem2 = flexItem.cloneNode(true)
+                    flexItem2.innerHTML = "<div>" + label + "</div>"
+                    flexItem2.style.overflowY = "visible";
+                    flexContainer2.appendChild(flexItem2)
+                }
+                for (i = 0; i < n_ticks; i++) {
+                    flexContainer.appendChild(flexItem.cloneNode(true))
+                }
+                ticks.appendChild(flexContainer)
+                flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
+                flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
+                flexContainer2.style.textAlign = "center"
+                ticks.appendChild(flexContainer2)
+
+                $(this).slider("option", "max", n_ticks-1);
+                $(this).slider("option", "value", initial_tick);
+                $(this).slider("option", "min", 0);
+
+                this.updateValues(class_, initial_tick)
             }
 
-            {#const ticks = $(SliderElement).nextElementSibling#}
-        });
-
-        // create the tickz
-        //sliders = document.getElementsByClassName(class_)
-        let slider = SliderElement//sliders[sliders.length - 1]
-        const ticks = slider.nextElementSibling
-
-        if (!reInit && ticks.hasChildNodes()) {
-            console.log("sckippt reintialization")
-            return
-        }
-        ticks.innerHTML = ""
-        //append grid 2 lines 5 columns
-        flexContainer = document.createElement("div")
-        flexContainer.classList.add("flex-container")
-        flexContainer.style.display = "flex"
-        flexContainer.style.marginRight = -100 / (n_ticks - 0.9) + "%"
-
-        const flexContainer2 = flexContainer.cloneNode(true)
-
-        flexItem = document.createElement("div")
-        flexItem.classList.add("flex-item")
-        flexItem.style.flex = "1";
-        flexItem.style.border = "None";
-        flexItem.style.height = "10px";
-        flexItem.style.verticalAlign = "top";
-        flexItem.style.overflowY = "hidden";
-        flexItem.innerHTML = "<div class='vl'> </div>"
-
-        for (i in labels) {
-            var label = labels[i]
-            var flexItem2 = flexItem.cloneNode(true)
-            flexItem2.innerHTML = "<div>" + label + "</div>"
-            flexItem2.style.overflowY = "visible";
-            flexContainer2.appendChild(flexItem2)
-        }
-        for (i = 0; i < n_ticks; i++) {
-            flexContainer.appendChild(flexItem.cloneNode(true))
-        }
-        ticks.appendChild(flexContainer)
-        flexContainer2.style.marginLeft = -100 / (labels.length - 1) / 2 + "%"
-        flexContainer2.style.marginRight = -100 / (labels.length - 1) / 2 + "%"
-        flexContainer2.style.textAlign = "center"
-        ticks.appendChild(flexContainer2)
-    }
-
-    function updateLabels(labels) {
-        //labels = ["Min", "H", "D", "W", "M"]
-        n_ticks = labels.length
-        console.log(this)
+            this.updateLabels(labels)
+        })
     }
 
     function get_slider_values(element) {
