@@ -59,11 +59,9 @@
 
                     <select id="feature" style="width: 30%;" class="form-control" name="dataType"
                             onchange="handleFormSubmit(event)">
-
-                        <option value="repeats">Repeats</option>
-                        <option value="scarsity">Missing Values</option>
-                        {#                        <option value="outliers">Outliers</option>#}
-                        <option value="delta">Delta</option>
+                        {% for feature in features %}
+                        <option value={{ feature.0 }}> {{ feature.1 }}</option>
+                        {% endfor %}
 
                     </select>
 
@@ -128,7 +126,8 @@
         }
 
 
-        let feature = 'repeats';
+        let feature =  '{{ features.0.0 }}'
+        console.log("FEAAATURES" , feature)
         let datasets = {{ compression_datasets|safe }};
 
         let compressionManager = new CompressionManager(datasets[0], feature, "");
@@ -150,7 +149,8 @@
 
         document.getElementById("dataset-select").addEventListener("change", function (event) {
             event.preventDefault();
-            compressionManager = new CompressionManager(event.target.value, feature, "");
+            let current_creature = compressionManager.feature ? compressionManager.feature : feature
+            compressionManager = new CompressionManager(event.target.value, current_creature, "");
         });
 
 

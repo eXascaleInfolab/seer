@@ -10,3 +10,7 @@ repeats_10 10.26MiB .904314210s
 repeats_30 9.38MiB .915101908s
 repeats_70 5.40MiB .862178305s
 repeats_90 2.24MiB .900652508s
+outliers_1 10.47MiB .901558330s
+outliers_2 10.52MiB .890815042s
+outliers_5 10.70MiB .868306165s
+outliers_10 10.99MiB .894317709s

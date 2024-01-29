@@ -16,6 +16,8 @@
                 console.log("data")
 
                 this.data = response.data
+                this.initialDataSet = response.initial_dataset
+
                 this.levels = Object.keys(this.data);
 
                 this.levels = this.levels.sort((a, b) => {
@@ -24,14 +26,11 @@
                     return numA - numB;
                 });
 
-                console.log("levels", this.levels)
                 this.currentLevel = this.levels[0];
 
-                console.log(this.data)
-                console.log(this.levels)
                 console.log("curr", this.currentLevel)
-                this.initialDataSet = this.data[this.currentLevel]["data"];
 
+                console.log("intial data" ,  this.initialDataSet)
                 this.columns = Object.keys(this.initialDataSet).filter((key) => {
                     return key !== 'time';
                 });
@@ -70,7 +69,7 @@
                     },
 
                     title: {
-                        text: ""//this.title
+                        text: ""
                     },
                     xAxis: {
                         type: 'datetime',
@@ -119,7 +118,6 @@
                             text: '1h'
                         }],
                     },
-
                 },
             );
             this.setChartExtremes()
