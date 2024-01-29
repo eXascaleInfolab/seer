@@ -1,1 +1,1 @@
-Conductivity Series augmentend.
+Conductivity Time Series augmentend using TSM-LSH. The original file size of the data is 24MB.

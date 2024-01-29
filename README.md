@@ -31,7 +31,7 @@ docker restart  $container_id
 
 Open the django shell
 ```bash
-docker exec -it $container_id  python3 manage.py shell
+docker exec -it $container_id python3 manage.py shell
 ```  
 
 Inside the shell execute the following commands:
@@ -98,7 +98,7 @@ cd ../..
 
 ###  Timescaledb
 In the docker compose file make sure the datasets volume is
-mapped to the volume where the dataset is.
+mapped to the volume where the dataset is located.
 
 ```shell
 dataset='d1'
