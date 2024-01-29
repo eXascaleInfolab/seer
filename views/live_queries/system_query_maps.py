@@ -11,7 +11,7 @@ from systems import clickhouse, timescaledb, influx, monetdb
 # host differ whetever using docker and if using docker the host is the name of the container or path to the host of the docker
 hosts = {"clickhouse": "clickhouse" if os.getenv("using_docker") else "localhost",
          "timescaledb": "timescaledb" if os.getenv("using_docker") else "localhost",
-         "influx": os.getenv("DOCKER_HOST", "localhost"),
+         "influx": "localhost" , #os.getenv("DOCKER_HOST", "localhost"),
          "monetdb": os.getenv("DOCKER_HOST", "localhost"),
          }
 

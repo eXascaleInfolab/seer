@@ -44,7 +44,6 @@ load_offline_query_data()
 
 ## Live Evaluation  setup
 
-
 Create dataset d1 that is used for the live query evaluation.
 ```shell
 cd query_data/live_queries
@@ -116,4 +115,27 @@ docker exec -it timescaledb-demo psql -U postgres -c "COPY $dataset FROM '/datas
 
 ```shell
 docker exec -it timescaledb-demo psql -U postgres -c "SELECT hypertable_size('$dataset') ;"
+```
+
+
+### Influx (To be tested)
+Our Influx version requires python3.8 That is why we load it directly in the main docker-container
+
+```shell
+cd systems/influx
+chmod +x install.sh
+chmod +x launch.sh
+chmod +x load.sh
+chmod +x compression.sh
+
+docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/install.sh
+docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/launch.sh
+
+#check if it works
+curl -G http://localhost:8083/query --data-urlencode "q=SHOW DATABASES"
+
+
+docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/load.sh
+
+docker exec djangoproject_app_1  /usr/src/app/systems/influx/compression.sh
 ```

@@ -1,6 +1,11 @@
 #!/bin/sh
 
 
+DIR="$(dirname "$0")"
+
+# Change to the script's directory
+cd "$DIR"
+
 log_file="influxdb.log"
 > "$log_file"
 

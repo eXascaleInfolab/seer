@@ -5,10 +5,15 @@ FROM python:3.8-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Install curl
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory in the container
+# Install curl, sudo, and procps
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y curl wget sudo procps influxdb && \
+    rm -rf /var/lib/apt/lists/*
+
+
+# Set the working directory in the containerdocker-compose up --build
 WORKDIR /usr/src/app
 # Copy the current directory contents into the container at /usr/src/app
 #COPY . /usr/src/app
@@ -22,5 +27,9 @@ RUN pip install docker
 RUN pip install psycopg2-binary
 RUN pip install influxdb
 RUN pip install pymonetdb
+
+
+
+
 # Run the application
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

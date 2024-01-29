@@ -15,6 +15,9 @@ services:
     volumes:
       - .:/usr/src/app
       - static_volume:/usr/src/app/static
+      - influxdb_data:/var/lib/influxdb
+    ports:
+      - "8083:8086"
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
@@ -60,5 +63,5 @@ services:
 volumes:
   static_volume:
   clickhouse_data:
-
+  influxdb_data:
 

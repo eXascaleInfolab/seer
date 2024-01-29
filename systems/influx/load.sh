@@ -1,7 +1,11 @@
 #!/bin/sh
 
 # THE FOLLOWING SCRIPT WILL SETUP AND LOAD D1, TO LOAD D2 UNCOMMENT THE LINES BELOW 
-sh launch.sh
+DIR="$(dirname "$0")"
+
+# Change to the script's directory
+cd "$DIR"
+
 
 dataset="d1"
 if [ $# -ge 1 ]; then

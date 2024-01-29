@@ -1,18 +1,22 @@
 #!/bin/sh
 
-sudo killall --user influxdb
-sudo killall --user telegraf
-sudo kill -9 $(sudo lsof -t -i:8080)
-ps -ef | grep 'influx' | grep -v grep | awk '{print $2}' | sudo xargs -r kill -9
+#sudo killall --user influxdb
+#sudo killall --user telegraf
+#sudo kill -9 $(sudo lsof -t -i:8080)
+#ps -ef | grep 'influx' | grep -v grep | awk '{print $2}' | sudo xargs -r kill -9
+#
+#sleep 10
+#
+#sudo systemctl stop influxd
+#
+#pip3 install influxdb
+#
+#sudo apt install influxdb
 
-sleep 10
+DIR="$(dirname "$0")"
 
-sudo systemctl stop influxd
-
-pip3 install influxdb
-
-sudo apt install influxdb
-
+# Change to the script's directory
+cd "$DIR"
 
 wget https://dl.influxdata.com/influxdb/releases/influxdb-1.7.10_linux_amd64.tar.gz
 tar xvfz influxdb-1.7.10_linux_amd64.tar.gz
