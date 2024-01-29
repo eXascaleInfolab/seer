@@ -128,14 +128,17 @@ chmod +x launch.sh
 chmod +x load.sh
 chmod +x compression.sh
 
-docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/install.sh
-docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/launch.sh
+container_id=$(docker ps | grep app | awk '{print $1}') #or find id of "app" with docker ps
+echo "$container_id"
+
+docker exec -u root $container_id /usr/src/app/systems/influx/install.sh
+docker exec -u root $container_id /usr/src/app/systems/influx/launch.sh
 
 #check if it works
 curl -G http://localhost:8083/query --data-urlencode "q=SHOW DATABASES"
 
 
-docker exec -u root djangoproject_app_1 /usr/src/app/systems/influx/load.sh
+docker exec -u root $container_id /usr/src/app/systems/influx/load.sh
 
-docker exec djangoproject_app_1  /usr/src/app/systems/influx/compression.sh
+docker exec $container_id  /usr/src/app/systems/influx/compression.sh
 ```
