@@ -1,13 +1,13 @@
 {
   "title": "Temperature",
-  "description": "Records measuring water temperatures in Swiss water-sources",
+  "description": "Water temperature in Swiss water-sources",
   "link": "http://www.bafu.admin.ch/",
   "source": "FOEN",
   "sensors": 10,
   "stations": 10,
-  "datapoints": 109019,
+  "datapoints": 50000,
   "header": [
-    "Br",
+    "Brügg",
     "Mellingen",
     "Andelfingen",
     "Riazzino",

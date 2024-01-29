@@ -3,19 +3,19 @@
 
     <div class="query-sliders hide-online {{ classes }}">
         <div class="form-group">
-            <label for="station-slider"> # Stations:
+            <label for="station-slider">  &lt;station_list&gt; size:
                 {% include "parts/info.html" with text="Number of stations" %}
             </label>
             {% include "parts/slider.html" with id="stations" %}
         </div>
         <div class="form-group">
-            <label for="sensor-slider"> # Sensors:
+            <label for="sensor-slider">&lt;sensor_list&gt; size:
                 {% include "parts/info.html" with text="Number of sensors" %}
             </label>
             {% include "parts/slider.html" with id="sensors" %}
         </div>
         <div class="form-group">
-            <label for="sensor-slider">Time Range
+            <label for="sensor-slider">Range:
                 {% include "parts/info.html" with text="Time Interval" %}
             </label>
             {% include "parts/slider.html" with id="time" %}
