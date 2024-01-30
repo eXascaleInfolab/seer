@@ -120,7 +120,8 @@
 
         // check of has key "online"
         if (newData.online) {
-            const online_data_array = [newData.online.influx, newData.online.questdb, newData.online.timescaledb, newData.online.monetdb, newData.online.extremedb, newData.online.clickhouse]
+            chart.xAxis[0].setCategories(Object.keys(newData.online));
+            const online_data_array = Object.keys(newData.online).map(key => newData.online[key])
             chart.addSeries({
                 name: "online",
                 data: online_data_array,

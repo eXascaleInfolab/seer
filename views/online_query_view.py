@@ -59,6 +59,7 @@ class OnlineQueryView(OfflineQueryView):
 
         result = {INFLUX: -1, QUESTDB: -1, TIMESCALEDB: -1, MONETDB: -1, EXTREMEDB: -1, CLICKHOUSE: -1}
         result.update(query_data)
+        result = { k : v for k,v in result.items() if v > 0 }
         result = {"data" : {"online": result}}
 
         # return json respone
