@@ -67,10 +67,11 @@ class OfflineQueryView(View):
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
         result = {"data": {}}
+
+
+        runtimes_list = []
         for i, entry in enumerate(data):
             parsed_entry = self.parse_entry(entry)
-            print(parsed_entry)
-            print("DATSET", parsed_entry["dataset"])
             dataset =  self.data_set_map[parsed_entry["dataset"]]
             runtimes = QueryModel.get_all_system_runtimes(dataset=dataset,
                                                           query="q" + parsed_entry["query"],
@@ -79,8 +80,14 @@ class OfflineQueryView(View):
                                                           time_range=parsed_entry["rangeUnit"]
                                                           )
 
-            print(runtimes)
-            result["data"][self.query_name(i)] = runtimes
+            runtimes = { k : v  for k,v in runtimes.items() if v > 0 }
+            runtimes_list.append(runtimes)
 
+        common_keys = set.intersection(*(set(d.keys()) for d in runtimes_list))
+        filtered_list_of_dicts = [{k: d[k] for k in common_keys} for d in runtimes_list]
+
+        for i , d in enumerate(filtered_list_of_dicts):
+            result["data"][self.query_name(i)] = d
+        print(filtered_list_of_dicts)
         return JsonResponse(result)
 

@@ -127,14 +127,12 @@
                 showInLegend: true  // show legend
             }, false);
 
-        } else {
+        } else { //[query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
             let frequencies = getFrequencies()
-
             Object.keys(newData).forEach(query => {
                 const query_runtime = newData[query]
-                const runtime_data = [query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
-
-
+                let runtime_data =  Object.keys(query_runtime).map(key => query_runtime[key])
+                chart.xAxis[0].setCategories(Object.keys(query_runtime));
 
                 let f = frequencies.pop(0)
                 runtime_data.map((runtime, index) => {
@@ -150,10 +148,9 @@
             })
 
 
-
         }
 
-       chart.redraw();
+        chart.redraw();
 
     }
 </script>
