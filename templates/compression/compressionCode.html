@@ -240,7 +240,7 @@
                             id: sensor + level,
                             data: newChartData,
                             linkedTo: sensor,
-                            visible: counter === 0,
+                            {#visible: counter === 0,#}
                             showInLegend: false,
                             color: used_colors[counter]
                         });

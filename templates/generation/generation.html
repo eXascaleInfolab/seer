@@ -71,7 +71,7 @@
 
                 let visible = true
                 newData.forEach(d => {
-                    if(visible){
+                    if (visible) {
                         dataChart.series[0].update({data: d.data})
                     }
                     console.log("adding series", d.name)
@@ -197,11 +197,11 @@
             },
             xAxis: {
                 type: 'datetime',
-                minRange: 7000,
-                maxRange: 7000 * 10,
+                {#minRange: 10*1000*7000,#}
+                {#maxRange: 10*1000*7000*10,#}
                 events: {
                     afterSetExtremes: function (e) {
-                        var maxDistance = 7000 * 10; //8 months time
+                        var maxDistance = 10 * 1000 * 7000; //8 months time
                         var xaxis = this;
                         if ((e.max - e.min) > maxDistance) {
                             var min = e.max - maxDistance;
@@ -222,7 +222,7 @@
                 enabled: true,
                 verticalAlign: 'top',
             },
-            series: [{visible:false, showInLegend:false, name: "", data: []}],
+            series: [{visible: false, showInLegend: false, name: "", data: []}],
             navigator: {
                 enabled: true, // Set to true to enable the navigator
             },
@@ -231,6 +231,8 @@
             },
             plotOptions: {
                 series: {
+                    pointStart: Date.UTC(2020, 0, 1),
+                    pointInterval: 1000 * 10,
                     events: {
                         show: (function () {
                             const s = this
@@ -239,9 +241,8 @@
                                 {#if (series.name.includes("Navigator")) return;#}
                                 if (series != s && index != 0) {
                                     series.hide()
-                                }
-                                else {
-                                    document.getElementById("selected-series").value = index-1 // ignore first sereis place holder
+                                } else {
+                                    document.getElementById("selected-series").value = index - 1 // ignore first sereis place holder
                                 }
                             })
                         })
@@ -253,10 +254,17 @@
 
 
         function getRange() {
-            let {min, max, dataMin, dataMax} = dataChart.xAxis[0].getExtremes();
-            let min_ = Math.max(min, dataMin)
-            let max_ = Math.min(max, dataMax)
-            return {max: max_, min: min_}
+            {#let {min, max, dataMin, dataMax} = dataChart.xAxis[0].getExtremes();#}
+            {#let min_ = Math.max(min, dataMin)#}
+            {#let max_ = Math.min(max, dataMax)#}
+            let max_ = dataChart.series[1].data.findIndex(point => point.x >= dataChart.xAxis[0].getExtremes().max)
+            if(max_ < 0){
+                max_ = dataChart.series[1].data.length -1
+            }
+            return {
+                max: max_,
+                min: dataChart.series[1].data.findIndex(point => point.x >= dataChart.xAxis[0].getExtremes().min)
+            }
         }
 
 
