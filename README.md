@@ -1,50 +1,47 @@
+
+# SEER
+
+SEER is an online tool to evaluate the performance of time series database systems on large datasets.
+This tool was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland. 
+
 # Setup 
 
-modify the .env file
-- specify a django key
-- provide the path to your dataset folder (used for the live evaluation)
-```bash
-vim .env
-```  
+Clone this repository.
 
 ## launch
-
 ```bash
 docker-compose up -d --build
 ```  
 The Website should be running under http://localhost:12007
 
-## Collect static files, create admin account and migrate the database
+
+## Collect static files and initialize django models
 
 ```bash
-container_id=$(docker ps | grep app | awk '{print $1}') #or find id of "app" with docker ps
+container_id=$(docker ps | grep app | awk '{print $1}') #or find id of "app" using docker ps
 echo "$container_id"
 docker exec -it $container_id  python3 manage.py collectstatic
 docker exec -it $container_id  python3 manage.py makemigrations
 docker exec -it $container_id  python3 manage.py migrate
-docker exec -it $container_id  python3 manage.py createsuperuser
 
-docker restart  $container_id
+docker exec -it $container_id  python3 manage.py createsuperuser (optional)
 ```
 
 ## Load query data into django models
-
 Open the django shell
 ```bash
 docker exec -it $container_id python3 manage.py shell
-```  
-
+```
 Inside the shell execute the following commands:
 ```python
 from djangoProject.models.load_query_data import load_offline_query_data
 load_offline_query_data()
 ```
-
-
+Quit the django shell using Ctr-Z
 
 ## Live Evaluation  setup
 
-Create dataset d1 that is used for the live query evaluation.
+Create the dataset d1 that is used for the live query evaluation.
 ```shell
 cd query_data/live_queries
 sh build_d1.sh
@@ -60,7 +57,7 @@ dataset='d1'
 source .env #read the Dataset path from the env file, timescale db does this when docker ist started already
 ```  
 
-Optional drop the table if it exists
+Drop the table if it exists. This is not needed on initial setup.
 ```bash 
 docker exec -it clickhouse-demo clickhouse-client --query "DROP TABLE IF EXISTS $dataset;"
 ```  
@@ -79,21 +76,10 @@ Load the data:
 docker exec -i clickhouse-demo clickhouse-client --format_csv_delimiter="," -q "INSERT INTO $dataset FORMAT CSV" < $DATASET_PATH/$dataset.csv
 ```  
 
-You can check that the data is loaded correctly by checking its compression in the Database
+You can check that the data is loaded correctly by checking its compression in the Database.
 ```bash
 docker exec -it clickhouse-demo clickhouse-client --query "SELECT table, formatReadableSize(sum(bytes)) as size FROM system.parts WHERE active AND table='$dataset' GROUP BY table;"
 ```  
-
-###  Monetdb
-```bash
-
-cd systems/monetdb
-sh install.sh 
-sh launch.sh
-sh load.sh 
-cd ../..
-```  
-
 
 ###  Timescaledb
 In the docker compose file make sure the datasets volume is
@@ -120,25 +106,40 @@ docker exec -it timescaledb-demo psql -U postgres -c "SELECT hypertable_size('$d
 
 ### Influx (To be tested)
 Our Influx version requires python3.8 That is why we load it directly in the main docker-container
-
+First we need to change the permission of the files, under Linux and Mac use:
 ```shell
 cd systems/influx
 chmod +x install.sh
 chmod +x launch.sh
 chmod +x load.sh
 chmod +x compression.sh
+cd ../..
+```
 
+Install the database inside the docker container.
+```shell
 container_id=$(docker ps | grep app | awk '{print $1}') #or find id of "app" with docker ps
 echo "$container_id"
 
 docker exec -u root $container_id /usr/src/app/systems/influx/install.sh
 docker exec -u root $container_id /usr/src/app/systems/influx/launch.sh
 
-#check if it works
+#check if it influx is running
 curl -G http://localhost:8083/query --data-urlencode "q=SHOW DATABASES"
 
 
 docker exec -u root $container_id /usr/src/app/systems/influx/load.sh
 
+#check the compression
 docker exec $container_id  /usr/src/app/systems/influx/compression.sh
 ```
+
+
+###  Monetdb
+```bash
+cd systems/monetdb
+sh install.sh 
+sh launch.sh
+sh load.sh 
+cd ../..
+```  
