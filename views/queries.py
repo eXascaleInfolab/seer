@@ -79,6 +79,7 @@ class OfflineQueryView(View):
                                                           time_range=parsed_entry["rangeUnit"]
                                                           )
 
+            print(runtimes)
             result["data"][self.query_name(i)] = runtimes
 
         return JsonResponse(result)
