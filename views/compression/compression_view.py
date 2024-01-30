@@ -20,7 +20,7 @@ class CompressionView(View):
         'title': 'Compression View',
         "compression_datasets": compression_datasets,
         'features': [("scarsity", "Missing Values"), ("outliers", "Outliers"), ("repeats", "Repeats"),
-                     ("delta", "Mean Delta")]
+                     ("delta", "Mean Delta")] # (feature name , feature displayy name) the name has to match the name of the folder in compression_data/ts/dataset_name
     }
     template = loader.get_template('compression/compression.html')
 

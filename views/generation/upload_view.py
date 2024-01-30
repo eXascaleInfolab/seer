@@ -32,6 +32,10 @@ def upload_datasets(request):
             elif 'synthetic' in file.name:
                 synthetic_file = file
 
+        if original_file is None or synthetic_file is None:
+            return HttpResponse("Please upload both original and synthetic dataset")
+
+
         headers = []
         if original_file:
             fs = FileSystemStorage(location=folder)
