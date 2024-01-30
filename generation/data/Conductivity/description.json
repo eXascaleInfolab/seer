@@ -3,9 +3,9 @@
   "description": "Electrical conductivity in Swiss water-sources",
   "link": "http://www.bafu.admin.ch/",
   "source": "FOEN",
-  "sensors": 10,
+  "sensors": 14,
   "stations": 10,
-  "datapoints": 109019,
+  "datapoints": 150000,
   "header": [
     "Laufenburg",
     "Brugg",

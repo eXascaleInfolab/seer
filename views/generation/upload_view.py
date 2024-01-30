@@ -76,4 +76,4 @@ def upload_datasets(request):
         store_description(description_dict)
 
         # return generation view with dataset=title
-        return redirect('/generation/{title}')   #   GenerationView().get(request, title)
+        return redirect(f'/generation/{title}')   #   GenerationView().get(request, title)
