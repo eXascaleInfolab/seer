@@ -74,7 +74,7 @@ The installation and loading of the systems for the live execution setup can be 
 
 - To add datasets to the time series generation: [link](generation/README.md).
 
-### New Systems' results
+### New System's results
 - offline
 1. Go to `query_data/offline_queries` folder:
 2. Select the dataset folder and add the results of the system in a file system_name.csv
