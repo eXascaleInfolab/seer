@@ -62,7 +62,8 @@ sh setup/migrate_query_data.sh
 
 
 ###  Live Systems Configuration
-Installing and loading the systems for the Live Execution Setup can be found [here](systems/README.md).
+
+The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
 
 ### Adding data to the tool
