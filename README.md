@@ -23,7 +23,7 @@ ___
 sh setup/install_docker.sh
 ```  
 
-- build the app and launch it
+- build the app and start it
 ```bash
 docker-compose up -d --build
 ```
