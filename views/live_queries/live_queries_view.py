@@ -8,7 +8,12 @@ import numpy as np
 
 old_result = None
 
-ENABLED_SYSTEMS = ["clickhouse", "timescaledb"]
+## systems to enable in the form
+ENABLED_SYSTEMS = ["clickhouse", "timescaledb" , "influx" , "monetdb"]
+
+## mesage to be displayed on the page in the info button next to the systems Label
+systems_message = "Due to the limited resources of the server, we can not run all systems at the same time."
+
 
 class LiveQueryView(OfflineQueryView):
     context = {
@@ -20,7 +25,8 @@ class LiveQueryView(OfflineQueryView):
         "station_ticks": [2, 4, 6, 8, 10],
         "sensor_ticks": [1, 20, 40, 60, 80, 100],
         "time_ticks": ["Min", "H", "D", "W"],
-        "ENABLED_SYSTEMS" : ENABLED_SYSTEMS
+        "ENABLED_SYSTEMS" : ENABLED_SYSTEMS,
+        "systems_message" : systems_message
     }
 
 

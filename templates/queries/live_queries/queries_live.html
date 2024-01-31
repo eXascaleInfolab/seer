@@ -2,11 +2,23 @@
 {% load static %}
 
 {% block evaluate %}
+    <style>
 
+        .popover {
+            width: 300px; /* Adjust the width as needed */
+            /* Add any other custom styles you want */
+        }
+
+    </style>
+    </style>
     <div class="row" style="width:50%">
         <div class="form-group">
             <label for="system-select"> System
-                {#                            {% include "parts/info.html" with text="Ingestion Speed" %}#}
+                <div style="position: relative">
+                    <div style=" position:absolute;right:-22px;top: -25px"
+                         class=" form-info  mdi mdi-information-outline mdi-18px"
+                         data-content="{{ systems_message }}"></div>
+                </div>
             </label>
             <select class="form-control" id="system-select">
                 {% for system in systems %}

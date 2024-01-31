@@ -70,8 +70,8 @@ def launch():
     
     with change_directory(__file__):
         main_process = Popen(['sh', 'launch.sh' ], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-        process = Popen(['sleep', '20'], stdin=PIPE, stdout=DEVNULL, stderr=STDOUT)
-        stdout, stderr = process.communicate()
+        #process = Popen(['sleep', '20'], stdin=PIPE, stdout=DEVNULL, stderr=STDOUT)
+        #stdout, stderr = process.communicate()
 
 def stop():
     print("shutting down")
