@@ -9,7 +9,7 @@ import numpy as np
 old_result = None
 
 ## systems to enable in the form
-ENABLED_SYSTEMS = ["clickhouse", "timescaledb" , "influx" , "monetdb"]
+ENABLED_SYSTEMS = ["clickhouse"]
 
 ## mesage to be displayed on the page in the info button next to the systems Label
 systems_message = "Due to the limited resources of the server, we can not run all systems at the same time."
