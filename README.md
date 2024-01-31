@@ -34,7 +34,7 @@ docker-compose up -d --build
 ### Collect static files and initialize django models
 
 ```bash
-sh setup/init_tool.sh
+sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
 
@@ -76,8 +76,34 @@ The installation and loading of the systems for the live execution setup can be 
 
 ### New Systems' results
 - offline
-- online
+1. Go to `query_data/offline_queries` folder:
+2. Select the dataset folder and add the results of the system in a file system_name.csv
+    the file contains the following columns:
+    - runtime: the computed runtime of the query
+    - variance: the variance of the query
+    - query: the query e.g q4
+    - n_s : the number of sensors
+    - n_st : the number of stations
+    - timerange : the time range of the query
+3. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
+4. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 10).
+5. Load the query data into the django models
+   ```bash
+   sh setup/sh setup/migrate_query_data.sh
+   ```
 
+- online
+1. Go to `query_data/online_queries` folder:
+2. Select the dataset folder and add the results of the system in a file system_name.csv
+    the file contains the following columns:
+    - runtime: the computed runtime of the query
+    - variance: the variance of the query
+    - query: the query e.g q4
+    - n_s : the number of sensors
+    - n_st : the number of stations
+    - timerange : the time range of the query
+    - insertion_rate: the ingestion rate 
+3. Go to `views/online_queries_view.py` update the context of the query class and add the system to systems (line 38).
 
 ## Useful commands
 

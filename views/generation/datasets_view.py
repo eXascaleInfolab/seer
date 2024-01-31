@@ -31,7 +31,7 @@ class DatasetsDisplayView(View):
     context = {
         'SEER': 'TSM - Datasets',
     }
-    template = loader.get_template('generation/datasetsForDisplay.html')
+    template = loader.get_template('generation/datasets.html')
 
     def get(self, request):
         self.context['data_sets'] = data_sets
@@ -45,7 +45,7 @@ class GenerationDatasetsView(DatasetsDisplayView):
     context = {
         'title': 'SEER - Datasets',
     }
-    template = loader.get_template('generation/datasetsForGeneration.html')
+    template = loader.get_template('generation/generation-datasets.html')
 
     def get(self, request):
         self.context['data_sets'] = data_sets

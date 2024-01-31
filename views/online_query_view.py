@@ -6,7 +6,7 @@ from django.template import loader
 from utils.CONSTANTS import INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE, DRUID
 import json
 
-from views.queries import OfflineQueryView
+from views.offline_query_view import OfflineQueryView
 
 def get_query_data(q_n, ingestion_rate, dataset="d1"):
     folder = f"query_data/online_queries/{dataset}"
