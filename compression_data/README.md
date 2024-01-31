@@ -9,10 +9,7 @@
 5. Create a folder with the name of your dataset
 6. For each system, add the files that contain the compression results.
 
-
-
-# Folder Structure Example 
-
+# Folder Structure Example
 ```
 comressions
 ├── conductivity
