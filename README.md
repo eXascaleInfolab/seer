@@ -23,12 +23,12 @@ ___
 sh setup/install_docker.sh
 ```  
 
-- build the app and start it
+- Build the app and start it
 ```bash
 docker-compose up -d --build
 ```
 
-- launch the tool through http://localhost:12007. If the tool is not available, make sure that docker is properly installed.
+- Launch the tool via http://localhost:12007. If the tool is not available, make sure that docker is properly installed
 
 
 ### Collect static files and initialize django models
