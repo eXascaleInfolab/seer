@@ -61,7 +61,7 @@ sh setup/migrate_query_data.sh
 [//]: # (Quit the django shell using Ctr-Z.)
 
 
-###  Live Systems and compression setup 
+###  Live Systems Configuration
 Installing and loading the systems for the Live Execution Setup can be found [here](systems/README.md).
 
 
