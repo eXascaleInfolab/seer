@@ -42,7 +42,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ${DATASET_PATH}:/datasets
+      - query_data/live_queries:/datasets
     environment:
       - POSTGRES_PASSWORD=postgres
     restart: always
