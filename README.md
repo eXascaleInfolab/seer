@@ -66,9 +66,13 @@ sh setup/migrate_query_data.sh
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
 
-### Adding data to the tool
-The description on how to add the feature compression datasets can be found here  [here](compression_data/README.md).
-The description add data to the time series generation can be found here  [here](generation/README.md).
+## SEER Extension
+
+### New Datasets
+
+- To add datasets to the feature compression: [link](compression_data/README.md).
+
+- To add datasets to the time series generation: [link](generation/README.md).
 
 
 ## Useful commands
