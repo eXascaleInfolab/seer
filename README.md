@@ -74,10 +74,20 @@ The installation and loading of the systems for the live execution setup can be 
 
 - To add datasets to the time series generation: [link](generation/README.md).
 
+### New Systems' results
+- offline
+- online
+
 
 ## Useful commands
 
 ### Open the django shell to run python code in tools environment
+
+```bash
+docker ps
+```
+
+Replace $container_id with the id of the app container and run 
 
 ```bash
 docker exec -it $container_id python3 manage.py shell
