@@ -9,7 +9,7 @@ ___
 ###  Prerequisites
 [//]: # (- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM)
 - Clone this repository 
-- Docker and Docker-Compose
+- Install Docker and Docker-Compose
 ___
 
 
