@@ -66,3 +66,36 @@ ts=2024-01-31T11:51:22.762428Z lvl=info msg="Listening on HTTP" log_id=0n3qacRl0
 ts=2024-01-31T11:51:22.762458Z lvl=info msg="Starting retention policy enforcement service" log_id=0n3qacRl000 service=retention check_interval=30m
 ts=2024-01-31T11:51:22.762565Z lvl=info msg="Listening for signals" log_id=0n3qacRl000
 ts=2024-01-31T11:51:22.766117Z lvl=info msg="Sending usage statistics to usage.influxdata.com" log_id=0n3qacRl000
+ts=2024-01-31T12:01:22.761783Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG002 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.761806Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG003 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762032Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW000 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762048Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW001 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762128Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW002 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.761784Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG000 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762238Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW003 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762284Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW005 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762302Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW006 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.761806Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG001 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.762251Z lvl=info msg="Cache snapshot (start)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW004 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-01-31T12:01:22.786840Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW002 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/61 duration=24.733ms
+ts=2024-01-31T12:01:22.786896Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW002 op_name=tsm1_cache_snapshot op_event=end op_elapsed=24.782ms
+ts=2024-01-31T12:01:22.787401Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW003 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/39 duration=25.189ms
+ts=2024-01-31T12:01:22.787428Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW003 op_name=tsm1_cache_snapshot op_event=end op_elapsed=25.206ms
+ts=2024-01-31T12:01:22.788767Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG000 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/60 duration=27.038ms
+ts=2024-01-31T12:01:22.788810Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG000 op_name=tsm1_cache_snapshot op_event=end op_elapsed=27.057ms
+ts=2024-01-31T12:01:22.806785Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG003 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/50 duration=45.017ms
+ts=2024-01-31T12:01:22.806832Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG003 op_name=tsm1_cache_snapshot op_event=end op_elapsed=45.055ms
+ts=2024-01-31T12:01:22.814022Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW005 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/52 duration=51.755ms
+ts=2024-01-31T12:01:22.814089Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW005 op_name=tsm1_cache_snapshot op_event=end op_elapsed=51.817ms
+ts=2024-01-31T12:01:22.819146Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW001 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/55 duration=57.117ms
+ts=2024-01-31T12:01:22.819360Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW001 op_name=tsm1_cache_snapshot op_event=end op_elapsed=57.329ms
+ts=2024-01-31T12:01:22.828942Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG002 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/56 duration=67.171ms
+ts=2024-01-31T12:01:22.829024Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG002 op_name=tsm1_cache_snapshot op_event=end op_elapsed=67.254ms
+ts=2024-01-31T12:01:22.831228Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG001 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/_internal/monitor/49 duration=69.467ms
+ts=2024-01-31T12:01:22.831271Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIG001 op_name=tsm1_cache_snapshot op_event=end op_elapsed=69.496ms
+ts=2024-01-31T12:01:22.836696Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW004 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/54 duration=74.451ms
+ts=2024-01-31T12:01:22.836732Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW004 op_name=tsm1_cache_snapshot op_event=end op_elapsed=74.486ms
+ts=2024-01-31T12:01:22.837167Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW000 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/59 duration=75.147ms
+ts=2024-01-31T12:01:22.837190Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW000 op_name=tsm1_cache_snapshot op_event=end op_elapsed=75.167ms
+ts=2024-01-31T12:01:22.837696Z lvl=info msg="Snapshot for path written" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW006 op_name=tsm1_cache_snapshot path=/home/ig/.influxdb/data/d1/autogen/58 duration=75.398ms
+ts=2024-01-31T12:01:22.837707Z lvl=info msg="Cache snapshot (end)" log_id=0n3qacRl000 engine=tsm1 trace_id=0n3rAHIW006 op_name=tsm1_cache_snapshot op_event=end op_elapsed=75.408ms
