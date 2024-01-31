@@ -29,10 +29,9 @@ data_sets = {
 
 class DatasetsDisplayView(View):
     context = {
-        'title': 'TSM - Datasets',
+        'SEER': 'TSM - Datasets',
     }
     template = loader.get_template('generation/datasetsForDisplay.html')
-    data_generation_sets = [("bafu", "Bafu"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
 
     def get(self, request):
         self.context['data_sets'] = data_sets
@@ -44,10 +43,9 @@ class DatasetsDisplayView(View):
 
 class GenerationDatasetsView(DatasetsDisplayView):
     context = {
-        'title': 'TSM - Datasets',
+        'title': 'SEER - Datasets',
     }
     template = loader.get_template('generation/datasetsForGeneration.html')
-    data_generation_sets = [("bafu", "Bafu"), ("conductivity", "Conductivity"), ("pH_accuracy", "pH_accuracy")]
 
     def get(self, request):
         self.context['data_sets'] = data_sets

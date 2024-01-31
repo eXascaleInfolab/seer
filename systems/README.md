@@ -1,13 +1,13 @@
 ### Systems code used for the Live-Query evaluation. 
 
-The code for the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
-some modification in influx/install.sh 
+The code for systems the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
+some modifications for example in influx/install.sh.  
 
 
 
 ## Live Evaluation  setup
 
-Create the dataset d1 that is used for the live query evaluation.
+Create the dataset d1 that is used for the live query evaluation. 
 ```shell
 cd query_data/live_queries
 sh build_d1.sh

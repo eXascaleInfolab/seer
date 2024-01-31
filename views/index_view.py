@@ -15,7 +15,7 @@ class IndexView(View):
     def get(self, request):
         template = loader.get_template('index.html')
         context = {
-            'title': 'Index Page',
+            'title': 'SEER',
             'heading': 'Welcome to the Index Page',
             'body': 'This is the body of the Index Page',
         }
@@ -25,7 +25,7 @@ class AboutView(View):
     def get(self, request):
         template = loader.get_template('about.html')
         context = {
-            'title': 'About Page',
+            'title': 'About SEER',
             'heading': 'Welcome to the About Page',
             'body': 'This is the body of the Index Page',
         }

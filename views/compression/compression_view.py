@@ -17,7 +17,7 @@ class CompressionView(View):
     data_cols = ['time', 's0', 's1', 's2', "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10"]
 
     context = {
-        'title': 'Compression View',
+        'title': 'SEER - Feature Impact',
         "compression_datasets": compression_datasets,
         'features': [("scarsity", "Missing Values"), ("outliers", "Outliers"), ("repeats", "Repeats"),
                      ("delta", "Mean Delta")] # (feature name , feature displayy name) the name has to match the name of the folder in compression_data/ts/dataset_name
@@ -31,8 +31,9 @@ class CompressionView(View):
     def post(self, request):
         """
         output:
-        data:  { dataset1 : { data : dataset , compression : { influx : value , clickhouse : value , ... } } ,
-                 dataset1 : { data : dataset , compression : { influx : value , clickhouse : value , ... } }
+        data:  { dataset_feature_value_1 : { data : dataset , compression : { influx : compression_value , clickhouse : compression_value , ... } } ,
+                 dataset2_feature_value_2 : { data : dataset , compression : { influx : compression_value , clickhouse : compression_value , ... } },
+        initial_dataset : dataset_feature_value_0 (this is the dataset without any modification)
         }
         """
 

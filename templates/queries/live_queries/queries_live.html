@@ -10,7 +10,9 @@
             </label>
             <select class="form-control" id="system-select">
                 {% for system in systems %}
-                    <option value="{{ system }}">{{ system }}</option>
+                    <option value="{{ system }}" {% if system not in ENABLED_SYSTEMS %}
+                            disabled
+                    {% endif %}>{{ system }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -52,7 +54,7 @@
                 input.value = selectedSystem;
                 form.appendChild(input);  // Append new input
             }
-              if (queryIterationsInput) {
+            if (queryIterationsInput) {
                 queryIterationsInput.value = queryIterations;  // Modify the existing input
             } else {
                 var input = document.createElement('input');

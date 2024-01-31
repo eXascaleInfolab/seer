@@ -21,7 +21,7 @@ time_stamps_options = [
 
 class OfflineQueryView(View):
     context = {
-        'title': 'Offline Queries',
+        'title': 'SEER - Offline Queries',
         'heading': 'Welcome to the Offline Queries Page',
         'body': 'This is the body of the Offline Queries Page',
         "classes": "offline-query",

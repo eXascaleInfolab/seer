@@ -241,7 +241,7 @@
                             data: newChartData,
                             linkedTo: sensor,
                             {#visible: counter === 0,#}
-                            showInLegend: false,
+                            showInLegend: true,
                             color: used_colors[counter]
                         });
                     } catch (e) {
@@ -299,7 +299,7 @@
                             data: newChartData,
                             linkedTo: sensor,
                             visible: counter === 0,
-                            showInLegend: false,
+                            showInLegend: true,
                             color: used_colors[counter]
                         });
                     } catch (e) {

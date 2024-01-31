@@ -1,55 +1,32 @@
-from utils.query_translator import load_query, timescaledb_query_parser, clickhouse_query_parser
 from views.live_queries.system_query_maps import run_query
 from views.queries import OfflineQueryView
 from django.http import JsonResponse
 from django.template import loader
 import json
-import time
 import random
-from clickhouse_driver import Client
 import numpy as np
-import os
 
 old_result = None
 
-dataset_config = {
-    "d1": {
-        "time_start_stop": [
-            "2019-04-30T00:00:00",
-            "2019-04-01T00:00:00"
-        ],
-        "n_stations": 10,
-        "n_sensors": 100
-    },
-    "d2": {
-        "time_start_stop": [
-            "2019-04-30T00:00:00",
-            "2019-04-01T00:00:00"
-        ],
-        "n_stations": 2000,
-        "n_sensors": 100
-    }
-
-}
-
+ENABLED_SYSTEMS = ["clickhouse", "timescaledb"]
 
 class LiveQueryView(OfflineQueryView):
     context = {
-        'title': 'Live Queries',
+        'title': 'SEER - Live Queries',
         'heading': 'Welcome to the Online Queries Page',
         "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
         "classes" : "live-query",
         "datasets": ["TempLong"],
         "station_ticks": [2, 4, 6, 8, 10],
         "sensor_ticks": [1, 20, 40, 60, 80, 100],
-        "time_ticks": ["Min", "H", "D", "W"]
+        "time_ticks": ["Min", "H", "D", "W"],
+        "ENABLED_SYSTEMS" : ENABLED_SYSTEMS
     }
 
 
     template = loader.get_template('queries/live_queries/queries_live.html')
 
     def post(self, request):
-        print("LAUNCHING LIVE QUERYs")
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
 

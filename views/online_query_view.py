@@ -30,7 +30,7 @@ def get_query_data(q_n, ingestion_rate, dataset="d1"):
 
 class OnlineQueryView(OfflineQueryView):
     context = {
-        'title': 'Online Queries',
+        'title': 'SEER - Online Queries',
         'heading': 'Welcome to the Online Queries Page',
         'body': 'This is the body of the Offline Queries Page',
         "datasets": ["Temp1"],

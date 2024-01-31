@@ -10,7 +10,7 @@ dataset_folder = "generation/data"
 
 class DatasetView(View):
     context = {
-        'title': 'TSM - Datasets',
+        'title': 'SEER - Datasets',
     }
 
     template = loader.get_template('generation/datasetDisplay.html')

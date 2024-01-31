@@ -43,7 +43,7 @@ def get_generated_data(seed, *, len_ts, nb_ts, num_hashtables=5, nb_top=3, hash_
 
 class GenerationView(View):
     context = {  # info box as in toml https://github.com/eXascaleInfolab/TSM-Bench/blob/main/generation/config.toml
-        'title': 'Generation using GAN',
+        'title': 'SEER Generation',
         "len_ts": ["1x", "2x", "5x", "10x"],
         "len_ts_default": "2x",
         "nb_ts": [1, 2, 5, 10],  #
