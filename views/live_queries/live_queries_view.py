@@ -26,7 +26,15 @@ class LiveQueryView(OfflineQueryView):
 
     template = loader.get_template('queries/live_queries/queries_live.html')
 
+    def get(self, request):
+        from systems import influx
+        print("launching influx")
+        influx.run_system.launch()
+        return super().get(request)
+
+
     def post(self, request):
+
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
 
