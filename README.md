@@ -28,7 +28,7 @@ sh setup/install_docker.sh
 docker-compose up -d --build
 ```
 
-- **Note**: If docker is properly installed, the tool should be available through http://localhost:12007
+- launch the tool through http://localhost:12007. If the tool is not available, make sure that docker is properly installed.
 
 
 ### Collect static files and initialize django models
