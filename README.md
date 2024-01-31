@@ -6,21 +6,24 @@ This tool was created at the eXascale Infolab, a research group at the Universit
 
 ## Setup
 ___
-###  Prerequisites
-[//]: # (- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM)
-- Clone this repository 
-- Install Docker and Docker-Compose
-___
+
+[//]: # (###  Prerequisites)
+
+[//]: # ([//]: # &#40;- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM&#41;)
+[//]: # (- Clone this repository )
+
+[//]: # (- Install Docker and Docker-Compose)
+
+[//]: # (___)
 
 
 ### launch
-
-- Install Docker and Docker-Compose
+- Install Docker and Docker-Compose if not already installed
 ```bash
-add script
+sh setup/install_docker.sh
 ```  
-- build docker compose
 
+- build the app and launch it
 ```bash
 docker-compose up -d --build
 ```
