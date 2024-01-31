@@ -14,10 +14,18 @@ ___
 
 
 ### launch
+
+- Install Docker and Docker-Compose
+```bash
+add script
+```  
+- build docker compose
+
 ```bash
 docker-compose up -d --build
-```  
-The Website should already be running under http://localhost:12007
+```
+
+- **Note**: If docker is properly installed, the tool should be available through http://localhost:12007
 
 
 ### Collect static files and initialize django models
