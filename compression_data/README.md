@@ -1,13 +1,17 @@
-# Compression Data Structure 
+# Steps
+1. Go to `ts` folder:
+2. Create a folder with the name of the dataset  and add the following files
+   - description.txt: contains the description of the dataset
+   - original.txt: contains the original data
+     
+3. For each feature, create a folder with the name of the feature and the datasets with the feature level
+4. Go to `compressions` folder
+5. Create a folder with the name of your dataset
+6. For each system, add the files that contain the compression results.
 
-The ts folder contains subfolders for each feature type and a file description.txt containing the description of the dataset and a file containing the original dataset.
-The compressions folder contains the compression results for each dataset (names need to match the dataset names).
-For each dataset and system there is a system.txt file containing all the compression results for each feature in the dataset.
 
-To upload a new DataSet you need to create a folder with the name of the dataset and add a file description.txt containing the description of the dataset and a file containing the original dataset.
-To upload a new compression result you need to create a folder with the name of the dataset and add a file {system}.txt for each system containing all the compression results for each feature in the dataset.
 
-## Example
+# Folder Structure Example 
 
 ```
 comressions
