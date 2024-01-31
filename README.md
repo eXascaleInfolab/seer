@@ -8,8 +8,8 @@ This tool was created at the eXascale Infolab, a research group at the Universit
 ___
 ###  Prerequisites
 [//]: # (- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM)
-- Clone this repository (this can take a couple of minutes)
-- Have Docker and Docker-Compose installed.
+- Clone this repository 
+- Docker and Docker-Compose
 ___
 
 
