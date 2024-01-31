@@ -1,13 +1,12 @@
 """
 load data from server if needed
+e.g
 scp -r luca@diufrm110:/localdata/TSM-Bench/utils/full_results/d1/influx.csv  ~/PycharmProjects/djangoProject/query_data/offline_queries/d1/
-
 """
 import struct
 
 from djangoProject.models import QueryModel
 import pandas as pd
-
 
 def load_offline_query_data(systems=("timescaledb", "extremedb", "influx", "questdb", "clickhouse", "druid", "monetdb"),
                             datasets=("d1", "d2")):

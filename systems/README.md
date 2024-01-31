@@ -1,8 +1,9 @@
 ### Systems code used for the Live-Query evaluation. 
 
 The code for systems the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
-some modifications for example in influx/install.sh.  
-
+some modifications:
+directory change in influx/install.sh.  
+timescaledb/postgres.con: increased the buffer size.
 
 
 ## Live Evaluation  setup
@@ -70,7 +71,7 @@ docker exec -it timescaledb-demo psql -U postgres -c "SELECT hypertable_size('$d
 ```
 
 
-### Influx (To be tested)
+### Influx 
 Our Influx version requires python3.8 That is why we load it directly in the main docker-container
 First we need to change the permission of the files, under Linux and Mac use:
 ```shell
@@ -111,3 +112,4 @@ cd ../..
 ```  
 
 [//]: # (<img img align="center" width="1000" height="400" src="vadetis_in_action.png" >)
+

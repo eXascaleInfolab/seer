@@ -63,6 +63,8 @@ def load_systems_compression(dataset):
     systems = {}
     for file in os.listdir(path):
         system_name = file.split('_')[0]
+        if system_name.endswith('.txt'):
+            system_name = system_name[:-4]
         if system_name not in compressed_systems:
             continue
         with open(os.path.join(path, file), 'r') as f:

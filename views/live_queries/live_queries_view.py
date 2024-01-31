@@ -1,5 +1,5 @@
 from views.live_queries.system_query_maps import run_query
-from views.queries import OfflineQueryView
+from views.offline_query_view import OfflineQueryView
 from django.http import JsonResponse
 from django.template import loader
 import json
