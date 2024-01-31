@@ -70,7 +70,7 @@ The description on how to add the feature compression datasets can be found here
 The description add data to the time series generation can be found here  [here](generation/README.md).
 
 
-## usefull commands
+## Useful commands
 
 ### Open the django shell to run python code in tools environment
 
