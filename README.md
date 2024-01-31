@@ -4,16 +4,20 @@
 SEER is an online tool to evaluate the performance of time series database systems on large datasets.
 This tool was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland. 
 
-## Setup 
+## Setup
+___
+###  Prerequisites
+[//]: # (- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM)
+- Clone this repository (this can take a couple of minutes)
+- Have Docker and Docker-Compose installed.
+___
 
-Clone this repository.
-Have Docker and Docker-Compose installed.
 
 ### launch
 ```bash
 docker-compose up -d --build
 ```  
-The Website should be running under http://localhost:12007
+The Website should already be running under http://localhost:12007
 
 
 ### Collect static files and initialize django models
@@ -52,7 +56,7 @@ Installing and loading the systems for the Live Execution Setup can be found [he
 
 ### Adding data to the tool
 The description on how to add the feature compression datasets can be found here  [here](compression_data/README.md).
-The description add data to the time series generation can be found here  [here](compression_data/README.md).
+The description add data to the time series generation can be found here  [here](generation/README.md).
 
 
 ## usefull commands
