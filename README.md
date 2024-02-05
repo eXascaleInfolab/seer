@@ -17,17 +17,17 @@ Technical details can be found in the paper SEER: An End-to-End Toolkit to Evalu
 ___
 
 
-[//]: # (###  Prerequisites)
+##  Prerequisites
 
-[//]: # ([//]: # &#40;- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM&#41;)
-[//]: # (- Clone this repository )
+- Ubuntu 20 (including Ubuntu derivatives, e.g., Xubuntu) 
+- Clone this repository 
 
 [//]: # (- Install Docker and Docker-Compose)
 
 [//]: # (___)
 
 
-## SEER installation
+## Setup
 - Install Docker and Docker-Compose if not already installed
 ```bash
 sh setup/install_docker.sh
@@ -41,7 +41,7 @@ docker-compose up -d --build
 - Launch the tool via http://localhost:12007. If the tool does not launch, please review the docker installation
 
 
-##  Upload performance results
+##  Upload Results
 
 ```bash
 sh setup/init_seer.sh
