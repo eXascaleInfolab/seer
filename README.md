@@ -1,4 +1,4 @@
-
+c
 # SEER
 
 SEER is an online tool to evaluate the performance of time series database systems on large datasets.
@@ -31,7 +31,7 @@ docker-compose up -d --build
 - Launch the tool via http://localhost:12007. If the tool is not available, make sure that docker is properly installed
 
 
-### Collect static files and initialize django models
+###  Django models initialization
 
 ```bash
 sh setup/init_seer.sh
@@ -59,6 +59,9 @@ sh setup/migrate_query_data.sh
 [//]: # (```)
 
 [//]: # (Quit the django shell using Ctr-Z.)
+
+<!---
+
 
 
 ###  Live Systems Configuration
@@ -118,3 +121,5 @@ Replace $container_id with the id of the app container and run
 ```bash
 docker exec -it $container_id python3 manage.py shell
 ```
+-->
+
