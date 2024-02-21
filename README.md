@@ -1,23 +1,33 @@
-
 # SEER
 
 SEER is an online tool to evaluate the performance of time series database systems on large datasets.
-This tool was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland. 
+The tool builds upon our TSM-Bench benchmark [TSM-Bench: Benchmarking Time Series Database Systems for Monitoring Applications, PVLDB'23](https://www.vldb.org/pvldb/vol16/p3363-khelifati.pdf).
+SEER compares seven Time Series Database Systems (TSDBs) using a mixed set of workloads. It implements a novel data generation method that augments seed real-world time series datasets, enabling realistic and scalable benchmarking. 
+<!---
+Technical details can be found in the paper SEER: An End-to-End Toolkit to Evaluate Time Series Database Systems, SIGMOD'24
+-->
+- List of benchmarked systems: [ClickHouse](https://clickhouse.com/), [Druid](https://druid.apache.org/), [eXtremeDB](https://www.mcobject.com/)*, [InfluxDB](https://docs.influxdata.com/influxdb/v1.7/), [MonetDB](https://www.monetdb.org/easy-setup/), [QuestDB](https://questdb.io/), [TimescaleDB](https://www.timescale.com/).
+- SEER evaluates bulk-loading,  storage performance, offline/online query performance, and the impact of time series features on compression.
+- The tool uses two datasets for the evaluation: *D-LONG [d1] and D-MULTI [d2]*. The evaluated datasets can be found [here](https://github.com/eXascaleInfolab/TSM-Bench/tree/main/datasets).
+- <sup>*</sup>**Note**: Due to license restrictions, we can only share the evaluation version of extremeDB. The results between the benchmarked and the public version might diverge. 
 
-## Setup
+
+ SEER was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland. 
+
 ___
 
-[//]: # (###  Prerequisites)
 
-[//]: # ([//]: # &#40;- Ubuntu 20 &#40;including Ubuntu derivatives, e.g., Xubuntu&#41;; 128 GB RAM&#41;)
-[//]: # (- Clone this repository )
+##  Prerequisites
+
+- Ubuntu 20 (including Ubuntu derivatives, e.g., Xubuntu) 
+- Clone this repository 
 
 [//]: # (- Install Docker and Docker-Compose)
 
 [//]: # (___)
 
 
-### launch
+## Setup
 - Install Docker and Docker-Compose if not already installed
 ```bash
 sh setup/install_docker.sh
@@ -28,15 +38,22 @@ sh setup/install_docker.sh
 docker-compose up -d --build
 ```
 
-- Launch the tool via http://localhost:12007. If the tool is not available, make sure that docker is properly installed
+- Launch the tool via http://localhost:12007. If the tool does not launch, please review the docker installation
 
 
-### Collect static files and initialize django models
+##  Upload Results
 
 ```bash
 sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
+
+
+___
+
+## Contributors
+
+Mourad Khayati (mkhayati@exascale.info) and Luca Althaus.
 
 [//]: # (### Load query data into django models)
 
@@ -59,6 +76,9 @@ sh setup/migrate_query_data.sh
 [//]: # (```)
 
 [//]: # (Quit the django shell using Ctr-Z.)
+
+<!---
+
 
 
 ###  Live Systems Configuration
@@ -118,3 +138,5 @@ Replace $container_id with the id of the app container and run
 ```bash
 docker exec -it $container_id python3 manage.py shell
 ```
+-->
+

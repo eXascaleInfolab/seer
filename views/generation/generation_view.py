@@ -51,7 +51,7 @@ class GenerationView(View):
         "num_hashtables": [1, 5, 8, 10],
         "num_hashtables_default": 8,
         "nb_top": [1, 4, 10, 16, 20],
-        "nb_top_default": 4,
+        "nb_top_default": 10,
         "hash_length_percentage": [1, 3, 5, 10, 20, 50],
         "hash_length_percentage_default": 3
     }
