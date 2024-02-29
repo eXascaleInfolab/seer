@@ -38,7 +38,7 @@ sh setup/install_docker.sh
 docker-compose up -d --build
 ```
 
-- Launch the tool via http://localhost:12007. If the tool does not launch, please review the docker installation
+- After setting up the frontend and backend, you can access the application by opening http://localhost:12007 in your browser. If the tool does not launch, please review the docker installation
 
 
 ##  Upload Results
