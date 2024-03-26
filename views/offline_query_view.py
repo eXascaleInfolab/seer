@@ -88,6 +88,5 @@ class OfflineQueryView(View):
 
         for i , d in enumerate(filtered_list_of_dicts):
             result["data"][self.query_name(i)] = d
-        print(filtered_list_of_dicts)
         return JsonResponse(result)
 

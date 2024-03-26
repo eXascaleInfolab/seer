@@ -5,7 +5,6 @@
     evaluateBTN.addEventListener("click", evaluate)
 
     function evaluate() {
-
         if (!QueryHandler.checkFrameValues()) {
             return false
         }
@@ -44,6 +43,7 @@
         });
         console.log(JSON.stringify(formsData))
 
+
         fetch(window.location.href, {
             method: 'POST',
             headers: {
@@ -57,6 +57,8 @@
                 //        #runtime, query, numberOfQueries, query_results
 
                 displayOnlineResults(data.runtime, data.query, data.numberOfQueries, data.query_results)
+                console.log(data.offline_query_results)
+                updateChart(data.offline_query_results.data , data.runtime , data.system)
                 console.log("boxplot data: " , data.boxplot_data)
                 addBoxPlot(data.label, data.boxplot_data)
             })
@@ -68,8 +70,11 @@
         return `${seconds} seconds`;
     }
 
-
+    let Query_results = null
     function displayOnlineResults(runtime, query, numberOfQueries, query_results) {
+        // Store the query results in a global variable (debugging)
+        Query_results = query_results
+
         resultContainer = document.getElementById("results-container")
         resultContainer.innerHTML = ""
         // Create a container div for the results
@@ -82,7 +87,7 @@
 
         // Display query
         const queryElement = document.createElement('p');
-        queryElement.textContent = `SQL Query: ${query}`;
+        queryElement.textContent = `Query: ${query}`;
         container.appendChild(queryElement);
 
         // Display number of queries
@@ -97,7 +102,7 @@
         query_results.forEach((result, index) => {
             if (index < 10) {
                 const listItem = document.createElement('li');
-                listItem.textContent = `${result}`;
+                listItem.textContent = JSON.stringify(result); //`${result}`
                 resultsElement.appendChild(listItem);
             }
             if(index == 10){
@@ -112,5 +117,77 @@
         resultContainer.appendChild(container)
     }
 
+      let chart;
+    let seriesData = [];
 
+    // Function to create or update the Highcharts chart
+    function createChart() {
+        chart = Highcharts.chart('chart-container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Runtime'
+            },
+            xAxis: {
+                categories: systems
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Time (ms)'
+                }
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal'
+                }
+            },
+            series: [{
+                name: "placeholder",
+                data: [0, 0, 0, 0, 0, 0, 0],
+                showInLegend: false
+            }]
+        });
+    }
+
+    // Function to update the chart data
+    function updateChart(newData ,new_system_runtime, new_system) {
+        if (!chart) {
+            createChart(newData);
+        } else {
+            // Remove all current series
+            let n_series = chart.series.length;
+            for (let i = 0; i < n_series; i++) {
+                chart.series[0].remove();
+            }
+        }
+        console.log(newData)
+
+        // check of has key "online"
+
+        //[query_runtime.influx, query_runtime.questdb, query_runtime.timescaledb, query_runtime.monetdb, query_runtime.extremedb, query_runtime.clickhouse, query_runtime.druid]
+
+            Object.keys(newData).forEach(query => {
+                const query_runtime = newData[query]
+                let runtime_data =  Object.keys(query_runtime).map(key => query_runtime[key])
+                runtime_data.push({ y: new_system_runtime , color : 'red'})
+
+                let categories = Object.keys(query_runtime)
+                categories.push(new_system)
+
+                chart.xAxis[0].setCategories(categories);
+
+                console.log("query", query);
+                // add series to chart
+                chart.addSeries({
+                    name: query,
+                    data: runtime_data,
+                    showInLegend: true
+                }, false);
+            })
+
+        chart.redraw();
+
+    }
 </script>

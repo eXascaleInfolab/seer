@@ -9,7 +9,7 @@ import numpy as np
 old_result = None
 
 ## systems to enable in the form
-ENABLED_SYSTEMS = ["clickhouse"]
+ENABLED_SYSTEMS = ["clickhouse" , "mongodb"]
 
 ## mesage to be displayed on the page in the info button next to the systems Label
 systems_message = "Due to the limited resources of the server, we can not run all systems at the same time."
@@ -18,8 +18,8 @@ systems_message = "Due to the limited resources of the server, we can not run al
 class LiveQueryView(OfflineQueryView):
     context = {
         'title': 'SEER - Live Queries',
-        'heading': 'Welcome to the Online Queries Page',
-        "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
+        'heading': 'Welcome to the Live Queries Page',
+        "systems" : ["mongodb", "clickhouse" , "timescaledb","influx" , "monetdb"],
         "classes" : "live-query",
         "datasets": ["TempLong"],
         "station_ticks": [2, 4, 6, 8, 10],
@@ -83,4 +83,9 @@ class LiveQueryView(OfflineQueryView):
         result["query_results"] = query_data[:min(12, len(query_data))]
         result["system"] = system
 
+        #add offline query results to the output to be displayed in the table
+        response =  super().post(request)
+        result["offline_query_results"] = json.loads(response.content.decode('utf-8'))
+
+        print(result["offline_query_results"])
         return JsonResponse(result)

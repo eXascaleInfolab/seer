@@ -16,22 +16,25 @@ from collections import namedtuple
 import numpy as np
 from utils.query_translator import load_query
 import os
-from systems import clickhouse, timescaledb, influx, monetdb
+from systems import clickhouse, timescaledb, influx, monetdb, mongodb
 
 hosts = {"clickhouse": "clickhouse" if os.getenv("using_docker") else "localhost",
          "timescaledb": "timescaledb" if os.getenv("using_docker") else "localhost",
          "influx": "localhost",
          "monetdb": os.getenv("DOCKER_HOST", "localhost"),
+         "mongodb": os.getenv("DOCKER_HOST", "localhost"),
          }
 
 system_module_map = {"clickhouse": clickhouse,
-                 "timescaledb": timescaledb,
-                 "influx": influx,
-                 "monetdb": monetdb,
-                 }
+                     "timescaledb": timescaledb,
+                     "influx": influx,
+                     "monetdb": monetdb,
+                     "mongodb": mongodb,
+                     }
+
 
 def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
-    print("running query\n", q_n, rangeL ,  rangeUnit ,  n_st , n_s , "on system", system)
+    print("running query\n", q_n, rangeL, rangeUnit, n_st, n_s, "on system", system)
     query_template = load_query(system, q_n)
     query_template = query_template.replace("<db>", "d1")
 
@@ -49,7 +52,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     print(parsed_query)
     runtimes = []
     try:
-        for i in range(n_it+2):# 2 warmup queries
+        for i in range(n_it + 2):  # 2 warmup queries
             print("iteration:", i)
             start = time.time()
             query_data = system_connection.execute(parsed_query)
@@ -68,12 +71,19 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     runtime = round(runtime, 2)
 
     if system == "influx" and len(query_data) > 0:
-        query_data = [ list(result) for result in  query_data][0]
-        #cast dict to tuples (key1,value1,key2 ,value2..
-        query_data = [tuple(result.items())[:]   for result in  query_data]
+        query_data = [list(result) for result in query_data][0]
+        # cast dict to tuples (key1,value1,key2 ,value2..
+        query_data = [tuple(result.items())[:] for result in query_data]
 
-    query_data = sorted(query_data, key=lambda x: x[0])
+    try:
+        query_data = list(query_data)
+    except:
+        pass
 
+    try:
+        query_data = sorted(query_data, key=lambda x: x[0])
+    except:
+        pass
 
     QueryResult = namedtuple("QueryResult", "runtime query_data query runtimes")
-    return QueryResult(runtime, query_data, parsed_query , runtimes)
+    return QueryResult(runtime, query_data, parsed_query, runtimes)
