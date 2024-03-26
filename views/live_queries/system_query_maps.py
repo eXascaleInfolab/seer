@@ -76,8 +76,10 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
         query_data = [tuple(result.items())[:] for result in query_data]
 
     try:
+        print(query_data)
         query_data = list(query_data)
     except:
+        print("query data could not be converted to list")
         pass
 
     try:

@@ -163,15 +163,16 @@ def get_connection(host="localhost", dataset=None, **kwargs):
             projection = {p: 1 for p in query_dict["projection"]}
             projection["_id"] = 0
 
-            result = collection.find(json_query, projection)
+            cursor = collection.find(json_query, projection)
 
         elif "aggregate" in query_dict:
             print("aggregate")
             json_query = query_dict["aggregate"]
             print(json_query)
-            result = collection.aggregate(json_query)
+            cursor = collection.aggregate(json_query)
 
-        return result
+
+        return list(cursor)
 
     def insert_f(data):
         """ string value parsed by generate_insertion_query  """
