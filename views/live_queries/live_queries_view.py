@@ -19,7 +19,7 @@ class LiveQueryView(OfflineQueryView):
     context = {
         'title': 'SEER - Live Queries',
         'heading': 'Welcome to the Live Queries Page',
-        "systems" : ["mongodb", "clickhouse" , "timescaledb","influx" , "monetdb"],
+        "systems" :  ENABLED_SYSTEMS,
         "classes" : "live-query",
         "datasets": ["TempLong"],
         "station_ticks": [2, 4, 6, 8, 10],
