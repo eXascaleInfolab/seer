@@ -33,7 +33,7 @@ urlpatterns = [
     path('', IndexView.as_view() , name='index'),
     path('queries', OfflineQueryView.as_view() , name='offline-queries'),
     path('queries-online', OnlineQueryView.as_view(), name='online-queries'),
-    path('queries-live' , LiveQueryView.as_view(),name= 'live-queries'),
+    path('sys_deploy' , LiveQueryView.as_view(),name= 'live-queries'),
 
     path('compression', CompressionView.as_view(), name='compression'),
 
