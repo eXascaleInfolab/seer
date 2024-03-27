@@ -77,6 +77,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
 
     try:
         print(query_data)
+        print("tries to convert query data to list")
         query_data = list(query_data)
     except:
         print("query data could not be converted to list")

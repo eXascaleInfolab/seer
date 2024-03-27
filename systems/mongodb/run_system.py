@@ -171,6 +171,16 @@ def get_connection(host="localhost", dataset=None, **kwargs):
             print(json_query)
             cursor = collection.aggregate(json_query)
 
+        # index = 0
+        # for result in cursor:
+        #     print(result)
+        #     index += 1
+        #     if index > 10:
+        #         break
+
+        print("cursor 1")
+        print([cursor[1]])
+        print("cursor 1 evaluated")
 
         return list(cursor)
 

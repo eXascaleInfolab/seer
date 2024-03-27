@@ -34,5 +34,8 @@ elapsed_time=$(echo "$end_time - $start_time" | bc)
 echo "Loading time: $elapsed_time seconds" > loading_time_$dataset.txt
 
 
+### create a index on the time field
+#docker exec -it mongodb mongo $dataset --eval "db.$dataset.createIndex({'time': 1})"
+
 echo "comression"
 sh compression.sh

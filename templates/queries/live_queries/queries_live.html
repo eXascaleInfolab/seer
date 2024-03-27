@@ -1,7 +1,52 @@
 {% extends "queries/queries.html" %}
 {% load static %}
 
+
+{% block content_start %}
+
+    <h3> System Deployment</h3>
+    <h4>
+        <button id="descr-show" type="button" class="btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        </button>
+        <button style="display: none;" id="descr-hide" type="button" class="btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        </button>
+    </h4>
+
+    <div style="display:none;" id="descr-options">
+        To deploy a new system, upload four files: installation, data loading,  data configuration and query template.
+        To reconfigure a system upload the data configuration file.
+    </div>
+
+    <form class="row" action="{% url 'upload_datasets' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+        <!-- File Upload for Original CSV -->
+        <div>
+            {#            <label for="original_csv">Upload Original Dataset:</label>#}
+            <input type="file" id="files" name="files" label="test" multiple><br><br>
+            {#            <input type="file" id="original_csv" name="original_csv" accept=".txt">#}
+        </div>
+        <!-- specify title -->
+        <div class="row" style="margin-top:-25px">
+
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <button style="margin-left:15px;margin-top:-3px" type="submit">Deploy</button>
+        </div>
+    </form>
+    <hr style="border-top: 1px solid #8c8b8b;">
+
+{% endblock %}
+
+
 {% block evaluate %}
+
     <style>
 
         .popover {
@@ -11,7 +56,10 @@
 
     </style>
     </style>
-    <div class="row" style="width:50%">
+    <!-- add horizonal line-->
+    <hr style="border-top: 1px solid #8c8b8b;">
+
+    <div class="row" style="width:50% ">
         <div class="form-group">
             <label for="system-select"> System
                 <div style="position: relative">
@@ -80,7 +128,10 @@
     </script>
 {% endblock %}
 
+
+
 {% block query_results %}
+
 
     <div id="errorDisplay"></div>
 
