@@ -131,6 +131,17 @@ def get_connection(host="localhost", dataset=None, **kwargs):
     db = client["d1"]
     collection = db[dataset]
 
+    print("d1")
+    print(list(collection.find().limit(10)))
+
+    # database is db
+    mongo_uri = "mongodb://" + host + ":27017/"
+    client = MongoClient(mongo_uri)
+    db = client["db"]
+    collection = db[dataset]
+    print("db")
+    print(list(collection.find().limit(10)))
+
     def conn_close_f():
         client.close()
 

@@ -1,3 +1,118 @@
-ts=2024-03-27T13:57:42.385393Z lvl=info msg="InfluxDB starting" log_id=0oC34mSG000 version=1.7.10 branch=1.7 commit=f46f63d4e2d9684a2dd716594ab609ccd32f0a5b
-ts=2024-03-27T13:57:42.385442Z lvl=info msg="Go runtime" log_id=0oC34mSG000 version=go1.12.6 maxprocs=16
-run: open server: listen: listen tcp 127.0.0.1:8088: bind: address already in use
+ts=2024-03-27T14:09:33.478095Z lvl=info msg="InfluxDB starting" log_id=0oC3lB9W000 version=1.7.10 branch=1.7 commit=f46f63d4e2d9684a2dd716594ab609ccd32f0a5b
+ts=2024-03-27T14:09:33.478157Z lvl=info msg="Go runtime" log_id=0oC3lB9W000 version=go1.12.6 maxprocs=16
+ts=2024-03-27T14:09:33.589812Z lvl=info msg="Using data dir" log_id=0oC3lB9W000 service=store path=/var/lib/influxdb/data
+ts=2024-03-27T14:09:33.589873Z lvl=info msg="Compaction settings" log_id=0oC3lB9W000 service=store max_concurrent_compactions=8 throughput_bytes_per_second=50331648 throughput_bytes_per_second_burst=50331648
+ts=2024-03-27T14:09:33.589894Z lvl=info msg="Open store (start)" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open op_event=start
+ts=2024-03-27T14:09:33.598398Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/_internal/monitor/30/_00001.wal size=16956116
+ts=2024-03-27T14:09:33.608161Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/26/000000048-000000001.tsm id=3 duration=2.903ms
+ts=2024-03-27T14:09:33.608371Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/26/000000044-000000001.tsm id=1 duration=3.069ms
+ts=2024-03-27T14:09:33.608687Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/26/000000046-000000001.tsm id=2 duration=3.359ms
+ts=2024-03-27T14:09:33.609911Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/29/000000015-000000002.tsm id=0 duration=4.683ms
+ts=2024-03-27T14:09:33.610373Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/29/_00019.wal size=3202980
+ts=2024-03-27T14:09:33.610639Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/22/000000046-000000001.tsm id=3 duration=1.786ms
+ts=2024-03-27T14:09:33.610636Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/22/000000044-000000001.tsm id=2 duration=1.329ms
+ts=2024-03-27T14:09:33.615485Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/21/000000039-000000002.tsm id=0 duration=10.406ms
+ts=2024-03-27T14:09:33.615544Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/28/000000037-000000002.tsm id=0 duration=10.257ms
+ts=2024-03-27T14:09:33.615486Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/27/000000040-000000002.tsm id=0 duration=10.530ms
+ts=2024-03-27T14:09:33.615605Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/22/000000042-000000001.tsm id=1 duration=6.578ms
+ts=2024-03-27T14:09:33.615681Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/23/000000047-000000001.tsm id=3 duration=6.282ms
+ts=2024-03-27T14:09:33.618313Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/20/000000026-000000002.tsm id=0 duration=13.143ms
+ts=2024-03-27T14:09:33.618551Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/22/000000040-000000002.tsm id=0 duration=9.707ms
+ts=2024-03-27T14:09:33.618745Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/20/_00049.wal size=4675645
+ts=2024-03-27T14:09:33.618771Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/24/000000047-000000001.tsm id=2 duration=8.015ms
+ts=2024-03-27T14:09:33.618806Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/22/_00107.wal size=6211802
+ts=2024-03-27T14:09:33.618347Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/24/000000045-000000001.tsm id=1 duration=7.628ms
+ts=2024-03-27T14:09:33.618570Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/23/000000043-000000001.tsm id=1 duration=8.952ms
+ts=2024-03-27T14:09:33.619030Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/23/000000045-000000001.tsm id=2 duration=9.306ms
+ts=2024-03-27T14:09:33.619280Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/24/000000049-000000001.tsm id=3 duration=8.924ms
+ts=2024-03-27T14:09:33.624100Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/23/000000041-000000003.tsm id=0 duration=14.596ms
+ts=2024-03-27T14:09:33.624284Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/24/000000043-000000002.tsm id=0 duration=14.056ms
+ts=2024-03-27T14:09:33.624372Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/26/000000042-000000002.tsm id=0 duration=19.126ms
+ts=2024-03-27T14:09:33.624418Z lvl=info msg="Opened file" log_id=0oC3lB9W000 engine=tsm1 service=filestore path=/var/lib/influxdb/data/d1/autogen/25/000000039-000000002.tsm id=0 duration=19.191ms
+ts=2024-03-27T14:09:33.624356Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/23/_00106.wal size=14983747
+ts=2024-03-27T14:09:33.628085Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/24/_00107.wal size=15751779
+ts=2024-03-27T14:09:33.628119Z lvl=info msg="Reading file" log_id=0oC3lB9W000 engine=tsm1 service=cacheloader path=/var/lib/influxdb/wal/d1/autogen/26/_00111.wal size=9275133
+ts=2024-03-27T14:09:33.651700Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/27 duration=48.368ms
+ts=2024-03-27T14:09:33.653176Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/28 duration=49.786ms
+ts=2024-03-27T14:09:33.653823Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/21 duration=49.797ms
+ts=2024-03-27T14:09:33.654508Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/25 duration=50.963ms
+ts=2024-03-27T14:09:33.688266Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/29 duration=85.063ms
+ts=2024-03-27T14:09:33.712056Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/20 duration=108.577ms
+ts=2024-03-27T14:09:33.715756Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/22 duration=112.371ms
+ts=2024-03-27T14:09:33.734024Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/26 duration=130.783ms
+ts=2024-03-27T14:09:33.776783Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/23 duration=173.207ms
+ts=2024-03-27T14:09:33.784928Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/d1/autogen/24 duration=181.696ms
+ts=2024-03-27T14:09:34.273298Z lvl=info msg="Opened shard" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open index_version=inmem path=/var/lib/influxdb/data/_internal/monitor/30 duration=677.363ms
+ts=2024-03-27T14:09:34.274222Z lvl=info msg="Open store (end)" log_id=0oC3lB9W000 service=store trace_id=0oC3lBaG000 op_name=tsdb_open op_event=end op_elapsed=684.329ms
+ts=2024-03-27T14:09:34.274299Z lvl=info msg="Opened service" log_id=0oC3lB9W000 service=subscriber
+ts=2024-03-27T14:09:34.274313Z lvl=info msg="Starting monitor service" log_id=0oC3lB9W000 service=monitor
+ts=2024-03-27T14:09:34.274323Z lvl=info msg="Registered diagnostics client" log_id=0oC3lB9W000 service=monitor name=build
+ts=2024-03-27T14:09:34.274333Z lvl=info msg="Registered diagnostics client" log_id=0oC3lB9W000 service=monitor name=runtime
+ts=2024-03-27T14:09:34.274343Z lvl=info msg="Registered diagnostics client" log_id=0oC3lB9W000 service=monitor name=network
+ts=2024-03-27T14:09:34.274355Z lvl=info msg="Registered diagnostics client" log_id=0oC3lB9W000 service=monitor name=system
+ts=2024-03-27T14:09:34.274372Z lvl=info msg="Starting precreation service" log_id=0oC3lB9W000 service=shard-precreation check_interval=10m advance_period=30m
+ts=2024-03-27T14:09:34.274395Z lvl=info msg="Starting snapshot service" log_id=0oC3lB9W000 service=snapshot
+ts=2024-03-27T14:09:34.274406Z lvl=info msg="Starting continuous query service" log_id=0oC3lB9W000 service=continuous_querier
+ts=2024-03-27T14:09:34.274425Z lvl=info msg="Starting HTTP service" log_id=0oC3lB9W000 service=httpd authentication=false
+ts=2024-03-27T14:09:34.274436Z lvl=info msg="opened HTTP access log" log_id=0oC3lB9W000 service=httpd path=stderr
+ts=2024-03-27T14:09:34.274432Z lvl=info msg="Storing statistics" log_id=0oC3lB9W000 service=monitor db_instance=_internal db_rp=monitor interval=10s
+ts=2024-03-27T14:09:34.274562Z lvl=info msg="Listening on HTTP" log_id=0oC3lB9W000 service=httpd addr=[::]:8086 https=false
+ts=2024-03-27T14:09:34.274584Z lvl=info msg="Starting retention policy enforcement service" log_id=0oC3lB9W000 service=retention check_interval=30m
+ts=2024-03-27T14:09:34.274650Z lvl=info msg="Listening for signals" log_id=0oC3lB9W000
+ts=2024-03-27T14:09:34.275200Z lvl=info msg="Sending usage statistics to usage.influxdata.com" log_id=0oC3lB9W000
+ts=2024-03-27T14:09:35.274466Z lvl=info msg="TSM compaction (start)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group op_event=start
+ts=2024-03-27T14:09:35.274531Z lvl=info msg="TSM compaction (start)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group op_event=start
+ts=2024-03-27T14:09:35.274641Z lvl=info msg="Beginning compaction" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_files_n=4
+ts=2024-03-27T14:09:35.274504Z lvl=info msg="TSM compaction (start)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group op_event=start
+ts=2024-03-27T14:09:35.274701Z lvl=info msg="Beginning compaction" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_files_n=4
+ts=2024-03-27T14:09:35.274717Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/26/000000042-000000002.tsm
+ts=2024-03-27T14:09:35.274732Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_index=1 tsm1_file=/var/lib/influxdb/data/d1/autogen/26/000000044-000000001.tsm
+ts=2024-03-27T14:09:35.274747Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_index=2 tsm1_file=/var/lib/influxdb/data/d1/autogen/26/000000046-000000001.tsm
+ts=2024-03-27T14:09:35.274794Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_index=3 tsm1_file=/var/lib/influxdb/data/d1/autogen/26/000000048-000000001.tsm
+ts=2024-03-27T14:09:35.274510Z lvl=info msg="TSM compaction (start)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group op_event=start
+ts=2024-03-27T14:09:35.274850Z lvl=info msg="Beginning compaction" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_files_n=4
+ts=2024-03-27T14:09:35.274868Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/22/000000040-000000002.tsm
+ts=2024-03-27T14:09:35.274880Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_index=1 tsm1_file=/var/lib/influxdb/data/d1/autogen/22/000000042-000000001.tsm
+ts=2024-03-27T14:09:35.274891Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_index=2 tsm1_file=/var/lib/influxdb/data/d1/autogen/22/000000044-000000001.tsm
+ts=2024-03-27T14:09:35.274903Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_index=3 tsm1_file=/var/lib/influxdb/data/d1/autogen/22/000000046-000000001.tsm
+ts=2024-03-27T14:09:35.274554Z lvl=info msg="Beginning compaction" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_files_n=4
+ts=2024-03-27T14:09:35.274962Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/23/000000041-000000003.tsm
+ts=2024-03-27T14:09:35.274986Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_index=1 tsm1_file=/var/lib/influxdb/data/d1/autogen/23/000000043-000000001.tsm
+ts=2024-03-27T14:09:35.274998Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_index=2 tsm1_file=/var/lib/influxdb/data/d1/autogen/23/000000045-000000001.tsm
+ts=2024-03-27T14:09:35.275010Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_index=3 tsm1_file=/var/lib/influxdb/data/d1/autogen/23/000000047-000000001.tsm
+ts=2024-03-27T14:09:35.274658Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/24/000000043-000000002.tsm
+ts=2024-03-27T14:09:35.275063Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_index=1 tsm1_file=/var/lib/influxdb/data/d1/autogen/24/000000045-000000001.tsm
+ts=2024-03-27T14:09:35.275084Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_index=2 tsm1_file=/var/lib/influxdb/data/d1/autogen/24/000000047-000000001.tsm
+ts=2024-03-27T14:09:35.275098Z lvl=info msg="Compacting file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_index=3 tsm1_file=/var/lib/influxdb/data/d1/autogen/24/000000049-000000001.tsm
+ts=2024-03-27T14:10:09.255648Z lvl=info msg="Compacted file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/26/000000048-000000002.tsm.tmp
+ts=2024-03-27T14:10:09.256735Z lvl=info msg="Finished compacting files" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group tsm1_files_n=1
+ts=2024-03-27T14:10:09.256749Z lvl=info msg="TSM compaction (end)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW001 op_name=tsm1_compact_group op_event=end op_elapsed=33982.253ms
+ts=2024-03-27T14:10:09.352564Z lvl=info msg="Compacted file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/23/000000047-000000002.tsm.tmp
+ts=2024-03-27T14:10:09.352624Z lvl=info msg="Finished compacting files" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group tsm1_files_n=1
+ts=2024-03-27T14:10:09.352630Z lvl=info msg="TSM compaction (end)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW000 op_name=tsm1_compact_group op_event=end op_elapsed=34078.197ms
+ts=2024-03-27T14:10:09.374700Z lvl=info msg="Compacted file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/22/000000046-000000002.tsm.tmp
+ts=2024-03-27T14:10:09.374758Z lvl=info msg="Finished compacting files" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group tsm1_files_n=1
+ts=2024-03-27T14:10:09.374771Z lvl=info msg="TSM compaction (end)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW002 op_name=tsm1_compact_group op_event=end op_elapsed=34100.295ms
+ts=2024-03-27T14:10:09.425223Z lvl=info msg="Compacted file" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_index=0 tsm1_file=/var/lib/influxdb/data/d1/autogen/24/000000049-000000002.tsm.tmp
+ts=2024-03-27T14:10:09.425280Z lvl=info msg="Finished compacting files" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group tsm1_files_n=1
+ts=2024-03-27T14:10:09.425286Z lvl=info msg="TSM compaction (end)" log_id=0oC3lB9W000 engine=tsm1 tsm1_strategy=full tsm1_optimize=false trace_id=0oC3lIAW003 op_name=tsm1_compact_group op_event=end op_elapsed=34150.764ms
+ts=2024-03-27T14:19:34.274295Z lvl=info msg="Cache snapshot (start)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W000 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-03-27T14:19:34.274344Z lvl=info msg="Cache snapshot (start)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W002 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-03-27T14:19:34.274440Z lvl=info msg="Cache snapshot (start)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W005 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-03-27T14:19:34.274346Z lvl=info msg="Cache snapshot (start)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W001 op_name=tsm1_cache_snapshot op_event=start
+ts=2024-03-27T14:19:34.274372Z lvl=info msg="Cache snapshot (start)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W003 op_name=tsm1_cache_snapshot op_event=startts=2024-03-27T14:24:15.708896Z lvl=info msg="Retention policy deletion check (start)" log_id=0oByjXQW000 service=retention trace_id=0oC4b1N0000 op_name=retention_delete_check op_event=start
+ts=2024-03-27T14:24:15.718727Z lvl=info msg="Retention policy deletion check (end)" log_id=0oByjXQW000 service=retention trace_id=0oC4b1N0000 op_name=retention_delete_check op_event=end op_elapsed=9.854ms
+tten" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W004 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/20 duration=54.342ms
+ts=2024-03-27T14:19:34.328800Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W004 op_name=tsm1_cache_snapshot op_event=end op_elapsed=54.398ms
+ts=2024-03-27T14:19:34.340153Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W000 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/29 duration=65.901ms
+ts=2024-03-27T14:19:34.340227Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W000 op_name=tsm1_cache_snapshot op_event=end op_elapsed=65.972ms
+ts=2024-03-27T14:19:34.356515Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W006 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/26 duration=82.041ms
+ts=2024-03-27T14:19:34.356623Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W006 op_name=tsm1_cache_snapshot op_event=end op_elapsed=82.149ms
+ts=2024-03-27T14:19:34.363360Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W002 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/22 duration=89.037ms
+ts=2024-03-27T14:19:34.363412Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W002 op_name=tsm1_cache_snapshot op_event=end op_elapsed=89.087ms
+ts=2024-03-27T14:19:34.363896Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W005 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/24 duration=89.484ms
+ts=2024-03-27T14:19:34.363920Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W005 op_name=tsm1_cache_snapshot op_event=end op_elapsed=89.500ms
+ts=2024-03-27T14:19:34.365010Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W003 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/_internal/monitor/30 duration=90.673ms
+ts=2024-03-27T14:19:34.365085Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W003 op_name=tsm1_cache_snapshot op_event=end op_elapsed=90.738ms
+ts=2024-03-27T14:19:34.372897Z lvl=info msg="Snapshot for path written" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W001 op_name=tsm1_cache_snapshot path=/var/lib/influxdb/data/d1/autogen/23 duration=98.602ms
+ts=2024-03-27T14:19:34.372950Z lvl=info msg="Cache snapshot (end)" log_id=0oC3lB9W000 engine=tsm1 trace_id=0oC4Kr0W001 op_name=tsm1_cache_snapshot op_event=end op_elapsed=98.634ms
