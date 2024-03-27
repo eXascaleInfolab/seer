@@ -127,19 +127,12 @@ def get_connection(host="localhost", dataset=None, **kwargs):
     """
     # database is db
     mongo_uri = "mongodb://" + host + ":27017/"
+    print(mongo_uri)
     client = MongoClient(mongo_uri)
     db = client["d1"]
     collection = db[dataset]
 
     print("d1")
-    print(list(collection.find().limit(10)))
-
-    # database is db
-    mongo_uri = "mongodb://" + host + ":27017/"
-    client = MongoClient(mongo_uri)
-    db = client["db"]
-    collection = db[dataset]
-    print("db")
     print(list(collection.find().limit(10)))
 
     def conn_close_f():
@@ -190,7 +183,11 @@ def get_connection(host="localhost", dataset=None, **kwargs):
         #         break
 
         print("cursor 1")
-        print([cursor[1]])
+        try:
+            print([cursor[1]])
+        except:
+            print("cursor 1 failed")
+            pass
         print("cursor 1 evaluated")
 
         return list(cursor)
