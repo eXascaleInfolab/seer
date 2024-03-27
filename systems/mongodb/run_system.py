@@ -182,14 +182,6 @@ def get_connection(host="localhost", dataset=None, **kwargs):
         #     if index > 10:
         #         break
 
-        print("cursor 1")
-        try:
-            print([cursor[1]])
-        except:
-            print("cursor 1 failed")
-            pass
-        print("cursor 1 evaluated")
-
         return list(cursor)
 
     def insert_f(data):

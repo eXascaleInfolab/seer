@@ -9,7 +9,7 @@ import numpy as np
 old_result = None
 
 ## systems to enable in the form
-ENABLED_SYSTEMS = ["clickhouse" , "mongodb"]
+ENABLED_SYSTEMS = ["clickhouse_v2" , "mongodb"]
 
 ## mesage to be displayed on the page in the info button next to the systems Label
 systems_message = "Due to the limited resources of the server, we can not run all systems at the same time."
@@ -56,7 +56,18 @@ class LiveQueryView(OfflineQueryView):
         rangeL = parsed_entry["rangeL"]
         random.seed(1)
 
-        queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset="d1")
+
+
+        input_dataset = "d1"
+        input_system = system
+        if(system == "clickhouse_v2"):
+            input_system = "clickhouse"
+            input_dataset = "d1_no_time"
+            print("clickhouse_v2")
+
+        print("system", system , input_system)
+        print("dataset", input_dataset)
+        queryResult  = run_query(input_system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset=input_dataset)
         query_data = queryResult.query_data
 
 
