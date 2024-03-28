@@ -58,7 +58,7 @@ class LiveQueryView(OfflineQueryView):
         random.seed(1)
 
 
-        queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset=input_dataset)
+        queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset="d1")
         query_data = queryResult.query_data
 
 
