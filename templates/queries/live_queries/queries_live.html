@@ -85,7 +85,7 @@
                          data-content="{{ systems_message }}"></div>
                 </div>
             </label>
-            <select class="form-control" id="system-select">
+            <select style="min-width: 100px" class="form-control" id="system-select">
                 <option value="-"> -</option>
                 {% for system in systems %}
                     <option value="{{ system }}" {% if system not in ENABLED_SYSTEMS %}
