@@ -20,35 +20,42 @@
 
 
 
-    <div style="display:none;" id="descr-options">
+    <div style="display:none;margin-bottom: 0px" id="descr-options">
         To deploy a new system, upload four files: installation, data loading, data configuration and query template.
         To reconfigure a system upload the data configuration file.
     </div>
 
-    <form class="row" id="file-submit" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+    <form  id="file-submit" method="post" enctype="multipart/form-data">
+        <div class="row" style="max-height: 30px">
+            {% csrf_token %}
 
+            <div class="" style="width:120px;margin-top:8px;">
+                <div>
+                    {#                <label for="title">Name:</label>#}
+                    <input type="text" id="system_name" name="title" required style="width:120px"
+                           placeholder="system name">
+                </div>
+            </div>
 
-        <!-- File Upload for Original CSV -->
-        <div>
-            {#            <label for="original_csv">Upload Original Dataset:</label>#}
-            <input style="width: 75px" type="file" id="files" name="files" label="test" multiple><br><br>
-
-            {#            <input type="file" id="original_csv" name="original_csv" accept=".txt">#}
+            <div class="">
+                {#            <label for="original_csv">Upload Original Dataset:</label>#}
+                <input type="file" id="files" name="files" label="test" multiple
+                       style="margin-top: 10px;margin-left: 10px"><br><br>
+            </div>
         </div>
+        <div class="row">
+            <button style="margin-left:0px;margin-top:10px" type="">Deploy</button>
+        </div>
+        {#        <div>#}
+        {##}
+        {#            <div style="position: relative;">#}
+        {#                <input type="file" id="files" name="files" multiple style="display:none;height:0">#}
+        {#                <label for="files" style="position: absolute; top: 0; margin-top: 0;">Select files</label>#}
+        {#            </div>#}
+        {#        </div>#}
+
         <!-- specify title -->
-        <div class="row" style="margin-top:0px;margin-left:10px">
 
-            <div>
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required style="width:120px">
-            </div>
-
-            <div>
-                <button style="margin-left:15px;margin-top:0px" type="">Deploy</button>
-            </div>
-
-        </div>
     </form>
     <hr style="border-top: 1px solid #8c8b8b;">
 
@@ -110,7 +117,14 @@
 
         document.getElementById('file-submit').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
-
+            // get value from system_name
+            var system_name = document.getElementById('system_name').value;
+            // add system name_name value to options
+            var system_select = document.getElementById('system-select');
+            var option = document.createElement("option");
+            option.text = system_name;
+            option.value = system_name;
+            system_select.add(option);
             // Call your custom JavaScript function here
         });
 

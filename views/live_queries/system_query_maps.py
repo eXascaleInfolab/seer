@@ -16,31 +16,19 @@ from collections import namedtuple
 import numpy as np
 from utils.query_translator import load_query
 import os
-from systems import clickhouse, timescaledb, influx, monetdb, mongodb
-
-hosts = {"clickhouse": "clickhouse" if os.getenv("using_docker") else "localhost",
-         "timescaledb": "timescaledb" if os.getenv("using_docker") else "localhost",
-         "influx": "localhost",
-         "monetdb": os.getenv("DOCKER_HOST", "localhost"),
-         "mongodb": os.getenv("DOCKER_HOST", "localhost"),
-         }
-
-system_module_map = {"clickhouse": clickhouse,
-                     "timescaledb": timescaledb,
-                     "influx": influx,
-                     "monetdb": monetdb,
-                     "mongodb": mongodb,
-                     }
-
+from systems import get_system_module_map , get_host
 
 def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     print("running query\n", q_n, rangeL, rangeUnit, n_st, n_s, "on system", system)
+
+    system_module_map = get_system_module_map()
+
     query_template = load_query(system, q_n)
     query_template = query_template.replace("<db>", "d1")
 
     system_module = system_module_map[system]
 
-    host = hosts[system]
+    host = get_host[system]
     system_connection = system_module.get_connection(host=host, dataset=dataset)
 
     date = "2019-04-01T00:00:00"
