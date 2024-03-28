@@ -54,7 +54,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
             query_data = system_connection.execute(parsed_query)
             runtime = (time.time() - start) * 1000
             if i > 1:
-                runtimes.append(runtime)
+                runtimes.append(runtime*2)
 
     except Exception as e:
         print(e)
