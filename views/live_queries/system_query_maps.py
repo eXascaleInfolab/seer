@@ -31,7 +31,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     host = get_host(system)
     dataset = get_table_name(system)
     print("host", host)
-    print("dataset", dataset)
+    print("data_table", dataset)
 
     query_template = load_query(system, q_n)
     query_template = query_template.replace("<db>", dataset)
