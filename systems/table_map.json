@@ -1,0 +1,5 @@
+{
+  "clickhouse_v2": "d1_test",
+  "clickhouse" : "d1",
+  "mongodb": "d1"
+}

@@ -1,7 +1,8 @@
 """
     This file contains the functions to run a query on a system.
-    
-    The host of the system is defined in the hosts dict. Depending if the tool is run using docker or with the basic
+
+    See the __init__.py file in the Systems. How the systems and the host are inferred.
+    The host of the system is defined in the host dict. Depending if the tool is run using docker or with the basic
     django command python3 manage.py runserver to test it locally the host for the system differ.
     In the docker compose file we set a environment variable "using_docker" to true that can be used to know if the code
     is run with docker or not. We additionally set the variable DOCKER_HOST in the docker-compose file
@@ -16,19 +17,24 @@ from collections import namedtuple
 import numpy as np
 from utils.query_translator import load_query
 import os
-from systems import get_system_module_map , get_host
+from systems import get_system_module, get_host, get_table_name
+
 
 def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     print("running query\n", q_n, rangeL, rangeUnit, n_st, n_s, "on system", system)
 
-    system_module_map = get_system_module_map()
 
     query_template = load_query(system, q_n)
     query_template = query_template.replace("<db>", "d1")
 
-    system_module = system_module_map[system]
 
-    host = get_host[system]
+    system_module = get_system_module(system)
+    host = get_host(system)
+    dataset = get_table_name(system)
+    print("host", host)
+    print("dataset", dataset)
+
+
     system_connection = system_module.get_connection(host=host, dataset=dataset)
 
     date = "2019-04-01T00:00:00"

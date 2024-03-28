@@ -2,13 +2,13 @@ import os
 def get_system_folders():
     folders = os.listdir(os.path.dirname(__file__))
     print(folders)
-    # exclude .py  .md files and utils and files ending with _
+    # exclude .py  .md files .json  utils and folders ending with _
     return [folder for folder in folders if not
             (folder.endswith(".py") or folder.endswith(".json") or
              folder.endswith(".md") or folder.endswith("_") or folder == "utils")]
 
-def get_system_module_map():
-    return {folder: __import__(f"systems.{folder}", fromlist=["systems"]) for folder in get_system_folders()}
+def get_system_module(system_name):
+    return {folder: __import__(f"systems.{folder}", fromlist=["systems"]) for folder in get_system_folders()}[system_name]
 
 def get_host(system_name):
     """
@@ -26,6 +26,13 @@ def get_host(system_name):
     # handle the case when the system is run on the local machine
     return os.getenv("DOCKER_HOST", "localhost")
 
+
+def get_table_name(system_name):
+    # read table_map.json
+    import json
+    with open("systems/table_map.json", "r") as f:
+        table_map = json.load(f)
+    return table_map[system_name]
 
 #
 # system_module_map = {"clickhouse": clickhouse,
