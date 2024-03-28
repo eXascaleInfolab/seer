@@ -24,8 +24,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     print("running query\n", q_n, rangeL, rangeUnit, n_st, n_s, "on system", system)
 
 
-    query_template = load_query(system, q_n)
-    query_template = query_template.replace("<db>", "d1")
+
 
 
     system_module = get_system_module(system)
@@ -34,6 +33,8 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     print("host", host)
     print("dataset", dataset)
 
+    query_template = load_query(system, q_n)
+    query_template = query_template.replace("<db>", dataset)
 
     system_connection = system_module.get_connection(host=host, dataset=dataset)
 
