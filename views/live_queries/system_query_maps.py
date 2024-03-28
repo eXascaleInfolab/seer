@@ -30,7 +30,7 @@ def run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=1, dataset="d1"):
     system_module = get_system_module(system)
     host = get_host(system)
     dataset = get_table_name(system)
-    print("system", system)
+    print("system", system ,"aaa")
     print("host", host)
     print("data_table", dataset)
 
