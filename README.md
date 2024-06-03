@@ -53,7 +53,8 @@ ___
 
 ## Contributors
 
-Mourad Khayati (mkhayati@exascale.info), Luca Althaus and Abdelouahab Khelifati (abdel@exascale.info).
+- Luca Althaus
+- [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
 
 [//]: # (### Load query data into django models)
 
