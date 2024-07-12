@@ -117,8 +117,9 @@ The generated plots and data are stored in the `generation/results` folder.
 
 
 
+<!--
 
-
+Debugging the container 
 
 ## run pretrained using Docker:
  docker build -t gan  .
@@ -142,3 +143,4 @@ docker rm gan_container
 
 # run gan docker exec gan_container 
 
+-->
