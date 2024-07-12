@@ -122,7 +122,7 @@ The installation and loading of the systems for the live execution setup can be 
    sh setup/sh setup/migrate_query_data.sh
    ```
 - online
-1. Go to `views/online_queries_view.py` update the context of the query class and add the system to systems (line 38).
+1. Go to `views/online_queries_view.py` update the context of the query class, and add the system to systems (line 38).
 2. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
 
