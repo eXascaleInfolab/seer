@@ -116,7 +116,7 @@ The installation and loading of the systems for the live execution setup can be 
 - offline
 1. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
 2. Add the name of the system to in `utils/CONSTANTS.py` and to `views/offline_queries_view.py` (Line 10)
-2. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 10).
+2. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 6).
 3. Load the query data into the django models
    ```bash
    sh setup/sh setup/migrate_query_data.sh
