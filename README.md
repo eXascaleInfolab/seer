@@ -80,8 +80,6 @@ ___
 
 <!---
 
-
-
 ###  Live Systems Configuration
 
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
@@ -91,9 +89,10 @@ The installation and loading of the systems for the live execution setup can be 
 
 ### New Datasets
 
+- To add datasets to the time series generation: [link](generation/README.md).
+
 - To add datasets to the feature compression: [link](compression_data/README.md).
 
-- To add datasets to the time series generation: [link](generation/README.md).
 
 ### New System's results
 - offline
