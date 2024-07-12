@@ -112,7 +112,7 @@ The installation and loading of the systems for the live execution setup can be 
     - insertion_rate: the ingestion rate 
     
 
-### Adding New Systems
+### Adding New System Configuration
 - offline
 1. Install the system following the TSM-Bench setup
 2. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
@@ -124,7 +124,7 @@ The installation and loading of the systems for the live execution setup can be 
    ```
 - online
 1. Install the system following the TSM-Bench setup
-2. Go to `views/online_queries_view.py` update the context of the query class, and add the system to systems (line 38).
+2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
 
