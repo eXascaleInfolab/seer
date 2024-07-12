@@ -127,6 +127,10 @@ The installation and loading of the systems for the live execution setup can be 
 
 
 ### Adding New Datasets
+- Display
+
+- Generation
+
 
 - To add datasets to the time series generation: [link](generation/README.md).
 
