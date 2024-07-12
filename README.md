@@ -127,14 +127,11 @@ The installation and loading of the systems for the live execution setup can be 
 
 
 ### Adding New Datasets
-- Display
+- Display: 
 
-- Generation
+- Generation:
 
-
-- To add datasets to the time series generation: [link](generation/README.md).
-
-- To add datasets to the feature compression: [link](compression_data/README.md).
+- Compression: follow the steps in `https://github.com/eXascaleInfolab/seer/tree/master/compression_data`
 
 -->
 
