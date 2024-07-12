@@ -15,7 +15,6 @@ services:
     volumes:
       - .:/usr/src/app
       - static_volume:/usr/src/app/static
-      - influxdb_data:/var/lib/influxdb
     ports:
       - "8083:8086"
     environment:
@@ -24,29 +23,6 @@ services:
       - using_docker=1
       - DOCKER_HOST=172.17.0.1 # depends on your system where you run this docker-compose
     command: gunicorn djangoProject.wsgi:application --bind 0.0.0.0:8001 --timeout 300
-
-  clickhouse:
-    image: clickhouse/clickhouse-server
-    container_name: clickhouse-demo
-    ports:
-      - "8123:8123"
-      - "9000:9000"
-    volumes:
-      - ./systems/clickhouse/clickhouse-config.xml:/etc/clickhouse-server/config.xml
-    restart: unless-stopped
-
-
-  timescaledb:
-    image: timescale/timescaledb-ha:pg14-latest
-    container_name: timescaledb-demo
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./query_data/live_queries:/datasets
-      -  ./systems/timescaledb/demo.conf:/etc/postgresql
-    environment:
-      - POSTGRES_PASSWORD=postgres
-    restart: always
 
   gan:
     build: ./generation
@@ -59,10 +35,5 @@ services:
       - FLASK_ENV=development
     restart: unless-stopped
 
-
-
 volumes:
   static_volume:
-  clickhouse_data:
-  influxdb_data:
-

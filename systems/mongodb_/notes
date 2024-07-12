@@ -1,0 +1,9 @@
+
+
+dataset is found in the file `query_data/live_queries/d1.csv`.
+
+
+# add index to the data using mongosh
+
+docker exec -it mongodb  mongosh
+use d1

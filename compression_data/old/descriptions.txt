@@ -1,5 +1,0 @@
-Description of the 3 datasets:
-
-    Conductivity: Records measuring water's electrical conductivity in Swiss water-sources
-    pH: Records measuring water acidity/alkalinity in Swiss hydrometric data
-    Temperature: Records measuring water temperatures in Swiss water-sources

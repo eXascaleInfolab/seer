@@ -1,0 +1,13 @@
+
+
+dataset is found in the file `query_data/live_queries/d1.csv`.
+
+
+# add index to the data using mongosh
+
+docker exec -it mongodb mongosh --eval 'db.getSiblingDB("d1").d1.createIndex({ time: 1 });'
+docker exec -it mongodb mongosh --eval 'db.getSiblingDB("d1").d1.getIndexes();'
+
+
+use d1
+db.d1.createIndex({ time: 1 })

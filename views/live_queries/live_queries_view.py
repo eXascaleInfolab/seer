@@ -1,3 +1,4 @@
+from systems import get_system_folders
 from views.live_queries.system_query_maps import run_query
 from views.offline_query_view import OfflineQueryView
 from django.http import JsonResponse
@@ -6,41 +7,38 @@ import json
 import random
 import numpy as np
 
+from systems import config as system_config, get_system_names
+
 old_result = None
 
 ## systems to enable in the form
-ENABLED_SYSTEMS = ["clickhouse", "timescaledb" , "influx" , "monetdb"]
+ENABLED_SYSTEMS = [] #get_system_folders()
 
 ## mesage to be displayed on the page in the info button next to the systems Label
-systems_message = "Due to the limited resources of the server, we can not run all systems at the same time."
 
 
 class LiveQueryView(OfflineQueryView):
     context = {
         'title': 'SEER - Live Queries',
-        'heading': 'Welcome to the Online Queries Page',
-        "systems" : ["clickhouse","timescaledb","influx" , "monetdb"],
+        'heading': 'Welcome to the Live Queries Page',
+        "systems" :  get_system_names(),
         "classes" : "live-query",
         "datasets": ["TempLong"],
         "station_ticks": [2, 4, 6, 8, 10],
         "sensor_ticks": [1, 20, 40, 60, 80, 100],
         "time_ticks": ["Min", "H", "D", "W"],
-        "ENABLED_SYSTEMS" : ENABLED_SYSTEMS,
-        "systems_message" : systems_message
+        "ENABLED_SYSTEMS" : get_system_names(),
+        "systems_message" : system_config.SYSTEM_MESSAGE
     }
 
 
     template = loader.get_template('queries/live_queries/queries_live.html')
 
     def get(self, request):
-        from systems import influx
-        print("launching influx")
-        influx.run_system.launch()
         return super().get(request)
 
 
     def post(self, request):
-
         json_data = request.body.decode('utf-8')
         data = json.loads(json_data)
 
@@ -55,6 +53,7 @@ class LiveQueryView(OfflineQueryView):
         rangeUnit = parsed_entry["rangeUnit"]
         rangeL = parsed_entry["rangeL"]
         random.seed(1)
+
 
         queryResult  = run_query(system, q_n, rangeL, rangeUnit, n_st, n_s, n_it=query_iterations, dataset="d1")
         query_data = queryResult.query_data
@@ -83,4 +82,9 @@ class LiveQueryView(OfflineQueryView):
         result["query_results"] = query_data[:min(12, len(query_data))]
         result["system"] = system
 
+        #add offline query results to the output to be displayed in the table
+        response =  super().post(request)
+        result["offline_query_results"] = json.loads(response.content.decode('utf-8'))
+
+        print(result["offline_query_results"])
         return JsonResponse(result)

@@ -10,6 +10,7 @@ from djangoProject.models import QueryModel
 from utils.CONSTANTS import INFLUX, QUESTDB, TIMESCALEDB, MONETDB, EXTREMEDB, CLICKHOUSE, DRUID
 import json
 
+
 # Random settings
 # d1 2019-03-01T00:00:00 - 2019-04-29T23:59:40 , stations st0 - st9     , sensors s0 - s99
 # d2 2019-02-01T00:00:10 - 2019-02-10T23:59:50 , stations st0 - st1999 ,  sensors s0 - s99
@@ -88,6 +89,5 @@ class OfflineQueryView(View):
 
         for i , d in enumerate(filtered_list_of_dicts):
             result["data"][self.query_name(i)] = d
-        print(filtered_list_of_dicts)
         return JsonResponse(result)
 

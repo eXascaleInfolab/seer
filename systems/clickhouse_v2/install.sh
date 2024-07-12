@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 sudo kill -9 `sudo lsof -t -i:9000`
 sleep 2
 
@@ -12,3 +13,6 @@ docker run -d --name clickhouse-container   -p 8123:8123 -p 9000:9000  -v $(pwd)
 
 #sleep 5
 #sudo docker stop clickhouse-container
+
+
+

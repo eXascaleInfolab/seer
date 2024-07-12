@@ -1,7 +1,69 @@
 {% extends "queries/queries.html" %}
 {% load static %}
 
+
+{% block content_start %}
+
+    <div class="row">
+        <h3> System Deployment
+
+        </h3>
+        <div style=" margin-top: 20px;margin-left: 9px">
+            <button id="descr-show" type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </button>
+            <button style="display: none;" id="descr-hide" type="button" class="btn btn-default btn-xs">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <div style="display:none;margin-bottom: 0px" id="descr-options">
+        To deploy a new system, upload four files: installation, data loading, data configuration and query template.
+        To reconfigure a system upload the data configuration file.
+    </div>
+
+    <form  id="file-submit" method="post" enctype="multipart/form-data">
+        <div class="row" style="max-height: 30px">
+            {% csrf_token %}
+
+            <div class="" style="width:120px;margin-top:8px;">
+                <div>
+                    {#                <label for="title">Name:</label>#}
+                    <input type="text" id="system_name" name="title" required style="width:120px"
+                           placeholder="system name">
+                </div>
+            </div>
+
+            <div class="">
+                {#            <label for="original_csv">Upload Original Dataset:</label>#}
+                <input type="file" id="files" name="files" label="test" multiple
+                       style="margin-top: 10px;margin-left: 10px"><br><br>
+            </div>
+        </div>
+        <div class="row">
+            <button style="margin-left:0px;margin-top:10px" type="">Deploy</button>
+        </div>
+        {#        <div>#}
+        {##}
+        {#            <div style="position: relative;">#}
+        {#                <input type="file" id="files" name="files" multiple style="display:none;height:0">#}
+        {#                <label for="files" style="position: absolute; top: 0; margin-top: 0;">Select files</label>#}
+        {#            </div>#}
+        {#        </div>#}
+
+        <!-- specify title -->
+
+    </form>
+    <hr style="border-top: 1px solid #8c8b8b;">
+
+{% endblock %}
+
+
 {% block evaluate %}
+
     <style>
 
         .popover {
@@ -11,7 +73,10 @@
 
     </style>
     </style>
-    <div class="row" style="width:50%">
+    <!-- add horizonal line-->
+    <hr style="border-top: 1px solid #8c8b8b;">
+
+    <div class="row" style="width:50% ">
         <div class="form-group">
             <label for="system-select"> System
                 <div style="position: relative">
@@ -20,7 +85,8 @@
                          data-content="{{ systems_message }}"></div>
                 </div>
             </label>
-            <select class="form-control" id="system-select">
+            <select style="min-width: 100px" class="form-control" id="system-select">
+                <option value="-"> -</option>
                 {% for system in systems %}
                     <option value="{{ system }}" {% if system not in ENABLED_SYSTEMS %}
                             disabled
@@ -48,6 +114,20 @@
     </div>
 
     <script>
+
+        document.getElementById('file-submit').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            // get value from system_name
+            var system_name = document.getElementById('system_name').value;
+            // add system name_name value to options
+            var system_select = document.getElementById('system-select');
+            var option = document.createElement("option");
+            option.text = system_name;
+            option.value = system_name;
+            system_select.add(option);
+            // Call your custom JavaScript function here
+        });
+
         document.getElementById('evaluateBTN').addEventListener('click', function () {
             var selectedSystem = document.getElementById('system-select').value;
             var queryIterations = document.getElementById('query-iterations').value;
@@ -80,10 +160,16 @@
     </script>
 {% endblock %}
 
+
+
 {% block query_results %}
+
 
     <div id="errorDisplay"></div>
 
+    <div id="chart-container" style="height: 400px;margin-top: 40px"></div>
+        <!-- Results will be displayed here -->
+    
     <div id="results-container">
         <!-- Results will be displayed here -->
     </div>
