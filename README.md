@@ -87,16 +87,10 @@ The installation and loading of the systems for the live execution setup can be 
 
 ## SEER Extension
 
-### New Datasets
 
-- To add datasets to the time series generation: [link](generation/README.md).
-
-- To add datasets to the feature compression: [link](compression_data/README.md).
-
-
-### New System's results
+### Adding New Results
 - offline
-1. Go to `query_data/offline_queries` folder:
+1. Go to `query_data/offline_queries` folder
 2. Select the dataset folder and add the results of the system in a file system_name.csv
     the file contains the following columns:
     - runtime: the computed runtime of the query
@@ -105,13 +99,6 @@ The installation and loading of the systems for the live execution setup can be 
     - n_s : the number of sensors
     - n_st : the number of stations
     - timerange : the time range of the query
-3. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
-4. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 10).
-5. Load the query data into the django models
-   ```bash
-   sh setup/sh setup/migrate_query_data.sh
-   ```
-
 - online
 1. Go to `query_data/online_queries` folder:
 2. Select the dataset folder and add the results of the system in a file system_name.csv
@@ -123,20 +110,25 @@ The installation and loading of the systems for the live execution setup can be 
     - n_st : the number of stations
     - timerange : the time range of the query
     - insertion_rate: the ingestion rate 
-3. Go to `views/online_queries_view.py` update the context of the query class and add the system to systems (line 38).
+    
 
-## Useful commands
+### Adding New System
+- offline
 
-### Open the django shell to run python code in tools environment
+1. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
+2. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 10).
+3. Load the query data into the django models
+   ```bash
+   sh setup/sh setup/migrate_query_data.sh
+   ```
+- online
+1. Go to `views/online_queries_view.py` update the context of the query class and add the system to systems (line 38).
 
-```bash
-docker ps
-```
+### Adding New Datasets
 
-Replace $container_id with the id of the app container and run 
+- To add datasets to the time series generation: [link](generation/README.md).
 
-```bash
-docker exec -it $container_id python3 manage.py shell
-```
+- To add datasets to the feature compression: [link](compression_data/README.md).
+
 -->
 
