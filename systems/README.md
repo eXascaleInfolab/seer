@@ -18,7 +18,7 @@ To add a new system or to create a different version follow these steps (see exa
 1. Upload the folder containing the installation, loading, queries and python scripts inside the systems folder.
 2. Install and launch the system.
 3. Load the data, if you want to modify the table settings specify a new name for the table.
-3. Update the [table_map.json](./table_map.json.file)
+3. Update the [table_map.json](./table_map.json) file.
  and add the system name that maps: the folder, the host, the dataset and the description.
 
 To update the table specifications of system only the 2 last steps are required.
@@ -74,7 +74,7 @@ docker exec -it clickhouse-container clickhouse-client --query "SELECT table, fo
 ```  
 
 
-### Update [table_map.json](./table_map.json.file)
+### Update [table_map.json](./table_map.json) file
 
 ```json
 {
