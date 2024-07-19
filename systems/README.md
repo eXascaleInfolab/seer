@@ -102,7 +102,7 @@ sh load.sh
 cd ../..
 ```  
 
-### Update [table_map.json](./table_map.json.file)
+### Update [table_map.json](./table_map.json)
 
 ```json
 {
@@ -123,6 +123,6 @@ cd ../..
 
 
 ## Remove a System
-The frontend displays the main keys from the [table_map.json](./table_map.json.file) file. 
+The frontend displays the main keys from the [table_map.json](./table_map.json) file. 
 To remove a system remove the entry from the file (and shut down the system on the server if you no longer need it).
 
