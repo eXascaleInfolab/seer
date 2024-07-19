@@ -1,4 +1,4 @@
-### Systems code used for the Live-Query evaluation. 
+## Systems code used for the Live-Query evaluation. 
 
 The code for systems the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
 some modifications:
@@ -26,10 +26,11 @@ To update the table specifications of system only the 2 last steps are required.
 
 ## Example using Clickhouse
 
-# install and run the system (If not already done)
+### install and run the system (If not already done)
 ```bash
  cd systems/clickhouse || cd clickhouse
  sh install.sh
+ cd ../.. 
 ```
 
 Define constants used for the commands:
@@ -53,15 +54,25 @@ docker exec -it clickhouse-container clickhouse-client --query "CREATE TABLE IF 
         ) ENGINE = MergeTree() PARTITION BY toYYYYMMDD(time) ORDER BY (id_station) Primary key (id_station);"
 ```  
 
+
+
 Load the data:
 ```bash
     docker exec -i clickhouse-container clickhouse-client --format_csv_delimiter="," -q "INSERT INTO  $table_name FORMAT CSV" < $dataset_path$dataset.csv
 ```  
 
-You can check that the data is loaded correctly by checking its compression in the Database.
+<!-- 
+   On the weaker server some line gave errors
+   docker exec -i clickhouse-container clickhouse-client \
+  --input_format_allow_errors_num=1000 \
+  --input_format_allow_errors_ratio=0.01 \
+  --query="INSERT INTO $table_name FORMAT CSV" < ${dataset_path}${dataset}.csv
+-->
+
 ```bash
 docker exec -it clickhouse-container clickhouse-client --query "SELECT table, formatReadableSize(sum(bytes)) as size FROM system.parts WHERE active AND table='$table_name' GROUP BY table;"
 ```  
+
 
 ### Update [table_map.json](./table_map.json.file)
 
@@ -110,4 +121,8 @@ cd ../..
 }
 ```  
 
+
+## Remove a System
+The frontend displays the main keys from the [table_map.json](./table_map.json.file) file. 
+To remove a system remove the entry from the file (and shut down the system on the server if you no longer need it).
 
