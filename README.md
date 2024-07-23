@@ -55,6 +55,7 @@ ___
 
 - Luca Althaus
 - [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
+- Abdel Khelifati (abdel@exascale.info)
 
 [//]: # (### Load query data into django models)
 
