@@ -1,7 +1,7 @@
 ## Systems code used for the System-Deployment evaluation. 
 
 The code for systems the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
-some modifications:
+some modifications.
 
 ## Live Evaluation setup
 
