@@ -30,7 +30,7 @@ To update the table specifications of system only the 2 last steps are required.
 ```bash
  cd systems/clickhouse || cd clickhouse
  sh install.sh
-  cd ../.. 
+ cd ../.. 
 ```
 
 Define constants used for the commands:
