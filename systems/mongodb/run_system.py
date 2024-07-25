@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 try: # when adding the system dynamically to docker we need to install the library
     from pymongo import MongoClient
 except ImportError:
-    print("pymongo is not installed. Trying to installit now")
+    print("pymongo is not installed. Trying to install it now")
     import pip
     pip.main(['install', 'pymongo'])
     from pymongo import MongoClient
