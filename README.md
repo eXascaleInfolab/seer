@@ -1,18 +1,14 @@
 # SEER
 
-SEER is an online tool to evaluate the performance of time series database systems on large datasets.
-The tool builds upon our TSM-Bench benchmark [TSM-Bench: Benchmarking Time Series Database Systems for Monitoring Applications, PVLDB'23](https://www.vldb.org/pvldb/vol16/p3363-khelifati.pdf).
-SEER compares seven Time Series Database Systems (TSDBs) using a mixed set of workloads. It implements a novel data generation method that augments seed real-world time series datasets, enabling realistic and scalable benchmarking. 
-<!---
-Technical details can be found in the paper SEER: An End-to-End Toolkit to Evaluate Time Series Database Systems, SIGMOD'24
--->
+SEER is an online tool for evaluating the performance of seven Time Series Database Systems (TSDBs) using a mixed set of workloads. The tool builds upon our TSM-Bench benchmark [TSM-Bench: Benchmarking Time Series Database Systems for Monitoring Applications, PVLDB'23](https://www.vldb.org/pvldb/vol16/p3363-khelifati.pdf). SEER implements an end-to-end pipeline for database benchmarking, from data generation and workload evaluation to feature contamination. 
+Technical details can be found in the paper SEER: An End-to-End Toolkit for Benchmarking Time Series Database Systems in Monitoring Applications, PVLDB'24
 - List of benchmarked systems: [ClickHouse](https://clickhouse.com/), [Druid](https://druid.apache.org/), [eXtremeDB](https://www.mcobject.com/)*, [InfluxDB](https://docs.influxdata.com/influxdb/v1.7/), [MonetDB](https://www.monetdb.org/easy-setup/), [QuestDB](https://questdb.io/), [TimescaleDB](https://www.timescale.com/).
-- SEER evaluates bulk-loading,  storage performance, offline/online query performance, and the impact of time series features on compression.
-- The tool uses two datasets for the evaluation: *D-LONG [d1] and D-MULTI [d2]*. The evaluated datasets can be found [here](https://github.com/eXascaleInfolab/TSM-Bench/tree/main/datasets).
-- <sup>*</sup>**Note**: Due to license restrictions, we can only share the evaluation version of extremeDB. The results between the benchmarked and the public version might diverge. 
+- SEER evaluates time series generation, offline/online query performance, and the impact of time series features on storage.
+- SEER uses various hydrological datasets provided by the Swiss Federal Office for the Environment (FOEN). The evaluated datasets can be found [here](https://github.com/eXascaleInfolab/TSM-Bench/tree/main/datasets).
+- <sup>*</sup>**Note**: Due to license restrictions, we can only share the evaluation version of extremeDB. 
 
 
- SEER was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland. 
+ SEER was created at the eXascale Infolab, a research group at the University of Fribourg, Switzerland, under the direction of Dr. Mourad Khayati. 
 
 ___
 
@@ -47,15 +43,12 @@ docker-compose up -d --build
 sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
-
-
 ___
 
 ## Contributors
 
 - Luca Althaus
 - [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
-- Abdel Khelifati (abdel@exascale.info)
 
 [//]: # (### Load query data into django models)
 
@@ -90,23 +83,21 @@ The installation and loading of the systems for the live execution setup can be 
 
 
 ### Adding New Results
-- offline
+- **Offline**
 1. Go to `query_data/offline_queries` folder
-2. Select the dataset folder and add the results of the system in a file system_name.csv
-    the file contains the following columns:
+2. Select the dataset folder and add the results of the system in a file named `system_name.csv`. The file contains the following columns:
     - runtime: the computed runtime of the query
     - variance: the variance of the query
-    - query: the query e.g q4
+    - query: the query number (e.g., q4)
     - n_s : the number of sensors
     - n_st : the number of stations
     - timerange : the time range of the query
-- online
+- **Online**
 1. Go to `query_data/online_queries` folder:
-2. Select the dataset folder and add the results of the system in a file system_name.csv
-    the file contains the following columns:
+2. Select the dataset folder and add the results of the system in a file named `system_name.csv`. The file contains the following columns:
     - runtime: the computed runtime of the query
     - variance: the variance of the query
-    - query: the query e.g q4
+    - query: the query number (e.g., q4)
     - n_s : the number of sensors
     - n_st : the number of stations
     - timerange : the time range of the query
@@ -114,8 +105,8 @@ The installation and loading of the systems for the live execution setup can be 
     
 
 ### Adding New System Configuration
-- offline
-1. Install the system following the TSM-Bench setup
+- **Offline**
+1. Install the system following the TSM-Bench instructions
 2. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
 3. Add the name of the system to `utils/CONSTANTS.py` and to `views/offline_queries_view.py` (Line 10)
 4. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 6).
@@ -123,8 +114,8 @@ The installation and loading of the systems for the live execution setup can be 
    ```bash
    sh setup/sh setup/migrate_query_data.sh
    ```
-- online
-1. Install the system following the TSM-Bench setup
+- **Online**
+1. Install the system following the TSM-Bench instructions
 2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
