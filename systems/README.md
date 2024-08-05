@@ -1,9 +1,7 @@
-## Systems code used for the System-Deployment evaluation. 
+# System Management  
 
-The code for systems the originates from <a href = "https://github.com/eXascaleInfolab/TSM-Bench"> TSM-BENCH </a>. With 
-some modifications.
 
-## Live Evaluation setup
+## Deploying a New System/Configuration
 
 Create the dataset d1 that is used for the live query evaluation. 
 ```shell
@@ -23,10 +21,9 @@ To add a new system or to create a different version follow these steps (see exa
 
 To update the table specifications of system only the 2 last steps are required.
 
+## Example 1: Clickhouse  
 
-## Example using Clickhouse
-
-### install and run the system (If not already done)
+### Install and run the system (If not already done)
 ```bash
  cd systems/clickhouse || cd clickhouse
  sh install.sh
@@ -90,7 +87,7 @@ docker exec -it clickhouse-container clickhouse-client --query "SELECT table, fo
 
 
 
-## Example using mongodb 
+## Example 2: mongodb
 
 Install mongodb with the provided installation and load scripts
 
@@ -122,7 +119,7 @@ cd ../..
 ```  
 
 
-## Remove a System
+## System Removal
 The frontend displays the main keys from the [table_map.json](./table_map.json) file. 
 To remove a system remove the entry from the file (and shut down the system on the server if you no longer need it).
 
