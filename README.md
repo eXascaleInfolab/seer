@@ -43,34 +43,7 @@ sh setup/migrate_query_data.sh
 
 
 
-___
 
-## Contributors
-
-- Luca Althaus
-- [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
-
-[//]: # (### Load query data into django models)
-
-[//]: # (Open the django shell)
-
-[//]: # (```bash)
-
-[//]: # (docker exec -it $container_id python3 manage.py shell)
-
-[//]: # (```)
-
-[//]: # (Inside the shell execute the following commands:)
-
-[//]: # (```python)
-
-[//]: # (from djangoProject.models.load_query_data import load_offline_query_data)
-
-[//]: # (load_offline_query_data&#40;&#41;)
-
-[//]: # (```)
-
-[//]: # (Quit the django shell using Ctr-Z.)
 
 
 ## SEER Extension
@@ -121,6 +94,12 @@ The installation and loading of the systems for the live execution setup can be 
 2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
+___
+
+## Contributors
+
+- Luca Althaus
+- [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
 
 
 
