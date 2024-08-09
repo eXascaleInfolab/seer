@@ -48,16 +48,11 @@ sh setup/migrate_query_data.sh
 
 ## SEER Extension
 
-### Adding New Datasets
+### Add New Datasets
 - Display and Generation: To add new Datasets to display and to run the new time series data generation follow the steps in [generation](generation/README.md).
 - Compression: Follow the steps [here](compression_data/README.bd).
 
-###  Live Systems Configuration
-
-The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
-
-
-### Adding New Results
+### Update Existing Results
 - **Offline**
 1. Go to `query_data/offline_queries` folder
 2. Select the dataset folder and add the results of the system in a file named `system_name.csv`. The file contains the following columns:
@@ -76,10 +71,10 @@ The installation and loading of the systems for the live execution setup can be 
     - n_s : the number of sensors
     - n_st : the number of stations
     - timerange : the time range of the query
-    - insertion_rate: the ingestion rate 
-    
+    - insertion_rate: the ingestion rate
+  
 
-### Adding New System Configuration
+### Add New Results
 - **Offline**
 1. Install the system following the TSM-Bench instructions
 2. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
@@ -93,6 +88,13 @@ The installation and loading of the systems for the live execution setup can be 
 1. Install the system following the TSM-Bench instructions
 2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
+
+
+###  Deploy New System
+
+The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
+
+    
 
 ___
 
