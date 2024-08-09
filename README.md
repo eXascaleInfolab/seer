@@ -76,8 +76,8 @@ ___
 ## SEER Extension
 
 ### Adding New Datasets
-- Display and Generation: To add new Datasets to Display and to run the data generation follow the steps in [here](generation/README.md)
-- Compression: follow the steps in `https://github.com/eXascaleInfolab/seer/tree/master/compression_data`
+- Display and Generation: To add new Datasets to Display and to run the data generation follow the steps in [generation](generation/README.md)
+- Compression: follow the steps [here](compression_data/README.bd)
 
 ###  Live Systems Configuration
 
