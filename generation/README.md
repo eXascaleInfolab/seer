@@ -1,6 +1,6 @@
 # Adding New Datasets
 
-To add a new dataset to the Dockerized pretrained GAN setup, follow these steps:
+To add a new dataset to the dockerized pretrained GAN setup, follow these steps:
 
 1. **Create a Folder for the Dataset:**
    - Navigate to the `/generation/data` directory.
