@@ -33,16 +33,16 @@ sh setup/install_docker.sh
 ```bash
 docker-compose up -d --build
 ```
-
-- After setting up the tool, you can access it by opening http://localhost:12007 in your browser. If the tool does not launch, please review the docker installation
-
-
-##  Upload Results
+- Initialize the tool with offline results
 
 ```bash
 sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
+- After setting up the tool, you can access it by opening http://localhost:12007 in your browser. If the tool does not launch, please review the docker installation
+
+
+
 ___
 
 ## Contributors
@@ -84,8 +84,6 @@ ___
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
 
-<!---
-
 ### Adding New Results
 - **Offline**
 1. Go to `query_data/offline_queries` folder
@@ -123,7 +121,7 @@ The installation and loading of the systems for the live execution setup can be 
 2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
--->
+
 
 
 
