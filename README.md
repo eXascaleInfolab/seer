@@ -33,7 +33,7 @@ sh setup/install_docker.sh
 ```bash
 docker-compose up -d --build
 ```
-- Initialize the tool with offline results
+- Initialize the tool with offline and online results
 
 ```bash
 sh setup/init_seer.sh
