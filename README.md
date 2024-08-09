@@ -90,7 +90,7 @@ sh setup/migrate_query_data.sh
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
 
-###  Deploy New System
+###  Deploy New System/Configuration
 
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
