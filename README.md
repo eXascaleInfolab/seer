@@ -25,17 +25,17 @@ ___
 
 ## Setup
 - Install Docker and Docker-Compose if not already installed
-```bash
+```
 sh setup/install_docker.sh
 ```  
 
 - Build the app and start it
-```bash
+```
 docker-compose up -d --build
 ```
 - Initialize the tool with offline and online results
 
-```bash
+```
 sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
@@ -82,7 +82,7 @@ sh setup/migrate_query_data.sh
 4. Go to `views/offline_queries_view.py` and add the name of the system to systems (line 33)
 5. Go to `djangoProject/models/load_query_data.py` and add the system to the systems list (line 6)
 6. Load the query data into the django models
-   ```bash
+   ```
    sh setup/sh setup/migrate_query_data.sh
    ```
 - **Online**
