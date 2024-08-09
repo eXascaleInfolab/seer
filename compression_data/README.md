@@ -6,7 +6,7 @@
    - original.txt: contains the original data
      
 3. For each feature, create a folder with the name of the feature and the datasets with the feature level
-4. Go to `compressions` folder
+4. Go to `compression_data/compressions/` folder
 5. Create a folder with the name of your dataset
 6. For each system, add the files that contain the compression results.
 
