@@ -50,7 +50,7 @@ sh setup/migrate_query_data.sh
 
 ### Add New Datasets
 - Display and Generation: To add new Datasets to display and to run the new time series data generation follow the steps in [generation](generation/README.md).
-- Compression: Follow the steps [here](compression_data/README.bd).
+- Compression: Follow the steps [here](compression_data/README.md).
 
 ### Update Existing Results
 - **Offline**
