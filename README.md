@@ -80,7 +80,7 @@ sh setup/migrate_query_data.sh
 2. Add the name of the system to `utils/CONSTANTS.py` (Lines 8 and 9)
 3. Add the name of the system to the import in `views/offline_queries_view.py` (Line 10)
 4. Go to `views/offline_queries_view.py` and add the name of the system to systems (line 33).
-5. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 6).
+5. Go to `djangoProject/models/load_query_data.py` and add the system to the systems list (line 6).
 6. Load the query data into the django models
    ```bash
    sh setup/sh setup/migrate_query_data.sh
