@@ -77,17 +77,20 @@ sh setup/migrate_query_data.sh
 ### Add Precomputed Results
 - **Offline**
 1. Install the system following the TSM-Bench instructions
-2. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
-3. Add the name of the system to `utils/CONSTANTS.py` and to `views/offline_queries_view.py` (Line 10)
-4. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 6).
-5. Load the query data into the django models
+2. Add the name of the system to `utils/CONSTANTS.py` (Lines 8 and 9)
+3. Add the name of the system to the import in `views/offline_queries_view.py` (Line 10)
+4. Go to `views/offline_queries_view.py` and add the name of the system to systems (line 33).
+5. Go to "djangoProject/models/load_query_data.py" and add the system to the systems list (line 6).
+6. Load the query data into the django models
    ```bash
    sh setup/sh setup/migrate_query_data.sh
    ```
 - **Online**
 1. Install the system following the TSM-Bench instructions
-2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
-3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
+2. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline)
+3. Add the name of the system to the import in `views/online_queries_view.py` (Line 6)
+4. Go to `views/online_queries_view.py` and add the name of the system to systems (line 38).
+
 
 
 ###  Deploy New System/Configuration
