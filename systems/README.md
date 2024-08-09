@@ -68,8 +68,13 @@ Load the data:
 
 ```bash
 docker exec -it clickhouse-container clickhouse-client --query "SELECT table, formatReadableSize(sum(bytes)) as size FROM system.parts WHERE active AND table='$table_name' GROUP BY table;"
-```  
+```
 
+The easiest way for the SEER app to connect to clickhouse is by adding it to the seer_default docker network and use clickhouse-container as the host.
+
+```bash
+docker network connect seer_default clickhouse-container
+```
 
 ### Update [table_map.json](./table_map.json) file
 
@@ -79,7 +84,7 @@ docker exec -it clickhouse-container clickhouse-client --query "SELECT table, fo
     "d1": "d1_test",
     "folder": "clickhouse",
     "description": "Clickhouse system where dropping the time index.",
-    "host": "localhost"
+    "host": "clickhouse-container"
   }
 }
 ```
