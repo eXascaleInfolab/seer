@@ -74,7 +74,7 @@ sh setup/migrate_query_data.sh
     - insertion_rate: the ingestion rate
   
 
-### Add New Results
+### Add Precomputed Results
 - **Offline**
 1. Install the system following the TSM-Bench instructions
 2. Go to `views/offline_queries_view.py` update the context of the query class and add the system to systems (line 32).
