@@ -1,5 +1,6 @@
 # Steps
-1. Go to `ts` folder:
+1. Go to `compressuin_data/ts/` folder:
+
 2. Create a folder with the name of the dataset  and add the following files
    - description.txt: contains the description of the dataset
    - original.txt: contains the original data
