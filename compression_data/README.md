@@ -9,6 +9,11 @@
 4. Go to `compression_data/compressions/` folder
 5. Create a folder with the name of your dataset
 6. For each system, add the files that contain the compression results.
+7. Restart the tool:
+```
+docker-compose restart
+```
+
 
 # Folder Structure Example
 ```
