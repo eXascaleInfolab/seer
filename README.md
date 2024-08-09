@@ -18,10 +18,6 @@ ___
 - Ubuntu 20 (including Ubuntu derivatives, e.g., Xubuntu) 
 - Clone this repository 
 
-[//]: # (- Install Docker and Docker-Compose)
-
-[//]: # (___)
-
 
 ## Setup
 - Install Docker and Docker-Compose if not already installed
@@ -44,18 +40,18 @@ sh setup/migrate_query_data.sh
 
 
 
-
+<!-- 
 
 ## SEER Extension
 
 ### Add New Datasets
-- Display and Generation: To add new Datasets to display and to run the new time series data generation follow the steps in [generation](generation/README.md).
+- Display and Generation: To add new Datasets to display and to run the new time series data generation, follow the steps in [generation](generation/README.md).
 - Compression: Follow the steps [here](compression_data/README.md).
 
 ### Update Existing Results
 - **Offline**
 1. Go to `query_data/offline_queries` folder
-2. Select the dataset folder and add the results of the system in a file named `system_name.csv`. The file contains the following columns:
+2. Select the dataset folder and add the system results to a file named `system_name.csv`. The file contains the following columns:
     - runtime: the computed runtime of the query
     - variance: the variance of the query
     - query: the query number (e.g., q4)
@@ -64,7 +60,7 @@ sh setup/migrate_query_data.sh
     - timerange : the time range of the query
 - **Online**
 1. Go to `query_data/online_queries` folder:
-2. Select the dataset folder and add the results of the system in a file named `system_name.csv`. The file contains the following columns:
+2. Select the dataset folder and add the system results to a file named `system_name.csv`. The file contains the following columns:
     - runtime: the computed runtime of the query
     - variance: the variance of the query
     - query: the query number (e.g., q4)
@@ -78,18 +74,16 @@ sh setup/migrate_query_data.sh
 - **Offline**
 1. Install the system following the TSM-Bench instructions
 2. Add the name of the system to `utils/CONSTANTS.py` (Lines 8 and 9)
-3. Add the name of the system to the import in `views/offline_queries_view.py` (Line 10)
-4. Go to `views/offline_queries_view.py` and add the name of the system to systems (line 33)
-5. Go to `djangoProject/models/load_query_data.py` and add the system to the systems list (line 6)
-6. Load the query data into the django models
+3. Add the name of the system to the import in `views/offline_queries_view.py` (Line 10) and to systems (line 33)
+4. Go to `djangoProject/models/load_query_data.py` and add the system to the systems list (line 6)
+5. Load the query data into the django models
    ```
    sh setup/sh setup/migrate_query_data.sh
    ```
 - **Online**
 1. Install the system following the TSM-Bench instructions
 2. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline)
-3. Add the name of the system to the import in `views/online_queries_view.py` (Line 6)
-4. Go to `views/online_queries_view.py` and add the name of the system to systems (line 38)
+3. Add the name of the system to the import in `views/online_queries_view.py` (Line 6) and to systems (line 38)
 
 
 
@@ -97,7 +91,7 @@ sh setup/migrate_query_data.sh
 
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
-    
+ -->   
 
 ___
 
