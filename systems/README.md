@@ -112,7 +112,7 @@ cd ../..
     "d1": "d1_test",
     "folder": "clickhouse",
     "description": "Clickhouse system where dropping the time index.",
-    "host": "localhost"
+    "host": "clickhouse-container"
   },
   "mongodb": {
     "d1": "d1",
