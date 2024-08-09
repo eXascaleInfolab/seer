@@ -72,15 +72,19 @@ ___
 
 [//]: # (Quit the django shell using Ctr-Z.)
 
-<!---
+
+## SEER Extension
+
+### Adding New Datasets
+- Display and Generation: To add new Datasets to Display and to run the data generation follow the steps in [here](generation/README.md)
+- Compression: follow the steps in `https://github.com/eXascaleInfolab/seer/tree/master/compression_data`
 
 ###  Live Systems Configuration
 
 The installation and loading of the systems for the live execution setup can be found [here](systems/README.md).
 
 
-## SEER Extension
-
+<!---
 
 ### Adding New Results
 - **Offline**
@@ -119,13 +123,9 @@ The installation and loading of the systems for the live execution setup can be 
 2. Go to `views/online_queries_view.py` and update the context of the query class by adding the system to systems (line 38).
 3. Add the name of the system to `utils/CONSTANTS.py` (if not done in offline) and to `views/offline_queries_view.py` (Line 6)
 
-
-### Adding New Datasets
-- Display: 
-
-- Generation:
-
-- Compression: follow the steps in `https://github.com/eXascaleInfolab/seer/tree/master/compression_data`
-
 -->
+
+
+
+
 
