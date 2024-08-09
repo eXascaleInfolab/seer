@@ -20,7 +20,7 @@ ___
 
 
 ## Setup
-- Install Docker and Docker-Compose if not already installed
+- Install Docker and Docker-Compose (if not already installed)
 ```
 sh setup/install_docker.sh
 ```  
@@ -35,7 +35,7 @@ docker-compose up -d --build
 sh setup/init_seer.sh
 sh setup/migrate_query_data.sh
 ```
-- After setting up the tool, you can access it by opening http://localhost:12007 in your browser. If the tool does not launch, please review the docker installation
+- You can access it by opening http://localhost:12007 in your browser. If the tool does not launch, please review the docker installation
 
 
 
