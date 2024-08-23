@@ -99,6 +99,8 @@ ___
 
 - Luca Althaus
 - [Mourad Khayati](https://exascale.info/members/mourad-khayati/) (mkhayati@exascale.info)
+- Abdelouahab Khelifati
+
 
 
 
